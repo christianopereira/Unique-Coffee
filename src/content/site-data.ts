@@ -1,0 +1,280 @@
+/**
+ * Unique Coffee — Conteúdo centralizado do site.
+ *
+ * Fonte de verdade para todo o conteúdo textual.
+ * Baseado na apresentação oficial "Apresentação Unique Coffee rev01".
+ * Na Fase 2, será substituído por dados vindos do CMS/Admin.
+ */
+
+export const siteData = {
+  brand: {
+    name: "Unique Coffee",
+    tagline: "O Sabor Único do Verdadeiro Café",
+    url: "www.uniquecoffee.pt",
+  },
+
+  nav: {
+    links: [
+      { label: "Início", href: "#inicio" },
+      { label: "Sobre", href: "#sobre" },
+      { label: "Conceito", href: "#conceito" },
+      { label: "Diferencial", href: "#diferencial" },
+      { label: "Grãos", href: "#graos" },
+      { label: "Menu", href: "#menu" },
+      { label: "Sobremesas", href: "#sobremesas" },
+      { label: "Equipa", href: "#equipa" },
+      { label: "Galeria", href: "#galeria" },
+      { label: "Visite-nos", href: "#visite-nos" },
+    ],
+  },
+
+  hero: {
+    title: "O Sabor Único do Verdadeiro Café",
+    subtitle:
+      "Sua cafetaria em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
+    cta: "Descubra o nosso espaço",
+    image:
+      "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1920&h=1080&fit=crop&q=80",
+  },
+
+  sobreNos: {
+    title: "Sobre Nós",
+    paragraphs: [
+      "A Unique Coffee nasceu da convicção de que o café é muito mais do que uma bebida. É um momento. Uma pausa. Um convite para abrandar o ritmo e estar presente.",
+      "Mais do que servir café de elevada qualidade, a Unique Coffee foi criada para ser um espaço de acolhimento, onde cada pessoa se sinta confortável para ser quem é, ao seu próprio ritmo. Um lugar onde o tempo desacelera, as conversas acontecem com naturalidade, o trabalho flui com tranquilidade e os pequenos prazeres do dia ganham verdadeiro significado.",
+      "Inspirada em memórias afectivas, boas conversas, família e na arte de preparar e servir café com respeito, a Unique Coffee alia sofisticação e simplicidade. Cada detalhe do espaço foi cuidadosamente pensado para proporcionar conforto, elegância e bem-estar, seja para quem vem trabalhar, relaxar, ler um livro, aproveitar os dias de sol no espaço exterior ou simplesmente saborear um bom café.",
+    ],
+    highlights: [
+      "Aqui, pessoas e animais de estimação são bem-vindos.",
+      "Aqui, sentir-se em casa faz parte da experiência.",
+      "Aqui, cada visita é única, tal como cada pessoa que passa pela nossa porta.",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=1000&fit=crop&q=80",
+  },
+
+  missaoVisaoValores: {
+    missao: {
+      title: "Missão",
+      text: "Proporcionar experiências únicas através do café, oferecendo um ambiente acolhedor, sofisticado e tranquilo, onde as pessoas se sintam em casa, criem boas memórias e desfrutem de momentos de qualidade.",
+    },
+    visao: {
+      title: "Visão",
+      text: "Ser reconhecida como uma cafetaria de referência em experiência, conforto e qualidade, valorizada por um público exclusivo, mantendo sempre a essência de um espaço humano, familiar e autêntico.",
+    },
+    valores: {
+      title: "Valores",
+      items: [
+        {
+          name: "Acolhimento",
+          description:
+            "Receber cada pessoa com atenção, respeito e cuidado, criando um ambiente onde todos se sintam verdadeiramente bem-vindos.",
+        },
+        {
+          name: "Qualidade",
+          description:
+            "Excelência em cada detalhe, do café servido ao ambiente, do atendimento à experiência como um todo.",
+        },
+        {
+          name: "Autenticidade",
+          description:
+            "Manter-nos fiéis à nossa essência, à nossa história e aos nossos valores, sem seguir modas ou excessos.",
+        },
+        {
+          name: "Tranquilidade",
+          description:
+            "Valorizar o tempo, o silêncio e o bem-estar, oferecendo uma pausa do ritmo acelerado do dia a dia.",
+        },
+      ],
+    },
+  },
+
+  conceito: {
+    title: "Nosso Conceito",
+    paragraphs: [
+      "Na Unique Coffee, o conceito vai além do café. Assenta na forma como cada pessoa é recebida, no cuidado com os detalhes e na criação de uma experiência verdadeiramente diferenciadora.",
+      "Acreditamos num atendimento atento, discreto e personalizado, onde cada cliente é tratado de forma única. Aqui, o serviço não é apressado nem impessoal. É pensado para quem valoriza qualidade, tranquilidade e um ambiente onde tudo acontece no tempo certo.",
+      "A experiência Unique Coffee é marcada por exclusividade subtil, presente na selecção cuidada dos cafés, no ambiente elegante e acolhedor, na harmonia do espaço e na forma como cada momento é vivido. Não seguimos tendências passageiras. Privilegiamos a consistência, o conforto e a autenticidade.",
+    ],
+  },
+
+  diferencial: {
+    title: "Nosso Diferencial",
+    intro:
+      "Na Unique Coffee, o verdadeiro diferencial não está apenas no que servimos, mas na forma como fazemos sentir.",
+    paragraphs: [
+      "Criámos um espaço onde a experiência é pensada de forma intencional. Do atendimento atento e personalizado à selecção cuidada dos cafés, tudo foi desenhado para oferecer tranquilidade, conforto e qualidade sem excessos.",
+      "Enquanto muitas cafetarias apostam na rapidez, a Unique Coffee valoriza o tempo. Aqui, cada cliente é recebido com atenção, cada momento é respeitado e cada detalhe contribui para uma experiência premium, discreta e autêntica.",
+      "O ambiente acolhedor, pet friendly e familiar, aliado a um público exigente e especial, reforça um posicionamento claro: um lugar para quem aprecia qualidade, silêncio, boas conversas e uma experiência diferenciada.",
+    ],
+    closing: [
+      "Cultivamos consistência, cuidado e identidade.",
+      "É isso que torna a experiência Unique Coffee verdadeiramente única.",
+    ],
+  },
+
+  graos: {
+    title: "Grãos Especialmente Seleccionados",
+    paragraphs: [
+      "Na Unique Coffee, a qualidade começa na origem. Cada grão é escolhido com critério, respeito e atenção aos detalhes que fazem a diferença no sabor final.",
+      "Trabalhamos com grãos cuidadosamente seleccionados, provenientes de produtores que valorizam boas práticas, consistência e excelência. A selecção tem em conta o equilíbrio, o aroma e a complexidade, garantindo um café harmonioso, marcante e elegante.",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1000&h=700&fit=crop&q=80",
+  },
+
+  menu: {
+    title: "Nosso Menu",
+    subtitle: "E muito mais...",
+    categories: [
+      {
+        name: "Tostas",
+        image:
+          "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500&h=500&fit=crop&q=80",
+      },
+      {
+        name: "Doces",
+        image:
+          "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=500&fit=crop&q=80",
+      },
+      {
+        name: "Especialidades",
+        image:
+          "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&h=500&fit=crop&q=80",
+      },
+      {
+        name: "Cafés",
+        image:
+          "https://images.unsplash.com/photo-1534778101976-62847782c213?w=500&h=500&fit=crop&q=80",
+      },
+    ],
+  },
+
+  sobremesas: {
+    title: "Nossas Sobremesas",
+    paragraphs: [
+      "Na Unique Coffee, as sobremesas são pensadas como uma extensão natural da experiência. Não são apenas um complemento, são um momento a ser apreciado com calma.",
+      "Cada sobremesa é escolhida com o mesmo cuidado que dedicamos ao café, privilegiando qualidade, equilíbrio de sabores e uma apresentação simples, mas elegante. Trabalhamos com receitas que valorizam ingredientes seleccionados, respeitando texturas, aromas e combinações que harmonizam com o café servido.",
+    ],
+    highlights: [
+      "Aqui, cada detalhe conta.",
+      "Aqui, o doce é servido no tempo certo.",
+    ],
+    items: [
+      {
+        name: "Tarte do Dia",
+        image:
+          "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=500&fit=crop&q=80",
+      },
+      {
+        name: "Bolo de Noz",
+        image:
+          "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop&q=80",
+      },
+      {
+        name: "Croissant Artesanal",
+        image:
+          "https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=500&h=500&fit=crop&q=80",
+      },
+      {
+        name: "Cheesecake",
+        image:
+          "https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=500&h=500&fit=crop&q=80",
+      },
+    ],
+  },
+
+  equipa: {
+    title: "Nossa Equipa",
+    members: [
+      {
+        name: "Priscila",
+        role: "Fundadora",
+        hasPhoto: true,
+      },
+      {
+        name: "Maria",
+        role: "Anfitriã de Sala",
+        hasPhoto: false,
+      },
+      {
+        name: "Juliana",
+        role: "Barista Especializada",
+        hasPhoto: false,
+      },
+      {
+        name: "Helena",
+        role: "Barista Especializada",
+        hasPhoto: false,
+      },
+    ],
+  },
+
+  galeria: {
+    title: "Nossa Galeria",
+    description: [
+      "Cada imagem da Unique Coffee revela mais do que um espaço, revela sensações, detalhes e momentos vividos.",
+      "A nossa galeria é um convite a conhecer o ambiente, a atmosfera e a essência que tornam cada visita única. Luz natural, linhas cuidadas, detalhes pensados e um equilíbrio entre conforto e elegância compõem um espaço onde tudo tem propósito.",
+      "Mais do que imagens, são fragmentos da experiência Unique Coffee.",
+    ],
+    images: [
+      {
+        src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=600&fit=crop&q=80",
+        alt: "Interior da Unique Coffee com luz natural",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=800&h=600&fit=crop&q=80",
+        alt: "Detalhe da decoração do espaço",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=800&fit=crop&q=80",
+        alt: "Preparação de café de especialidade",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&h=600&fit=crop&q=80",
+        alt: "Chávena de café servida com cuidado",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1559305616-3f99cd43e353?w=600&h=800&fit=crop&q=80",
+        alt: "Ambiente tranquilo e acolhedor",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&q=80",
+        alt: "Detalhe de sobremesa artesanal",
+      },
+    ],
+  },
+
+  visiteNos: {
+    title: "Venha Conhecer",
+    intro: "Sinta a experiência. Viva o momento.",
+    description:
+      "Visite a Unique Coffee e permita-se uma pausa onde o tempo abranda, o café é tratado com respeito e cada detalhe foi totalmente pensado para si.",
+    cta: "Esperamos por si!",
+    address: "R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",
+    phone: "925 903 132",
+    email: "hello@uniquecoffee.pt",
+    website: "www.uniquecoffee.pt",
+    hours: {
+      weekdays: "Segunda a Sexta: 08h00 – 19h00",
+      saturday: "Sábado: 09h00 – 19h00",
+      sunday: "Domingo: 09h00 – 18h00",
+    },
+    badges: ["Pet Friendly", "Wi-Fi Gratuito", "Café de Especialidade"],
+    social: {
+      instagram: "https://instagram.com/uniquecoffee.cr",
+      facebook: "",
+    },
+    mapCoordinates: {
+      lat: 39.4036,
+      lng: -9.1366,
+    },
+  },
+
+  footer: {
+    copyright: "© 2025 Unique Coffee. Todos os direitos reservados.",
+    location: "R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",
+  },
+} as const;
+
+export type SiteData = typeof siteData;
