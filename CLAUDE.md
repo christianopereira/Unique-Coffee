@@ -223,14 +223,20 @@ git push origin main
 - `refactor: reorganiza site-data para multi-página`
 - `chore: actualiza dependências`
 
-### Build no Disco Externo (Windows)
-O projecto usa `fix-readlink.js` para contornar um bug do Windows com `fs.readlink` em discos externos. O script de build no `package.json` já inclui este workaround:
+### Build
 ```bash
-npm run build   # Usa automaticamente o fix-readlink.js
-npm run dev     # Dev server funciona sem workaround
+npm run build        # Build padrão (servidor Hostinger / Linux)
+npm run build:local  # Build local no Windows (HD externo, usa fix-readlink.js)
+npm run dev          # Dev server local
 ```
 
-### Deploy
-1. Push para `main` → Vercel detecta automaticamente
-2. Preview deploys em cada PR
-3. Domínio: `uniquecoffee.pt` (configurado e online)
+O `fix-readlink.js` contorna um bug do Windows com `fs.readlink` em discos externos. Só é necessário localmente.
+
+### Deploy — Hostinger (Web App Node.js)
+- **Plataforma:** Hostinger Web App Node.js
+- **Domínio:** `uniquecoffee.pt` (configurado e online)
+- **Repositório:** ligado ao GitHub `christianopereira/Unique-Coffee`
+- **Branch:** `main`
+- **Build command:** `npm run build`
+- **Start command:** `npm run start`
+- Push para `main` → Hostinger detecta e faz redeploy automaticamente

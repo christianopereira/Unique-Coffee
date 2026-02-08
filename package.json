@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cross-env NODE_OPTIONS=\"--require ./fix-readlink.js\" next build",
-    "build:win": "set NODE_OPTIONS=--require ./fix-readlink.js&& next build",
+    "build": "next build",
+    "build:local": "node -r ./fix-readlink.js ./node_modules/next/dist/bin/next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
