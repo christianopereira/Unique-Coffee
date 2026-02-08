@@ -15,16 +15,15 @@ export const siteData = {
 
   nav: {
     links: [
-      { label: "Início", href: "#inicio" },
-      { label: "Sobre", href: "#sobre" },
-      { label: "Conceito", href: "#conceito" },
-      { label: "Diferencial", href: "#diferencial" },
-      { label: "Grãos", href: "#graos" },
-      { label: "Menu", href: "#menu" },
-      { label: "Sobremesas", href: "#sobremesas" },
-      { label: "Equipa", href: "#equipa" },
-      { label: "Galeria", href: "#galeria" },
-      { label: "Visite-nos", href: "#visite-nos" },
+      { label: "Início", href: "/" },
+      { label: "Sobre", href: "/sobre" },
+      { label: "Conceito", href: "/conceito" },
+      { label: "Grãos", href: "/graos" },
+      { label: "Menu", href: "/menu" },
+      { label: "Sobremesas", href: "/sobremesas" },
+      { label: "Equipa", href: "/equipa" },
+      { label: "Galeria", href: "/galeria" },
+      { label: "Visite-nos", href: "/contacto" },
     ],
   },
 
@@ -129,23 +128,56 @@ export const siteData = {
     categories: [
       {
         name: "Tostas",
+        slug: "tostas",
         image:
           "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500&h=500&fit=crop&q=80",
+        description:
+          "As nossas tostas são preparadas com pão artesanal e ingredientes frescos seleccionados, para uma experiência de sabor autêntica.",
+        items: [
+          { name: "Tosta Mista", description: "Fiambre e queijo derretido em pão artesanal." },
+          { name: "Tosta de Salmão", description: "Salmão fumado com cream cheese e rúcula." },
+          { name: "Tosta Caprese", description: "Tomate, mozzarella fresca e manjericão." },
+        ],
       },
       {
         name: "Doces",
+        slug: "doces",
         image:
           "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=500&fit=crop&q=80",
+        description:
+          "Uma selecção de doces cuidadosamente escolhidos para acompanhar o seu café com a doçura certa.",
+        items: [
+          { name: "Bolo de Noz", description: "Receita caseira com nozes crocantes." },
+          { name: "Tarte do Dia", description: "Preparada diariamente com ingredientes frescos." },
+          { name: "Cookie Artesanal", description: "Cookie caseiro com pepitas de chocolate." },
+        ],
       },
       {
         name: "Especialidades",
+        slug: "especialidades",
         image:
           "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&h=500&fit=crop&q=80",
+        description:
+          "Bebidas especiais que vão além do café tradicional, preparadas com técnica e criatividade.",
+        items: [
+          { name: "Matcha Latte", description: "Chá matcha japonês com leite vaporizado." },
+          { name: "Chai Latte", description: "Especiarias aromáticas com leite cremoso." },
+          { name: "Chocolate Quente", description: "Chocolate belga servido com espuma de leite." },
+        ],
       },
       {
         name: "Cafés",
+        slug: "cafes",
         image:
           "https://images.unsplash.com/photo-1534778101976-62847782c213?w=500&h=500&fit=crop&q=80",
+        description:
+          "Cafés de especialidade preparados com grãos seleccionados e técnicas apuradas.",
+        items: [
+          { name: "Espresso", description: "Extracção cuidada de café de especialidade." },
+          { name: "Cappuccino", description: "Espresso com leite vaporizado e espuma cremosa." },
+          { name: "Flat White", description: "Duplo espresso com micro-espuma aveludada." },
+          { name: "V60 Pour Over", description: "Método de extracção manual para apreciar notas subtis." },
+        ],
       },
     ],
   },
@@ -163,23 +195,35 @@ export const siteData = {
     items: [
       {
         name: "Tarte do Dia",
+        slug: "tarte-do-dia",
         image:
           "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=500&fit=crop&q=80",
+        description:
+          "Preparada diariamente com ingredientes da estação, a nossa tarte do dia é uma surpresa que se renova. Cada fatia reflecte a dedicação e o cuidado que colocamos em cada detalhe.",
       },
       {
         name: "Bolo de Noz",
+        slug: "bolo-de-noz",
         image:
           "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop&q=80",
+        description:
+          "Uma receita caseira e reconfortante, com nozes crocantes e uma textura húmida que se desfaz na boca. O acompanhamento perfeito para um café longo e uma pausa merecida.",
       },
       {
         name: "Croissant Artesanal",
+        slug: "croissant-artesanal",
         image:
           "https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=500&h=500&fit=crop&q=80",
+        description:
+          "Feito artesanalmente com manteiga francesa, o nosso croissant é folhado, dourado e irresistível. Simples na essência, sofisticado no sabor.",
       },
       {
         name: "Cheesecake",
+        slug: "cheesecake",
         image:
           "https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=500&h=500&fit=crop&q=80",
+        description:
+          "Cremosa e suave, a nossa cheesecake é preparada com queijo fresco de qualidade e uma base crocante. Um clássico servido com a elegância que merece.",
       },
     ],
   },

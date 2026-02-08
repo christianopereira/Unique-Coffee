@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { siteData } from "@/content/site-data";
@@ -9,6 +12,8 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -16,56 +21,74 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  const isTransparent = isHome && !scrolled;
 
   return (
     <>
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
-            ? "bg-warm-white/95 backdrop-blur-md shadow-sm py-4"
-            : "bg-transparent py-6"
+          isTransparent
+            ? "bg-transparent py-6"
+            : "bg-warm-white/95 backdrop-blur-md shadow-sm py-4"
         )}
       >
         <div className="section-container flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#inicio"
-            className={cn(
-              "font-display text-xl md:text-2xl transition-colors duration-400",
-              scrolled ? "text-espresso" : "text-warm-white"
-            )}
-          >
-            {siteData.brand.name}
-          </a>
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/images/logo.jpeg"
+              alt="Unique Coffee"
+              width={40}
+              height={40}
+              className="rounded-full object-cover"
+            />
+            <span
+              className={cn(
+                "font-display text-xl md:text-2xl transition-colors duration-400",
+                isTransparent ? "text-warm-white" : "text-espresso"
+              )}
+            >
+              {siteData.brand.name}
+            </span>
+          </Link>
 
-          {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-8">
-            {siteData.nav.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "font-sans text-xs font-medium uppercase tracking-[0.12em] transition-colors duration-300 hover:text-copper",
-                  scrolled ? "text-roast" : "text-warm-white/90"
-                )}
-              >
-                {link.label}
-              </a>
-            ))}
+            {siteData.nav.links.map((link) => {
+              const isActive = link.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(link.href);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "font-sans text-xs font-medium uppercase tracking-[0.12em] transition-colors duration-300 hover:text-copper",
+                    isTransparent
+                      ? isActive ? "text-copper" : "text-warm-white/90"
+                      : isActive ? "text-copper" : "text-roast"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className={cn(
               "lg:hidden p-2 transition-colors",
-              scrolled ? "text-espresso" : "text-warm-white"
+              isTransparent ? "text-warm-white" : "text-espresso"
             )}
             aria-label="Menu"
           >
@@ -74,7 +97,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -85,19 +107,30 @@ export function Navbar() {
             className="fixed inset-0 z-40 bg-espresso/95 backdrop-blur-md flex items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
-              {siteData.nav.links.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 + 0.1 }}
-                  className="font-sans text-sm uppercase tracking-[0.15em] text-warm-white/90 hover:text-copper transition-colors"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {siteData.nav.links.map((link, i) => {
+                const isActive = link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href);
+
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 + 0.1 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={cn(
+                        "font-sans text-sm uppercase tracking-[0.15em] transition-colors",
+                        isActive ? "text-copper" : "text-warm-white/90 hover:text-copper"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </nav>
           </motion.div>
         )}

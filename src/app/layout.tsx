@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lora, Raleway } from "next/font/google";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -21,7 +23,10 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+  title: {
+    template: "%s | Unique Coffee",
+    default: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+  },
   description:
     "Café de especialidade, ambiente sofisticado e tranquilo em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
   keywords: [
@@ -70,7 +75,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

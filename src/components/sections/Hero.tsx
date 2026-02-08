@@ -59,7 +59,7 @@ export function Hero() {
         >
           <Button
             variant="secondary"
-            href="#sobre"
+            href="/sobre"
             className="border-warm-white/60 text-warm-white hover:bg-warm-white hover:text-espresso"
           >
             {hero.cta}

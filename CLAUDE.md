@@ -72,22 +72,43 @@ A apresentação oficial usa fundo escuro (preto/espresso) com texto claro — e
 
 ---
 
-## Estrutura do Site (12 Secções)
+## Estrutura do Site (Multi-Página)
 
-O site é **single-page com scroll suave** e navegação fixa.
+O site usa **arquitectura multi-página** com Next.js App Router e navegação fixa.
 
-1. **Hero** — Tagline "O Sabor Único do Verdadeiro Café", imagem fullscreen
-2. **Sobre Nós** — História oficial + highlights "Aqui, ..."
-3. **Missão / Visão / Valores** — Fundo escuro, 4 valores com ícones
-4. **Nosso Conceito** — 3 parágrafos centrados
-5. **Nosso Diferencial** — Layout split: intro à esquerda, parágrafos à direita
-6. **Grãos Seleccionados** — Fundo escuro, texto + imagem
-7. **Nosso Menu** — Grid 4 categorias: Tostas, Doces, Especialidades, Cafés
-8. **Nossas Sobremesas** — Grid de imagens + texto com highlights
-9. **Nossa Equipa** — 4 membros: Priscila, Maria, Juliana, Helena
-10. **Nossa Galeria** — Texto descritivo + grid de fotos com lightbox
-11. **Venha Conhecer** — Dados de contacto reais, mapa, CTA
-12. **Footer** — Copyright + morada + redes sociais
+### Homepage (`/`)
+A homepage mostra **teasers** de cada secção com links para as páginas completas:
+- **Hero** — Tagline "O Sabor Único do Verdadeiro Café", imagem fullscreen, CTA → `/sobre`
+- **Sobre Nós** (teaser) — 1º parágrafo + link "Conhecer a nossa história" → `/sobre`
+- **Conceito** (teaser) — 1º parágrafo + link → `/conceito`
+- **Grãos** (teaser) — 1º parágrafo + imagem + link → `/graos`
+- **Menu** (preview) — Grid 4 categorias com links → `/menu/[slug]`
+- **Sobremesas** (preview) — Grid com links → `/sobremesas/[slug]`
+- **Galeria** (preview) — 3 imagens + link → `/galeria`
+- **CTA Visite-nos** — Morada, horário, link → `/contacto`
+- **Footer** — Copyright + morada + redes sociais
+
+### Páginas Individuais
+
+| Rota | Componentes | Conteúdo |
+|------|-------------|----------|
+| `/sobre` | SobreNos + MissaoVisaoValores | História + highlights + missão/visão/valores |
+| `/conceito` | Conceito + Diferencial | Conceito + diferencial |
+| `/graos` | Graos | Grãos seleccionados |
+| `/menu` | Menu (grid com links) | 4 categorias com links para detalhe |
+| `/menu/[slug]` | Detalhe da categoria | Hero + descrição + lista de itens |
+| `/sobremesas` | Sobremesas (grid com links) | Imagens + texto + highlights |
+| `/sobremesas/[slug]` | Detalhe da sobremesa | Imagem + descrição |
+| `/equipa` | Equipa | 4 membros |
+| `/galeria` | Galeria (com lightbox) | Texto + grid de fotos |
+| `/contacto` | VisiteNos | Dados reais + mapa + CTA |
+
+### Navbar Multi-Página
+- Transparente na homepage, sólida nas restantes páginas
+- Logo com imagem (`/images/logo.jpeg`) + nome
+- Links activos destacados em `copper`
+- Usa `usePathname()` para detectar a página activa
+- Mobile: fecha automaticamente ao navegar
 
 ---
 
@@ -96,6 +117,7 @@ O site é **single-page com scroll suave** e navegação fixa.
 ```
 unique-coffee/
 ├── CLAUDE.md
+├── fix-readlink.js              # Workaround Windows (disco externo)
 ├── directives/
 │   ├── site-content.md
 │   ├── design-system.md
@@ -103,14 +125,26 @@ unique-coffee/
 │   └── deployment.md
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   └── globals.css
+│   │   ├── layout.tsx           # Layout global (Navbar + Footer)
+│   │   ├── page.tsx             # Homepage com teasers
+│   │   ├── globals.css
+│   │   ├── sobre/page.tsx       # Sobre + Missão/Visão/Valores
+│   │   ├── conceito/page.tsx    # Conceito + Diferencial
+│   │   ├── graos/page.tsx       # Grãos Seleccionados
+│   │   ├── menu/
+│   │   │   ├── page.tsx         # Grid de categorias
+│   │   │   └── [slug]/page.tsx  # Detalhe da categoria
+│   │   ├── sobremesas/
+│   │   │   ├── page.tsx         # Grid de sobremesas
+│   │   │   └── [slug]/page.tsx  # Detalhe da sobremesa
+│   │   ├── equipa/page.tsx      # Nossa Equipa
+│   │   ├── galeria/page.tsx     # Galeria com lightbox
+│   │   └── contacto/page.tsx    # Venha Conhecer
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.tsx
+│   │   │   ├── Navbar.tsx       # Navbar multi-página com logo
 │   │   │   └── Footer.tsx
-│   │   ├── sections/
+│   │   ├── sections/            # Componentes de secção reutilizáveis
 │   │   │   ├── Hero.tsx
 │   │   │   ├── SobreNos.tsx
 │   │   │   ├── MissaoVisaoValores.tsx
@@ -131,6 +165,7 @@ unique-coffee/
 │   └── lib/
 │       └── utils.ts
 ├── public/images/
+│   └── logo.jpeg                # Logo da Unique Coffee
 ├── tailwind.config.ts
 ├── next.config.js
 ├── tsconfig.json
@@ -165,3 +200,37 @@ Fonte: **Apresentação Unique Coffee rev01** (PDF oficial do cliente).
 5. **Se algo falhar**, aplica o loop: corrige → testa → actualiza directiva.
 6. **Imagens:** todas as imagens actuais são placeholders Unsplash. Serão substituídas por fotos reais do cliente.
 7. **Equipa:** fotos placeholder — 3 dos 4 membros ainda não têm foto real.
+
+---
+
+## Git & Deploy
+
+### Repositório
+- **GitHub:** `https://github.com/christianopereira/Unique-Coffee.git`
+- **Branch principal:** `main`
+
+### Workflow de Commit
+```bash
+git add .
+git commit -m "feat: descrição em português"
+git push origin main
+```
+
+### Convenção de Commits (em português)
+- `feat: adiciona página de menu com rotas dinâmicas`
+- `fix: corrige responsividade da navbar mobile`
+- `style: ajusta espaçamento da secção Conceito`
+- `refactor: reorganiza site-data para multi-página`
+- `chore: actualiza dependências`
+
+### Build no Disco Externo (Windows)
+O projecto usa `fix-readlink.js` para contornar um bug do Windows com `fs.readlink` em discos externos. O script de build no `package.json` já inclui este workaround:
+```bash
+npm run build   # Usa automaticamente o fix-readlink.js
+npm run dev     # Dev server funciona sem workaround
+```
+
+### Deploy
+1. Push para `main` → Vercel detecta automaticamente
+2. Preview deploys em cada PR
+3. Domínio: `uniquecoffee.pt` (configurado e online)
