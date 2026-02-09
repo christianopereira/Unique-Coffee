@@ -41,12 +41,21 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    url: "https://uniquecoffee.pt",
     locale: "pt_PT",
     siteName: "Unique Coffee",
     title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
     description:
       "Um café de especialidade pensado para quem aprecia a pausa, o sabor e os detalhes.",
-    images: ["/images/og-image.jpg"],
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1024,
+        height: 1024,
+        type: "image/png",
+        alt: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+      },
+    ],
   },
 };
 
