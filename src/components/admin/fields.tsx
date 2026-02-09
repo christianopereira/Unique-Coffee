@@ -1,0 +1,264 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+
+// ---------------------------------------------------------------------------
+// TextInput
+// ---------------------------------------------------------------------------
+interface TextInputProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+export function TextInput({ label, value, onChange, placeholder }: TextInputProps) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm"
+      />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// TextArea
+// ---------------------------------------------------------------------------
+interface TextAreaProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  rows?: number;
+  placeholder?: string;
+}
+
+export function TextArea({ label, value, onChange, rows = 4, placeholder }: TextAreaProps) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        rows={rows}
+        placeholder={placeholder}
+        className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm resize-y"
+      />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ArrayEditor — edita arrays de strings
+// ---------------------------------------------------------------------------
+interface ArrayEditorProps {
+  label: string;
+  items: string[];
+  onChange: (items: string[]) => void;
+  inputType?: "text" | "textarea";
+  placeholder?: string;
+}
+
+export function ArrayEditor({
+  label,
+  items,
+  onChange,
+  inputType = "textarea",
+  placeholder,
+}: ArrayEditorProps) {
+  function updateItem(index: number, value: string) {
+    const updated = [...items];
+    updated[index] = value;
+    onChange(updated);
+  }
+
+  function removeItem(index: number) {
+    onChange(items.filter((_, i) => i !== index));
+  }
+
+  function addItem() {
+    onChange([...items, ""]);
+  }
+
+  function moveItem(index: number, direction: -1 | 1) {
+    const newIndex = index + direction;
+    if (newIndex < 0 || newIndex >= items.length) return;
+    const updated = [...items];
+    [updated[index], updated[newIndex]] = [updated[newIndex], updated[index]];
+    onChange(updated);
+  }
+
+  return (
+    <div className="space-y-3">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+      {items.map((item, i) => (
+        <div key={i} className="flex gap-2 items-start">
+          <div className="flex flex-col gap-0.5">
+            <button
+              onClick={() => moveItem(i, -1)}
+              disabled={i === 0}
+              className="text-xs text-stone hover:text-copper disabled:opacity-30 px-1"
+              title="Mover para cima"
+            >
+              ↑
+            </button>
+            <button
+              onClick={() => moveItem(i, 1)}
+              disabled={i === items.length - 1}
+              className="text-xs text-stone hover:text-copper disabled:opacity-30 px-1"
+              title="Mover para baixo"
+            >
+              ↓
+            </button>
+          </div>
+          <div className="flex-1">
+            {inputType === "textarea" ? (
+              <textarea
+                value={item}
+                onChange={(e) => updateItem(i, e.target.value)}
+                rows={3}
+                placeholder={placeholder}
+                className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm resize-y"
+              />
+            ) : (
+              <input
+                type="text"
+                value={item}
+                onChange={(e) => updateItem(i, e.target.value)}
+                placeholder={placeholder}
+                className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm"
+              />
+            )}
+          </div>
+          <button
+            onClick={() => removeItem(i)}
+            className="text-red-400 hover:text-red-600 text-sm px-2 py-2 shrink-0"
+            title="Remover"
+          >
+            ✕
+          </button>
+        </div>
+      ))}
+      <button
+        onClick={addItem}
+        className="text-sm text-copper hover:text-copper/80 font-medium"
+      >
+        + Adicionar
+      </button>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ImagePicker — upload ou URL de imagem
+// ---------------------------------------------------------------------------
+interface ImagePickerProps {
+  label: string;
+  value: string;
+  onChange: (url: string) => void;
+}
+
+export function ImagePicker({ label, value, onChange }: ImagePickerProps) {
+  const [uploading, setUploading] = useState(false);
+
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.error || "Erro ao fazer upload");
+        return;
+      }
+
+      const data = await res.json();
+      onChange(data.url);
+    } catch {
+      alert("Erro ao fazer upload");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+
+      {value && (
+        <div className="relative w-48 h-32 rounded-lg overflow-hidden border border-linen">
+          <Image
+            src={value}
+            alt="Preview"
+            fill
+            className="object-cover"
+            unoptimized
+          />
+        </div>
+      )}
+
+      <div className="flex items-center gap-3">
+        <label className="cursor-pointer px-4 py-2 rounded-lg bg-parchment text-roast text-sm font-sans hover:bg-linen transition-colors">
+          {uploading ? "A enviar..." : "Enviar imagem"}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleUpload}
+            disabled={uploading}
+            className="hidden"
+          />
+        </label>
+        <span className="text-xs text-mocha">ou</span>
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="URL da imagem"
+          className="flex-1 px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-xs"
+        />
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SectionHeader — cabeçalho de secção admin
+// ---------------------------------------------------------------------------
+interface SectionHeaderProps {
+  title: string;
+  description?: string;
+}
+
+export function SectionHeader({ title, description }: SectionHeaderProps) {
+  return (
+    <div className="mb-6">
+      <h1 className="font-display text-2xl text-espresso">{title}</h1>
+      {description && (
+        <p className="text-sm text-mocha mt-1">{description}</p>
+      )}
+    </div>
+  );
+}

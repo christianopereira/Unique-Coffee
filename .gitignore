@@ -42,5 +42,8 @@ next-env.d.ts
 .tmp/
 _Temp_Referencias/
 
+# admin data (persiste no servidor)
+/data/
+
 # claude code
 .claude/
