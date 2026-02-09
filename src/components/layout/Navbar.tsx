@@ -46,22 +46,18 @@ export function Navbar() {
         )}
       >
         <div className="section-container flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center">
             <Image
               src="/images/Logo.svg"
               alt="Unique Coffee"
-              width={40}
-              height={40}
-              className="rounded-full object-cover"
-            />
-            <span
+              width={140}
+              height={140}
               className={cn(
-                "font-display text-xl md:text-2xl transition-colors duration-400",
-                isTransparent ? "text-warm-white" : "text-espresso"
+                "object-contain transition-all duration-500",
+                isTransparent ? "h-16 w-auto" : "h-12 w-auto"
               )}
-            >
-              {siteData.brand.name}
-            </span>
+              priority
+            />
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
