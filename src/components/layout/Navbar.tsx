@@ -10,12 +10,15 @@ import { siteData } from "@/content/site-data";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   useEffect(() => {
+    setMounted(true);
+    setScrolled(window.scrollY > 60);
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -30,7 +33,7 @@ export function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  const isTransparent = isHome && !scrolled;
+  const isTransparent = mounted && isHome && !scrolled;
 
   return (
     <>
@@ -45,7 +48,7 @@ export function Navbar() {
         <div className="section-container flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/images/logo.jpeg"
+              src="/images/Logo.svg"
               alt="Unique Coffee"
               width={40}
               height={40}

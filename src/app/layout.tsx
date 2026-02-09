@@ -23,6 +23,7 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://uniquecoffee.pt"),
   title: {
     template: "%s | Unique Coffee",
     default: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
