@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node -e \"const fs=require('fs');const p=require('path');['data','data/uploads'].forEach(d=>{const f=p.join(process.cwd(),d);if(!fs.existsSync(f))fs.mkdirSync(f,{recursive:true})});console.log('data/ dirs ready')\"",
     "build:local": "node -r ./fix-readlink.js ./node_modules/next/dist/bin/next build",
     "start": "next start",
     "lint": "next lint",
