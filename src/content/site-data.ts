@@ -213,7 +213,7 @@ export const siteData = {
         name: "Croissant Artesanal",
         slug: "croissant-artesanal",
         image:
-          "https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=500&h=500&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1623334044303-241021148842?w=500&h=500&fit=crop&q=80",
         description:
           "Feito artesanalmente com manteiga francesa, o nosso croissant é folhado, dourado e irresistível. Simples na essência, sofisticado no sabor.",
       },
