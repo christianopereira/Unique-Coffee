@@ -80,6 +80,21 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                window.addEventListener("error",function(e){
+                  var msg=e.message||"";
+                  if(msg.indexOf("Loading chunk")!==-1||msg.indexOf("ChunkLoadError")!==-1){
+                    var k="__chunk_reload",v=sessionStorage.getItem(k),n=Date.now();
+                    if(!v||n-Number(v)>30000){sessionStorage.setItem(k,String(n));window.location.reload()}
+                  }
+                });
+              })();
+            `,
+          }}
+        />
       </head>
       <body className="min-h-screen">
         <Navbar />
