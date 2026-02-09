@@ -11,9 +11,10 @@ import type { NavLink } from "@/types/site-data";
 
 interface NavbarProps {
   navLinks: NavLink[];
+  logoUrl?: string;
 }
 
-export function Navbar({ navLinks }: NavbarProps) {
+export function Navbar({ navLinks, logoUrl }: NavbarProps) {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -52,7 +53,7 @@ export function Navbar({ navLinks }: NavbarProps) {
         <div className="section-container flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <Image
-              src="/images/Logo.svg"
+              src={logoUrl || "/images/Logo.svg"}
               alt="Unique Coffee"
               width={400}
               height={400}

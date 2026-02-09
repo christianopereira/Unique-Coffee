@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -43,6 +44,16 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [logoUrl, setLogoUrl] = useState("/images/Logo.svg");
+
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data?.brand?.logo) setLogoUrl(data.brand.logo);
+      })
+      .catch(() => {});
+  }, []);
 
   // Não mostrar sidebar no login
   if (pathname === "/admin/login") {
@@ -61,7 +72,7 @@ export default function AdminLayout({
         <div className="p-5 border-b border-roast flex justify-center">
           <Link href="/admin">
             <Image
-              src="/images/Logo.svg"
+              src={logoUrl}
               alt="Unique Coffee"
               width={200}
               height={200}

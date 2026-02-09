@@ -138,7 +138,14 @@ export interface FooterData {
 }
 
 export interface SiteData {
-  brand: { name: string; tagline: string; url: string };
+  brand: {
+    name: string;
+    tagline: string;
+    url: string;
+    logo?: string;
+    favicon?: string;
+    ogImage?: string;
+  };
   nav: { links: NavLink[] };
   hero: HeroData;
   sobreNos: SobreNosData;

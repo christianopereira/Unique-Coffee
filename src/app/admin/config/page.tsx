@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { TextInput, SectionHeader } from "@/components/admin/fields";
+import { TextInput, ImagePicker, SectionHeader } from "@/components/admin/fields";
 
 interface NavLink {
   label: string;
@@ -9,7 +9,7 @@ interface NavLink {
 }
 
 export default function AdminConfigPage() {
-  const [brand, setBrand] = useState({ name: "", tagline: "", url: "" });
+  const [brand, setBrand] = useState({ name: "", tagline: "", url: "", logo: "", favicon: "", ogImage: "" });
   const [footer, setFooter] = useState({ copyright: "", location: "" });
   const [navLinks, setNavLinks] = useState<NavLink[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ export default function AdminConfigPage() {
         const res = await fetch("/api/admin/content");
         if (!res.ok) throw new Error();
         const data = await res.json();
-        setBrand(data.brand);
+        setBrand({ name: "", tagline: "", url: "", logo: "", favicon: "", ogImage: "", ...data.brand });
         setFooter(data.footer);
         setNavLinks(data.nav.links);
       } catch {
@@ -87,6 +87,34 @@ export default function AdminConfigPage() {
           <TextInput label="Nome" value={brand.name} onChange={(v) => setBrand({ ...brand, name: v })} />
           <TextInput label="Tagline" value={brand.tagline} onChange={(v) => setBrand({ ...brand, tagline: v })} />
           <TextInput label="URL" value={brand.url} onChange={(v) => setBrand({ ...brand, url: v })} />
+        </div>
+
+        <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-6">
+          <h2 className="font-sans font-semibold text-espresso">Imagens da Marca</h2>
+          <div className="space-y-2">
+            <ImagePicker
+              label="Logo (usada na navbar e admin)"
+              value={brand.logo || ""}
+              onChange={(v) => setBrand({ ...brand, logo: v })}
+            />
+            <p className="text-xs text-mocha/70">Tamanho recomendado: 800x800px ou 1000x400px. Formato: SVG, PNG com fundo transparente.</p>
+          </div>
+          <div className="space-y-2">
+            <ImagePicker
+              label="Favicon (ícone do separador do browser)"
+              value={brand.favicon || ""}
+              onChange={(v) => setBrand({ ...brand, favicon: v })}
+            />
+            <p className="text-xs text-mocha/70">Tamanho recomendado: 32x32px ou 64x64px. Formato: PNG, ICO. Quadrado.</p>
+          </div>
+          <div className="space-y-2">
+            <ImagePicker
+              label="OG Image (imagem para partilhas em redes sociais)"
+              value={brand.ogImage || ""}
+              onChange={(v) => setBrand({ ...brand, ogImage: v })}
+            />
+            <p className="text-xs text-mocha/70">Tamanho recomendado: 1200x630px. Formato: PNG, JPG. Aparece quando o site é partilhado no Facebook, WhatsApp, etc.</p>
+          </div>
         </div>
 
         <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">

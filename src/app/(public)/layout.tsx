@@ -13,7 +13,7 @@ export default function PublicLayout({
 
   return (
     <>
-      <Navbar navLinks={siteData.nav.links} />
+      <Navbar navLinks={siteData.nav.links} logoUrl={siteData.brand.logo} />
       <main>{children}</main>
       <Footer />
     </>

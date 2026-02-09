@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lora, Raleway } from "next/font/google";
+import { getSiteData } from "@/lib/get-site-data";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -20,42 +21,48 @@ const raleway = Raleway({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://uniquecoffee.pt"),
-  title: {
-    template: "%s | Unique Coffee",
-    default: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
-  },
-  description:
-    "Café de especialidade, ambiente sofisticado e tranquilo em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
-  keywords: [
-    "café especialidade Caldas da Rainha",
-    "cafeteria premium Portugal",
-    "unique coffee",
-  ],
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://uniquecoffee.pt",
-    locale: "pt_PT",
-    siteName: "Unique Coffee",
-    title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+export function generateMetadata(): Metadata {
+  const siteData = getSiteData();
+  const faviconUrl = siteData.brand.favicon || "/favicon.ico";
+  const ogImageUrl = siteData.brand.ogImage || "/images/og-image.png";
+
+  return {
+    metadataBase: new URL("https://uniquecoffee.pt"),
+    title: {
+      template: "%s | Unique Coffee",
+      default: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+    },
     description:
-      "Um café de especialidade pensado para quem aprecia a pausa, o sabor e os detalhes.",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1024,
-        height: 1024,
-        type: "image/png",
-        alt: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
-      },
+      "Café de especialidade, ambiente sofisticado e tranquilo em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
+    keywords: [
+      "café especialidade Caldas da Rainha",
+      "cafeteria premium Portugal",
+      "unique coffee",
     ],
-  },
-};
+    icons: {
+      icon: faviconUrl,
+      apple: "/apple-icon.png",
+    },
+    openGraph: {
+      type: "website",
+      url: "https://uniquecoffee.pt",
+      locale: "pt_PT",
+      siteName: "Unique Coffee",
+      title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+      description:
+        "Um café de especialidade pensado para quem aprecia a pausa, o sabor e os detalhes.",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+          alt: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+        },
+      ],
+    },
+  };
+}
 
 const jsonLd = {
   "@context": "https://schema.org",
