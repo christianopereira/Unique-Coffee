@@ -50,11 +50,11 @@ export function Navbar() {
             <Image
               src="/images/Logo.svg"
               alt="Unique Coffee"
-              width={140}
-              height={140}
+              width={200}
+              height={200}
               className={cn(
                 "object-contain transition-all duration-500",
-                isTransparent ? "h-16 w-auto" : "h-12 w-auto"
+                isTransparent ? "h-[120px] w-auto" : "h-20 w-auto"
               )}
               priority
             />
