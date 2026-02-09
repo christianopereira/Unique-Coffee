@@ -6,10 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { siteData } from "@/content/site-data";
 import { cn } from "@/lib/utils";
+import type { NavLink } from "@/types/site-data";
 
-export function Navbar() {
+interface NavbarProps {
+  navLinks: NavLink[];
+}
+
+export function Navbar({ navLinks }: NavbarProps) {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -61,7 +65,7 @@ export function Navbar() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
-            {siteData.nav.links.map((link) => {
+            {navLinks.map((link) => {
               const isActive = link.href === "/"
                 ? pathname === "/"
                 : pathname.startsWith(link.href);
@@ -106,7 +110,7 @@ export function Navbar() {
             className="fixed inset-0 z-40 bg-espresso/95 backdrop-blur-md flex items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
-              {siteData.nav.links.map((link, i) => {
+              {navLinks.map((link, i) => {
                 const isActive = link.href === "/"
                   ? pathname === "/"
                   : pathname.startsWith(link.href);

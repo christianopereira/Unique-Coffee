@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function SobreNos() {
-  const { sobreNos } = siteData;
+  const { sobreNos } = getSiteData();
 
   return (
     <section id="sobre" className="section-padding bg-warm-white">

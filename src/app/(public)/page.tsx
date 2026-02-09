@@ -1,16 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Button } from "@/components/ui/Button";
 import { MapPin, Clock } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
+  const siteData = getSiteData();
+
   return (
     <>
-      <Hero />
+      <Hero hero={siteData.hero} brandName={siteData.brand.name} />
 
       {/* Sobre — Teaser */}
       <section className="section-padding bg-warm-white">

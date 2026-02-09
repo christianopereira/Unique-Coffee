@@ -1,9 +1,9 @@
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Diferencial() {
-  const { diferencial } = siteData;
+  const { diferencial } = getSiteData();
 
   return (
     <section id="diferencial" className="section-padding bg-parchment">

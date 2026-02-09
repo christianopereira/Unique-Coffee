@@ -1,9 +1,9 @@
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Conceito() {
-  const { conceito } = siteData;
+  const { conceito } = getSiteData();
 
   return (
     <section id="conceito" className="section-padding bg-cream">

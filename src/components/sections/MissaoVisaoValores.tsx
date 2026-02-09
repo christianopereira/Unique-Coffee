@@ -1,4 +1,4 @@
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Heart, Star, Fingerprint, Leaf } from "lucide-react";
@@ -6,7 +6,7 @@ import { Heart, Star, Fingerprint, Leaf } from "lucide-react";
 const valorIcons = [Heart, Star, Fingerprint, Leaf];
 
 export function MissaoVisaoValores() {
-  const { missaoVisaoValores: mvv } = siteData;
+  const { missaoVisaoValores: mvv } = getSiteData();
 
   return (
     <section className="section-padding bg-espresso text-warm-white">

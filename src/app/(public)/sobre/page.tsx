@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { SobreNos } from "@/components/sections/SobreNos";
 import { MissaoVisaoValores } from "@/components/sections/MissaoVisaoValores";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Sobre Nós",
   description:

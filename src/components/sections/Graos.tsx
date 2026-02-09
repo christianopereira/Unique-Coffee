@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Graos() {
-  const { graos } = siteData;
+  const { graos } = getSiteData();
 
   return (
     <section id="graos" className="section-padding bg-espresso text-warm-white">

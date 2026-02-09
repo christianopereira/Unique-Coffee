@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 
@@ -12,12 +12,14 @@ interface PageProps {
 }
 
 function getItem(slug: string) {
-  return siteData.sobremesas.items.find((item) => item.slug === slug);
+  return getSiteData().sobremesas.items.find((item) => item.slug === slug);
 }
 
 export function generateStaticParams() {
-  return siteData.sobremesas.items.map((item) => ({ slug: item.slug }));
+  return getSiteData().sobremesas.items.map((item) => ({ slug: item.slug }));
 }
+
+export const dynamic = "force-dynamic";
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const item = getItem(params.slug);

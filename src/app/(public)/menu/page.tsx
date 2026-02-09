@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Menu",
@@ -12,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default function MenuPage() {
-  const { menu } = siteData;
+  const { menu } = getSiteData();
 
   return (
     <>

@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { siteData } from "@/content/site-data";
 import { Button } from "@/components/ui/Button";
+import type { HeroData } from "@/types/site-data";
 
-export function Hero() {
-  const { hero } = siteData;
+interface HeroProps {
+  hero: HeroData;
+  brandName: string;
+}
 
+export function Hero({ hero, brandName }: HeroProps) {
   return (
     <section id="inicio" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -30,7 +33,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="font-sans text-xs uppercase tracking-[0.3em] text-warm-white/60 mb-6"
         >
-          {siteData.brand.name}
+          {brandName}
         </motion.p>
 
         <motion.h1

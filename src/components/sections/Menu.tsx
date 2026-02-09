@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Menu() {
-  const { menu } = siteData;
+  const { menu } = getSiteData();
 
   return (
     <section id="menu" className="section-padding bg-warm-white">

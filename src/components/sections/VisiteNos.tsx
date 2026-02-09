@@ -1,5 +1,5 @@
 import { MapPin, Clock, Phone, Globe, PawPrint, Wifi, Coffee } from "lucide-react";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Button } from "@/components/ui/Button";
@@ -11,7 +11,7 @@ const badgeIcons: Record<string, typeof Coffee> = {
 };
 
 export function VisiteNos() {
-  const { visiteNos } = siteData;
+  const { visiteNos } = getSiteData();
 
   return (
     <section id="visite-nos" className="section-padding bg-espresso text-warm-white">

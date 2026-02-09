@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Galeria } from "@/components/sections/Galeria";
+import { getSiteData } from "@/lib/get-site-data";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Galeria",
@@ -8,10 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default function GaleriaPage() {
+  const { galeria } = getSiteData();
+
   return (
     <>
       <div className="pt-24" />
-      <Galeria />
+      <Galeria galeria={galeria} />
     </>
   );
 }

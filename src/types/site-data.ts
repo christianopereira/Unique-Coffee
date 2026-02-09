@@ -88,6 +88,7 @@ export interface TeamMember {
   name: string;
   role: string;
   hasPhoto: boolean;
+  photo?: string;
 }
 
 export interface EquipaData {

@@ -1,7 +1,8 @@
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { Instagram, Facebook } from "lucide-react";
 
 export function Footer() {
+  const siteData = getSiteData();
   return (
     <footer className="bg-espresso text-warm-white/70 py-12">
       <div className="section-container">

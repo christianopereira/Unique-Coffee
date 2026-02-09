@@ -4,12 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { siteData } from "@/content/site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import type { GaleriaData } from "@/types/site-data";
 
-export function Galeria() {
-  const { galeria } = siteData;
+interface GaleriaProps {
+  galeria: GaleriaData;
+}
+
+export function Galeria({ galeria }: GaleriaProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (

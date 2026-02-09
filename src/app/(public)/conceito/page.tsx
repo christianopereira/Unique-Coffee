@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Conceito } from "@/components/sections/Conceito";
 import { Diferencial } from "@/components/sections/Diferencial";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Conceito & Diferencial",
   description:

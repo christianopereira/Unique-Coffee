@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 
@@ -12,12 +12,14 @@ interface PageProps {
 }
 
 function getCategory(slug: string) {
-  return siteData.menu.categories.find((cat) => cat.slug === slug);
+  return getSiteData().menu.categories.find((cat) => cat.slug === slug);
 }
 
 export function generateStaticParams() {
-  return siteData.menu.categories.map((cat) => ({ slug: cat.slug }));
+  return getSiteData().menu.categories.map((cat) => ({ slug: cat.slug }));
 }
+
+export const dynamic = "force-dynamic";
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const category = getCategory(params.slug);

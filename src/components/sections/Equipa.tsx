@@ -1,10 +1,11 @@
+import Image from "next/image";
 import { User } from "lucide-react";
-import { siteData } from "@/content/site-data";
+import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Equipa() {
-  const { equipa } = siteData;
+  const { equipa } = getSiteData();
 
   return (
     <section id="equipa" className="section-padding bg-parchment">
@@ -17,11 +18,14 @@ export function Equipa() {
               <div className="text-center">
                 {/* Photo placeholder */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-linen/50 mb-4 flex items-center justify-center">
-                  {member.hasPhoto ? (
-                    /* When real photos are added, replace with next/image */
-                    <div className="w-full h-full bg-gradient-to-b from-stone/20 to-stone/40 flex items-center justify-center">
-                      <User size={48} className="text-mocha/40" strokeWidth={1} />
-                    </div>
+                  {member.photo ? (
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
+                    />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-b from-stone/10 to-stone/30 flex items-center justify-center">
                       <User size={48} className="text-mocha/30" strokeWidth={1} />

@@ -1,12 +1,13 @@
 "use client";
 
 import { AdminForm } from "@/components/admin/AdminForm";
-import { TextInput, SectionHeader } from "@/components/admin/fields";
+import { TextInput, ImagePicker, SectionHeader } from "@/components/admin/fields";
 
 interface TeamMember {
   name: string;
   role: string;
   hasPhoto: boolean;
+  photo?: string;
 }
 
 export default function AdminEquipaPage() {
@@ -20,11 +21,15 @@ export default function AdminEquipaPage() {
           function updateMember(index: number, field: keyof TeamMember, value: string | boolean) {
             const updated = [...members];
             updated[index] = { ...updated[index], [field]: value };
+            // Auto-set hasPhoto when photo URL is set
+            if (field === "photo") {
+              updated[index].hasPhoto = !!(value as string);
+            }
             updateField("members", updated);
           }
 
           function addMember() {
-            updateField("members", [...members, { name: "", role: "", hasPhoto: false }]);
+            updateField("members", [...members, { name: "", role: "", hasPhoto: false, photo: "" }]);
           }
 
           function removeMember(index: number) {
@@ -40,15 +45,11 @@ export default function AdminEquipaPage() {
                   <div className="flex-1 space-y-3">
                     <TextInput label="Nome" value={member.name} onChange={(v) => updateMember(i, "name", v)} />
                     <TextInput label="Cargo" value={member.role} onChange={(v) => updateMember(i, "role", v)} />
-                    <label className="flex items-center gap-2 text-sm text-roast">
-                      <input
-                        type="checkbox"
-                        checked={member.hasPhoto}
-                        onChange={(e) => updateMember(i, "hasPhoto", e.target.checked)}
-                        className="rounded border-linen text-copper focus:ring-copper"
-                      />
-                      Tem foto
-                    </label>
+                    <ImagePicker
+                      label="Foto"
+                      value={member.photo || ""}
+                      onChange={(v) => updateMember(i, "photo", v)}
+                    />
                   </div>
                   <button onClick={() => removeMember(i)} className="text-red-400 hover:text-red-600 text-sm px-2 py-2 shrink-0">✕</button>
                 </div>
