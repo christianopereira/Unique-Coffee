@@ -34,6 +34,10 @@ export const metadata: Metadata = {
     "cafeteria premium Portugal",
     "unique coffee",
   ],
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "pt_PT",
@@ -41,6 +45,7 @@ export const metadata: Metadata = {
     title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
     description:
       "Um café de especialidade pensado para quem aprecia a pausa, o sabor e os detalhes.",
+    images: ["/images/og-image.jpg"],
   },
 };
 
