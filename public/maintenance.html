@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unique Coffee — Em breve</title>
+  <link rel="icon" href="/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/apple-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #2C1810;
+      color: #FAF8F5;
+      font-family: 'Raleway', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    /* Subtle grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .logo {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #B87333, transparent);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      color: #FAF8F5;
+    }
+
+    h1 em {
+      color: #B87333;
+      font-style: italic;
+    }
+
+    p {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #A09690;
+      max-width: 400px;
+    }
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact a {
+      color: #C9A96E;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .contact a:hover {
+      color: #B87333;
+    }
+
+    .steam {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(to top, rgba(184,115,51,0.2), transparent);
+      animation: steam 3s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    .steam:nth-child(1) { left: 45%; animation-delay: 0s; }
+    .steam:nth-child(2) { left: 50%; animation-delay: 1s; }
+    .steam:nth-child(3) { left: 55%; animation-delay: 2s; }
+
+    @keyframes steam {
+      0%, 100% { opacity: 0; transform: translateY(0) scaleY(0.5); }
+      50% { opacity: 1; transform: translateY(-10px) scaleY(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      animation: fadeIn 1s ease-out backwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+
+    @media (max-width: 480px) {
+      .logo { width: 110px; height: 110px; }
+      h1 { font-size: 1.6rem; }
+      p { font-size: 0.875rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="position: relative;">
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <img src="/images/Logo.svg" alt="Unique Coffee" class="logo">
+    </div>
+
+    <div class="divider animate-in delay-1"></div>
+
+    <h1 class="animate-in delay-2">Estamos a preparar<br>algo <em>especial</em></h1>
+
+    <p class="animate-in delay-3">
+      O nosso site está a ser actualizado para lhe oferecer
+      uma experiência ainda melhor. Voltamos em breve.
+    </p>
+
+    <div class="divider animate-in delay-3"></div>
+
+    <div class="contact animate-in delay-4">
+      <a href="tel:+351925903132">925 903 132</a>
+      <a href="https://maps.google.com/?q=R.+Vitorino+Fróis+12A,+Caldas+da+Rainha" target="_blank" rel="noopener">
+        R. Vitorino Fróis 12A, Caldas da Rainha
+      </a>
+    </div>
+  </div>
+</body>
+</html>
