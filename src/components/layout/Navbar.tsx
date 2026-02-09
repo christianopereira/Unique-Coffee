@@ -54,11 +54,11 @@ export function Navbar({ navLinks }: NavbarProps) {
             <Image
               src="/images/Logo.svg"
               alt="Unique Coffee"
-              width={200}
-              height={200}
+              width={400}
+              height={400}
               className={cn(
                 "object-contain transition-all duration-500",
-                isTransparent ? "h-[120px] w-auto" : "h-20 w-auto"
+                isTransparent ? "h-[200px] w-auto" : "h-[120px] w-auto"
               )}
               priority
             />
