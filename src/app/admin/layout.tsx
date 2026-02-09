@@ -58,14 +58,14 @@ export default function AdminLayout({
     <div className="flex min-h-screen bg-cream">
       {/* Sidebar */}
       <aside className="w-64 bg-espresso text-warm-white flex flex-col shrink-0">
-        <div className="p-4 border-b border-roast flex justify-center">
+        <div className="p-5 border-b border-roast flex justify-center">
           <Link href="/admin">
             <Image
               src="/images/Logo.svg"
               alt="Unique Coffee"
-              width={120}
-              height={60}
-              className="h-[60px] w-auto"
+              width={200}
+              height={200}
+              className="h-[100px] w-auto"
             />
           </Link>
         </div>
