@@ -7,11 +7,8 @@
  */
 
 import fs from "fs";
-import path from "path";
 import type { SiteData } from "@/types/site-data";
-
-const DATA_DIR = path.join(process.cwd(), "data");
-const DATA_PATH = path.join(DATA_DIR, "site-data.json");
+import { DATA_PATH, ensureDataDirs } from "@/lib/data-dir";
 
 let cachedData: SiteData | null = null;
 let cacheTime = 0;
@@ -56,19 +53,10 @@ export function invalidateSiteDataCache(): void {
 }
 
 /**
- * Garante que a pasta data/ existe.
- */
-export function ensureDataDir(): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-}
-
-/**
  * Guarda os dados do site no ficheiro JSON.
  */
 export function saveSiteData(data: SiteData): void {
-  ensureDataDir();
+  ensureDataDirs();
   fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2), "utf-8");
   invalidateSiteDataCache();
 }

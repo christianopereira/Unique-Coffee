@@ -7,10 +7,7 @@
 
 import crypto from "crypto";
 import fs from "fs";
-import path from "path";
-
-const DATA_DIR = path.join(process.cwd(), "data");
-const SESSIONS_PATH = path.join(DATA_DIR, "sessions.json");
+import { SESSIONS_PATH, ensureDataDirs } from "@/lib/data-dir";
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000; // 7 dias
 
 interface Session {
@@ -67,12 +64,6 @@ export async function verifyPassword(
 // Sessions
 // ---------------------------------------------------------------------------
 
-function ensureDataDir(): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-}
-
 function readSessions(): Session[] {
   try {
     if (fs.existsSync(SESSIONS_PATH)) {
@@ -86,7 +77,7 @@ function readSessions(): Session[] {
 }
 
 function writeSessions(sessions: Session[]): void {
-  ensureDataDir();
+  ensureDataDirs();
   fs.writeFileSync(SESSIONS_PATH, JSON.stringify(sessions, null, 2), "utf-8");
 }
 

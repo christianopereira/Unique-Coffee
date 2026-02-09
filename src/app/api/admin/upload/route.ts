@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateSession } from "@/lib/auth";
+import { UPLOADS_DIR, ensureDataDirs } from "@/lib/data-dir";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
-const UPLOADS_DIR = path.join(process.cwd(), "data", "uploads");
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = [
   "image/jpeg",
@@ -13,12 +13,6 @@ const ALLOWED_TYPES = [
   "image/svg+xml",
   "image/gif",
 ];
-
-function ensureUploadsDir(): void {
-  if (!fs.existsSync(UPLOADS_DIR)) {
-    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-  }
-}
 
 export async function POST(request: NextRequest) {
   const sessionId = request.cookies.get("admin_session")?.value;
@@ -51,7 +45,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    ensureUploadsDir();
+    ensureDataDirs();
 
     // Gerar nome único para evitar colisões
     const ext = path.extname(file.name) || getExtFromMime(file.type);
