@@ -42,7 +42,8 @@ O site deve transmitir sofisticação, conforto, exclusividade subtil e tranquil
 | **Fontes** | Google Fonts (Playfair Display, Lora, Raleway) |
 | **Icons** | Lucide React |
 | **Imagens** | next/image com optimização |
-| **Deploy** | GitHub → Vercel / Coolify |
+| **Deploy** | GitHub → Hostinger (Node.js Web App) |
+| **Testes E2E** | Playwright (116 testes) |
 
 ---
 
@@ -122,50 +123,82 @@ unique-coffee/
 │   ├── site-content.md
 │   ├── design-system.md
 │   ├── seo-guidelines.md
-│   └── deployment.md
+│   ├── deployment.md
+│   └── admin-panel.md           # Documentação do painel admin
+├── scripts/
+│   └── setup-admin.js           # Script de setup inicial (password + seed)
+├── e2e/
+│   ├── navigation.spec.ts       # Testes de navegação (páginas públicas)
+│   └── admin.spec.ts            # Testes do painel admin
+├── data/                        # ⚠️ NÃO está no git — persiste no servidor
+│   ├── site-data.json           # Dados editáveis (gerado pelo setup-admin.js)
+│   ├── sessions.json            # Sessões activas (auto-gerido)
+│   └── uploads/                 # Imagens enviadas pelo admin
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx           # Layout global (Navbar + Footer)
-│   │   ├── page.tsx             # Homepage com teasers
+│   │   ├── layout.tsx           # Layout global (apenas html/body, sem Navbar)
 │   │   ├── globals.css
-│   │   ├── sobre/page.tsx       # Sobre + Missão/Visão/Valores
-│   │   ├── conceito/page.tsx    # Conceito + Diferencial
-│   │   ├── graos/page.tsx       # Grãos Seleccionados
-│   │   ├── menu/
-│   │   │   ├── page.tsx         # Grid de categorias
-│   │   │   └── [slug]/page.tsx  # Detalhe da categoria
-│   │   ├── sobremesas/
-│   │   │   ├── page.tsx         # Grid de sobremesas
-│   │   │   └── [slug]/page.tsx  # Detalhe da sobremesa
-│   │   ├── equipa/page.tsx      # Nossa Equipa
-│   │   ├── galeria/page.tsx     # Galeria com lightbox
-│   │   └── contacto/page.tsx    # Venha Conhecer
+│   │   ├── (public)/            # ← Route group para páginas públicas
+│   │   │   ├── layout.tsx       # Layout público (Navbar + Footer)
+│   │   │   ├── page.tsx         # Homepage com teasers
+│   │   │   ├── sobre/page.tsx
+│   │   │   ├── conceito/page.tsx
+│   │   │   ├── graos/page.tsx
+│   │   │   ├── menu/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [slug]/page.tsx
+│   │   │   ├── sobremesas/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [slug]/page.tsx
+│   │   │   ├── equipa/page.tsx
+│   │   │   ├── galeria/page.tsx
+│   │   │   └── contacto/page.tsx
+│   │   ├── admin/               # ← Painel de administração
+│   │   │   ├── layout.tsx       # Layout admin (sidebar + logo)
+│   │   │   ├── login/page.tsx   # Página de login
+│   │   │   ├── page.tsx         # Dashboard
+│   │   │   ├── hero/page.tsx
+│   │   │   ├── sobre/page.tsx
+│   │   │   ├── conceito/page.tsx
+│   │   │   ├── diferencial/page.tsx
+│   │   │   ├── graos/page.tsx
+│   │   │   ├── missao/page.tsx
+│   │   │   ├── menu/page.tsx
+│   │   │   ├── sobremesas/page.tsx
+│   │   │   ├── equipa/page.tsx
+│   │   │   ├── galeria/page.tsx
+│   │   │   ├── contacto/page.tsx
+│   │   │   └── config/page.tsx
+│   │   └── api/
+│   │       ├── admin/
+│   │       │   ├── login/route.ts
+│   │       │   ├── logout/route.ts
+│   │       │   ├── content/route.ts   # GET + PATCH
+│   │       │   └── upload/route.ts    # POST (imagens)
+│   │       └── uploads/
+│   │           └── [...path]/route.ts # Serve imagens de data/uploads/
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.tsx       # Navbar multi-página com logo
+│   │   │   ├── Navbar.tsx
 │   │   │   └── Footer.tsx
 │   │   ├── sections/            # Componentes de secção reutilizáveis
-│   │   │   ├── Hero.tsx
-│   │   │   ├── SobreNos.tsx
-│   │   │   ├── MissaoVisaoValores.tsx
-│   │   │   ├── Conceito.tsx
-│   │   │   ├── Diferencial.tsx
-│   │   │   ├── Graos.tsx
-│   │   │   ├── Menu.tsx
-│   │   │   ├── Sobremesas.tsx
-│   │   │   ├── Equipa.tsx
-│   │   │   ├── Galeria.tsx
-│   │   │   └── VisiteNos.tsx
+│   │   │   └── (Hero, SobreNos, Conceito, etc.)
+│   │   ├── admin/               # Componentes do painel admin
+│   │   │   ├── AdminForm.tsx    # Form genérico (render-props)
+│   │   │   └── fields.tsx       # TextInput, TextArea, ArrayEditor, ImagePicker
 │   │   └── ui/
-│   │       ├── ScrollReveal.tsx
-│   │       ├── SectionTitle.tsx
-│   │       └── Button.tsx
+│   │       └── (ScrollReveal, SectionTitle, Button)
 │   ├── content/
-│   │   └── site-data.ts         # ← TODA a data editável centralizada aqui
-│   └── lib/
-│       └── utils.ts
+│   │   └── site-data.ts         # Dados estáticos (fallback se JSON não existir)
+│   ├── types/
+│   │   └── site-data.ts         # Interfaces TypeScript para SiteData
+│   ├── lib/
+│   │   ├── get-site-data.ts     # Leitura/escrita do JSON com cache 60s
+│   │   ├── auth.ts              # Hash password + sessões (crypto nativo)
+│   │   └── utils.ts
+│   └── middleware.ts            # Protege /admin/* e /api/admin/*
 ├── public/images/
-│   └── logo.jpeg                # Logo da Unique Coffee
+│   └── logo.jpeg
 ├── tailwind.config.ts
 ├── next.config.js
 ├── tsconfig.json
@@ -176,8 +209,61 @@ unique-coffee/
 
 ## Conteúdo Editável
 
-Todo o conteúdo está em `src/content/site-data.ts`.
-Fonte: **Apresentação Unique Coffee rev01** (PDF oficial do cliente).
+O conteúdo é gerido pelo **Painel Admin** (`/admin`) e guardado em `data/site-data.json` no servidor.
+O ficheiro `src/content/site-data.ts` serve como **fallback** se o JSON não existir.
+
+**Fluxo de dados:**
+```
+Admin edita → PATCH /api/admin/content → data/site-data.json → getSiteData() → Site público
+```
+
+A função `getSiteData()` em `src/lib/get-site-data.ts` lê o JSON com cache de 60 segundos, com fallback automático para os dados estáticos.
+
+Fonte original: **Apresentação Unique Coffee rev01** (PDF oficial do cliente).
+
+---
+
+## Painel de Administração (`/admin`)
+
+Painel completo para a Priscila editar textos e imagens sem tocar em código.
+
+### Arquitectura
+- **Dados:** ficheiro JSON no filesystem do servidor (`data/site-data.json`)
+- **Imagens:** guardadas em `data/uploads/`, servidas via API route
+- **Auth:** password com hash (`crypto.scrypt` nativo), sessões em cookie HttpOnly
+- **Dependências externas:** ZERO — tudo usa Node.js built-in + Next.js
+- **Custo adicional:** ZERO
+
+### Variáveis de Ambiente (Hostinger)
+```
+ADMIN_PASSWORD_HASH=...     # Gerado pelo scripts/setup-admin.js
+ADMIN_SESSION_SECRET=...    # String aleatória para assinar cookies
+```
+
+### Setup Inicial (correr uma vez no servidor)
+```bash
+node scripts/setup-admin.js
+```
+Este script: cria `data/` e `data/uploads/`, faz seed do JSON a partir de `site-data.ts`, e gera o hash da password.
+
+### Secções Editáveis
+
+| Rota Admin | Secção do JSON |
+|---|---|
+| `/admin/hero` | hero |
+| `/admin/sobre` | sobreNos |
+| `/admin/conceito` | conceito |
+| `/admin/diferencial` | diferencial |
+| `/admin/graos` | graos |
+| `/admin/missao` | missaoVisaoValores |
+| `/admin/menu` | menu (categorias + itens) |
+| `/admin/sobremesas` | sobremesas (itens + highlights) |
+| `/admin/equipa` | equipa (membros) |
+| `/admin/galeria` | galeria (imagens) |
+| `/admin/contacto` | visiteNos |
+| `/admin/config` | brand + footer + nav |
+
+Ver `directives/admin-panel.md` para documentação detalhada.
 
 ---
 
@@ -240,3 +326,25 @@ O `fix-readlink.js` contorna um bug do Windows com `fs.readlink` em discos exter
 - **Build command:** `npm run build`
 - **Start command:** `npm run start`
 - Push para `main` → Hostinger detecta e faz redeploy automaticamente
+
+### Testes E2E (Playwright)
+```bash
+npx playwright test              # Corre todos os testes (116)
+npx playwright test --project=desktop  # Só desktop (Chrome)
+npx playwright test --project=mobile   # Só mobile (WebKit)
+npx playwright test e2e/admin.spec.ts  # Só testes admin
+```
+
+**Testes existentes:**
+- `e2e/navigation.spec.ts` — Navegação, consola limpa, páginas dinâmicas (menu/sobremesas)
+- `e2e/admin.spec.ts` — Auth, protecção de rotas, API routes, screenshots
+
+**Projectos configurados:** Desktop (Chrome 1280x720) e Mobile (WebKit 390x844)
+
+### Importante: Pasta `data/`
+A pasta `data/` está no `.gitignore` e **persiste no servidor Hostinger** entre deploys. Contém:
+- `site-data.json` — todos os textos/dados editáveis
+- `sessions.json` — sessões de admin activas
+- `uploads/` — imagens enviadas pelo admin
+
+**NUNCA** adicionar `data/` ao git. O deploy do Hostinger faz `git pull` + rebuild mas não apaga ficheiros fora do repo.

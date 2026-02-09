@@ -19,10 +19,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Proteger API routes admin (excepto login)
+  // Proteger API routes admin (excepto login e logout)
   if (
     pathname.startsWith("/api/admin") &&
-    !pathname.startsWith("/api/admin/login")
+    !pathname.startsWith("/api/admin/login") &&
+    !pathname.startsWith("/api/admin/logout")
   ) {
     const sessionCookie = request.cookies.get(ADMIN_SESSION_COOKIE);
 
