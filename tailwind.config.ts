@@ -22,14 +22,14 @@ const config: Config = {
         linen: "#D4CCC4",
       },
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
-        body: ["Lora", "Georgia", "serif"],
-        sans: ["Raleway", "sans-serif"],
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)"],
+        sans: ["var(--font-sans)"],
       },
       fontSize: {
-        "hero": ["clamp(2.5rem, 5vw, 5rem)", { lineHeight: "1.1" }],
-        "section": ["clamp(1.75rem, 3vw, 3rem)", { lineHeight: "1.2" }],
-        "subtitle": ["clamp(1.125rem, 1.5vw, 1.5rem)", { lineHeight: "1.5" }],
+        "hero": ["var(--size-hero, clamp(2.5rem, 5vw, 5rem))", { lineHeight: "1.1" }],
+        "section": ["var(--size-section, clamp(1.75rem, 3vw, 3rem))", { lineHeight: "1.2" }],
+        "subtitle": ["var(--size-subtitle, clamp(1.125rem, 1.5vw, 1.5rem))", { lineHeight: "1.5" }],
       },
       spacing: {
         "section": "clamp(4rem, 8vw, 8rem)",

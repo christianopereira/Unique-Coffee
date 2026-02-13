@@ -54,6 +54,8 @@ export async function PATCH(request: NextRequest) {
       "galeria",
       "visiteNos",
       "footer",
+      "typography",
+      "hiddenPages",
     ];
 
     if (!validSections.includes(section)) {

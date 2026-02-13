@@ -7,10 +7,9 @@ import type { HeroData } from "@/types/site-data";
 
 interface HeroProps {
   hero: HeroData;
-  brandName: string;
 }
 
-export function Hero({ hero, brandName }: HeroProps) {
+export function Hero({ hero }: HeroProps) {
   return (
     <section id="inicio" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -26,16 +25,6 @@ export function Hero({ hero, brandName }: HeroProps) {
       </div>
 
       <div className="relative z-10 section-container text-center">
-        {/* Logo text */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="font-sans text-xs uppercase tracking-[0.3em] text-warm-white/60 mb-6"
-        >
-          {brandName}
-        </motion.p>
-
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

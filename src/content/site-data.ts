@@ -27,6 +27,22 @@ export const siteData = {
     ],
   },
 
+  typography: {
+    fonts: {
+      display: "Playfair Display",
+      body: "Lora",
+      ui: "Raleway",
+    },
+    sizes: {
+      heroTitle: "clamp(2.5rem, 5vw, 5rem)",
+      sectionTitle: "clamp(1.75rem, 3vw, 3rem)",
+      subtitle: "clamp(1.125rem, 1.5vw, 1.5rem)",
+      body: "16px",
+    },
+  },
+
+  hiddenPages: [] as string[],
+
   hero: {
     title: "O Sabor Único do Verdadeiro Café",
     subtitle:
@@ -50,6 +66,8 @@ export const siteData = {
     ],
     image:
       "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=1000&fit=crop&q=80",
+    ctaText: "Conheça Nossa História",
+    ctaLink: "/sobre",
   },
 
   missaoVisaoValores: {
@@ -95,6 +113,8 @@ export const siteData = {
       "Acreditamos num atendimento atento, discreto e personalizado, onde cada cliente é tratado de forma única. Aqui, o serviço não é apressado nem impessoal. É pensado para quem valoriza qualidade, tranquilidade e um ambiente onde tudo acontece no tempo certo.",
       "A experiência Unique Coffee é marcada por exclusividade subtil, presente na selecção cuidada dos cafés, no ambiente elegante e acolhedor, na harmonia do espaço e na forma como cada momento é vivido. Não seguimos tendências passageiras. Privilegiamos a consistência, o conforto e a autenticidade.",
     ],
+    ctaText: "Descubra o Nosso Conceito",
+    ctaLink: "/conceito",
   },
 
   diferencial: {
@@ -120,11 +140,15 @@ export const siteData = {
     ],
     image:
       "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1000&h=700&fit=crop&q=80",
+    ctaText: "Saiba Mais Sobre os Nossos Grãos",
+    ctaLink: "/graos",
   },
 
   menu: {
     title: "Nosso Menu",
     subtitle: "E muito mais...",
+    ctaText: "Ver Menu Completo",
+    ctaLink: "https://drive.google.com/file/d/1jB79cR2MzS4jTJp6n4rfqp_kFQ_kxCol/view?usp=sharing",
     categories: [
       {
         name: "Tostas",
@@ -192,6 +216,8 @@ export const siteData = {
       "Aqui, cada detalhe conta.",
       "Aqui, o doce é servido no tempo certo.",
     ],
+    ctaText: "Conheça Nossas Sobremesas",
+    ctaLink: "/sobremesas",
     items: [
       {
         name: "Tarte do Dia",

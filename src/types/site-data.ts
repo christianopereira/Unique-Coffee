@@ -20,6 +20,8 @@ export interface SobreNosData {
   paragraphs: string[];
   highlights: string[];
   image: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface ValorItem {
@@ -36,6 +38,8 @@ export interface MissaoVisaoValoresData {
 export interface ConceitoData {
   title: string;
   paragraphs: string[];
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface DiferencialData {
@@ -49,6 +53,8 @@ export interface GraosData {
   title: string;
   paragraphs: string[];
   image: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface MenuItem {
@@ -68,6 +74,8 @@ export interface MenuData {
   title: string;
   subtitle: string;
   categories: MenuCategory[];
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface SobremesaItem {
@@ -82,6 +90,8 @@ export interface SobremesasData {
   paragraphs: string[];
   highlights: string[];
   items: SobremesaItem[];
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface TeamMember {
@@ -137,6 +147,24 @@ export interface FooterData {
   location: string;
 }
 
+export interface FontConfig {
+  display: string;
+  body: string;
+  ui: string;
+}
+
+export interface FontSizeConfig {
+  heroTitle: string;
+  sectionTitle: string;
+  subtitle: string;
+  body: string;
+}
+
+export interface TypographyConfig {
+  fonts: FontConfig;
+  sizes: FontSizeConfig;
+}
+
 export interface SiteData {
   brand: {
     name: string;
@@ -147,6 +175,8 @@ export interface SiteData {
     ogImage?: string;
   };
   nav: { links: NavLink[] };
+  typography?: TypographyConfig;
+  hiddenPages?: string[];
   hero: HeroData;
   sobreNos: SobreNosData;
   missaoVisaoValores: MissaoVisaoValoresData;

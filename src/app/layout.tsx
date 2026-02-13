@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lora, Raleway } from "next/font/google";
 import { getSiteData } from "@/lib/get-site-data";
+import { DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
+import { FontLoader } from "@/components/layout/FontLoader";
+import type { TypographyConfig } from "@/types/site-data";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -79,17 +82,68 @@ const jsonLd = {
   priceRange: "€€",
 };
 
+function buildTypographyCSS(typo: TypographyConfig): string {
+  const defaults = DEFAULT_TYPOGRAPHY;
+  const lines: string[] = [];
+
+  // Font overrides no selector html (mesma especificidade que next/font classes)
+  const fontOverrides: string[] = [];
+  if (typo.fonts.display !== defaults.fonts.display) {
+    fontOverrides.push(`  --font-display: "${typo.fonts.display}", Georgia, serif;`);
+  }
+  if (typo.fonts.body !== defaults.fonts.body) {
+    fontOverrides.push(`  --font-body: "${typo.fonts.body}", Georgia, serif;`);
+  }
+  if (typo.fonts.ui !== defaults.fonts.ui) {
+    fontOverrides.push(`  --font-sans: "${typo.fonts.ui}", sans-serif;`);
+  }
+  if (fontOverrides.length > 0) {
+    lines.push("html {", ...fontOverrides, "}");
+  }
+
+  // Size overrides em :root
+  lines.push(":root {");
+  lines.push(`  --size-hero: ${typo.sizes.heroTitle};`);
+  lines.push(`  --size-section: ${typo.sizes.sectionTitle};`);
+  lines.push(`  --size-subtitle: ${typo.sizes.subtitle};`);
+  lines.push(`  --size-body: ${typo.sizes.body};`);
+  lines.push("}");
+
+  return lines.join("\n");
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const siteData = getSiteData();
+  const typography = siteData.typography || DEFAULT_TYPOGRAPHY;
+  const defaults = DEFAULT_TYPOGRAPHY;
+
+  const hasCustomFonts =
+    typography.fonts.display !== defaults.fonts.display ||
+    typography.fonts.body !== defaults.fonts.body ||
+    typography.fonts.ui !== defaults.fonts.ui;
+
+  const hasCustomSizes =
+    typography.sizes.heroTitle !== defaults.sizes.heroTitle ||
+    typography.sizes.sectionTitle !== defaults.sizes.sectionTitle ||
+    typography.sizes.subtitle !== defaults.sizes.subtitle ||
+    typography.sizes.body !== defaults.sizes.body;
+
   return (
     <html
       lang="pt-PT"
       className={`${playfair.variable} ${lora.variable} ${raleway.variable}`}
     >
       <head>
+        {hasCustomFonts && <FontLoader typography={typography} />}
+        {(hasCustomFonts || hasCustomSizes) && (
+          <style
+            dangerouslySetInnerHTML={{ __html: buildTypographyCSS(typography) }}
+          />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
