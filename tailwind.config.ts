@@ -9,17 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#F5F0EB",
-        "warm-white": "#FAF8F5",
-        parchment: "#EDE8E1",
-        espresso: "#2C1810",
-        roast: "#4A3428",
-        mocha: "#6B5344",
-        copper: "#B87333",
-        "gold-soft": "#C9A96E",
-        sage: "#8B9A7B",
-        stone: "#A09690",
-        linen: "#D4CCC4",
+        cream: "rgb(var(--color-cream, 245 240 235) / <alpha-value>)",
+        "warm-white": "rgb(var(--color-warm-white, 250 248 245) / <alpha-value>)",
+        parchment: "rgb(var(--color-parchment, 237 232 225) / <alpha-value>)",
+        espresso: "rgb(var(--color-espresso, 44 24 16) / <alpha-value>)",
+        roast: "rgb(var(--color-roast, 74 52 40) / <alpha-value>)",
+        mocha: "rgb(var(--color-mocha, 107 83 68) / <alpha-value>)",
+        copper: "rgb(var(--color-copper, 184 115 51) / <alpha-value>)",
+        "gold-soft": "rgb(var(--color-gold-soft, 201 169 110) / <alpha-value>)",
+        sage: "rgb(var(--color-sage, 139 154 123) / <alpha-value>)",
+        stone: "rgb(var(--color-stone, 160 150 144) / <alpha-value>)",
+        linen: "rgb(var(--color-linen, 212 204 196) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--font-display)"],

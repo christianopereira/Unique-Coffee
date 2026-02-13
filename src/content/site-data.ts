@@ -41,6 +41,12 @@ export const siteData = {
     },
   },
 
+  colors: {
+    dark: "#2C1810",
+    accent: "#B87333",
+    background: "#F5F0EB",
+  },
+
   hiddenPages: [] as string[],
 
   hero: {

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Playfair_Display, Lora, Raleway } from "next/font/google";
 import { getSiteData } from "@/lib/get-site-data";
 import { DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
+import { DEFAULT_COLORS } from "@/lib/color-options";
 import { FontLoader } from "@/components/layout/FontLoader";
-import type { TypographyConfig } from "@/types/site-data";
+import { derivePalette, hexToRgbChannels } from "@/lib/color-utils";
+import type { TypographyConfig, ColorsConfig } from "@/types/site-data";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -112,6 +114,32 @@ function buildTypographyCSS(typo: TypographyConfig): string {
   return lines.join("\n");
 }
 
+function buildColorsCSS(colors: ColorsConfig): string {
+  const palette = derivePalette(colors.dark, colors.accent, colors.background);
+  const lines = [":root {"];
+
+  const mapping: Record<string, string> = {
+    "color-espresso": palette.espresso,
+    "color-roast": palette.roast,
+    "color-mocha": palette.mocha,
+    "color-copper": palette.copper,
+    "color-gold-soft": palette["gold-soft"],
+    "color-cream": palette.cream,
+    "color-warm-white": palette["warm-white"],
+    "color-parchment": palette.parchment,
+    "color-sage": palette.sage,
+    "color-stone": palette.stone,
+    "color-linen": palette.linen,
+  };
+
+  for (const [varName, hex] of Object.entries(mapping)) {
+    lines.push(`  --${varName}: ${hexToRgbChannels(hex)};`);
+  }
+
+  lines.push("}");
+  return lines.join("\n");
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -119,6 +147,7 @@ export default function RootLayout({
 }) {
   const siteData = getSiteData();
   const typography = siteData.typography || DEFAULT_TYPOGRAPHY;
+  const colors = siteData.colors || DEFAULT_COLORS;
   const defaults = DEFAULT_TYPOGRAPHY;
 
   const hasCustomFonts =
@@ -132,6 +161,11 @@ export default function RootLayout({
     typography.sizes.subtitle !== defaults.sizes.subtitle ||
     typography.sizes.body !== defaults.sizes.body;
 
+  const hasCustomColors =
+    colors.dark !== DEFAULT_COLORS.dark ||
+    colors.accent !== DEFAULT_COLORS.accent ||
+    colors.background !== DEFAULT_COLORS.background;
+
   return (
     <html
       lang="pt-PT"
@@ -142,6 +176,11 @@ export default function RootLayout({
         {(hasCustomFonts || hasCustomSizes) && (
           <style
             dangerouslySetInnerHTML={{ __html: buildTypographyCSS(typography) }}
+          />
+        )}
+        {hasCustomColors && (
+          <style
+            dangerouslySetInnerHTML={{ __html: buildColorsCSS(colors) }}
           />
         )}
         <script

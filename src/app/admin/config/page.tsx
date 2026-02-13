@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { TextInput, ImagePicker, FontSelect, SizeSelect, SectionHeader } from "@/components/admin/fields";
+import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader } from "@/components/admin/fields";
 import { DISPLAY_FONTS, BODY_FONTS, UI_FONTS, SIZE_PRESETS, DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
-import type { TypographyConfig } from "@/types/site-data";
+import { COLOR_PRESETS, DEFAULT_COLORS } from "@/lib/color-options";
+import { derivePalette } from "@/lib/color-utils";
+import type { TypographyConfig, ColorsConfig } from "@/types/site-data";
 
 interface NavLink {
   label: string;
@@ -26,6 +28,7 @@ export default function AdminConfigPage() {
   const [footer, setFooter] = useState({ copyright: "", location: "" });
   const [navLinks, setNavLinks] = useState<NavLink[]>([]);
   const [typography, setTypography] = useState<TypographyConfig>(DEFAULT_TYPOGRAPHY);
+  const [colors, setColors] = useState<ColorsConfig>(DEFAULT_COLORS);
   const [hiddenPages, setHiddenPages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -42,6 +45,9 @@ export default function AdminConfigPage() {
         setNavLinks(data.nav.links);
         if (data.typography) {
           setTypography({ ...DEFAULT_TYPOGRAPHY, ...data.typography });
+        }
+        if (data.colors) {
+          setColors({ ...DEFAULT_COLORS, ...data.colors });
         }
         if (data.hiddenPages) {
           setHiddenPages(data.hiddenPages);
@@ -73,6 +79,7 @@ export default function AdminConfigPage() {
         saveSection("footer", footer),
         saveSection("nav", { links: navLinks }),
         saveSection("typography", typography),
+        saveSection("colors", colors),
         saveSection("hiddenPages", hiddenPages),
       ]);
       setMessage({ type: "success", text: "Guardado com sucesso!" });
@@ -142,6 +149,84 @@ export default function AdminConfigPage() {
             />
             <p className="text-xs text-mocha/70">Tamanho recomendado: 1200x630px. Formato: PNG, JPG. Aparece quando o site é partilhado no Facebook, WhatsApp, etc.</p>
           </div>
+        </div>
+
+        {/* Cores */}
+        <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
+          <h2 className="font-sans font-semibold text-espresso">Cores</h2>
+          <p className="text-xs text-mocha">Escolha as cores base do site. As cores secundárias são derivadas automaticamente.</p>
+
+          <div className="flex flex-wrap gap-2">
+            {COLOR_PRESETS.map((preset) => (
+              <button
+                key={preset.name}
+                onClick={() => setColors(preset.colors)}
+                className={`px-3 py-1.5 text-xs rounded-lg border transition-colors ${
+                  colors.dark === preset.colors.dark && colors.accent === preset.colors.accent && colors.background === preset.colors.background
+                    ? "border-copper bg-copper/10 text-copper font-medium"
+                    : "border-linen text-mocha hover:border-copper/50"
+                }`}
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-full inline-block border border-linen" style={{ backgroundColor: preset.colors.dark }} />
+                  <span className="w-3 h-3 rounded-full inline-block border border-linen" style={{ backgroundColor: preset.colors.accent }} />
+                  {preset.name}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <ColorPicker
+              label="Cor escura (navbar, footer, texto)"
+              value={colors.dark}
+              onChange={(v) => setColors({ ...colors, dark: v })}
+            />
+            <ColorPicker
+              label="Cor de destaque (botões, links)"
+              value={colors.accent}
+              onChange={(v) => setColors({ ...colors, accent: v })}
+            />
+            <ColorPicker
+              label="Cor de fundo"
+              value={colors.background}
+              onChange={(v) => setColors({ ...colors, background: v })}
+            />
+          </div>
+
+          {/* Preview da paleta derivada */}
+          {(() => {
+            const palette = derivePalette(colors.dark, colors.accent, colors.background);
+            const swatches = [
+              { name: "Escura", color: palette.espresso },
+              { name: "Roast", color: palette.roast },
+              { name: "Mocha", color: palette.mocha },
+              { name: "Destaque", color: palette.copper },
+              { name: "Gold", color: palette["gold-soft"] },
+              { name: "Fundo", color: palette.cream },
+              { name: "Claro", color: palette["warm-white"] },
+              { name: "Neutro", color: palette.parchment },
+              { name: "Stone", color: palette.stone },
+              { name: "Linen", color: palette.linen },
+            ];
+            return (
+              <div className="border-t border-linen pt-3 mt-2">
+                <p className="text-xs text-mocha mb-2">Paleta resultante:</p>
+                <div className="flex gap-1.5 flex-wrap">
+                  {swatches.map((s) => (
+                    <div key={s.name} className="text-center">
+                      <div
+                        className="w-8 h-8 rounded-lg border border-linen"
+                        style={{ backgroundColor: s.color }}
+                        title={`${s.name}: ${s.color}`}
+                      />
+                      <span className="text-[10px] text-mocha">{s.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Tipografia */}

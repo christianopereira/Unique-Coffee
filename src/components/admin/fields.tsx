@@ -403,3 +403,38 @@ export function SectionHeader({ title, description }: SectionHeaderProps) {
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// ColorPicker
+// ---------------------------------------------------------------------------
+interface ColorPickerProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-xs font-sans font-medium text-roast">{label}</label>
+      <div className="flex items-center gap-3">
+        <input
+          type="color"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-10 h-10 rounded-lg border border-linen cursor-pointer p-0.5"
+        />
+        <input
+          type="text"
+          value={value.toUpperCase()}
+          onChange={(e) => {
+            const v = e.target.value;
+            if (/^#[0-9A-Fa-f]{6}$/.test(v)) onChange(v);
+          }}
+          placeholder="#000000"
+          className="w-28 px-3 py-2 text-sm rounded-lg border border-linen bg-white text-espresso font-mono focus:border-copper focus:outline-none"
+        />
+      </div>
+    </div>
+  );
+}

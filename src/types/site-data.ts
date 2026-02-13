@@ -165,6 +165,12 @@ export interface TypographyConfig {
   sizes: FontSizeConfig;
 }
 
+export interface ColorsConfig {
+  dark: string;       // Cor escura (navbar, footer, secções escuras, texto)
+  accent: string;     // Cor de destaque (botões, links, hover)
+  background: string; // Cor de fundo principal
+}
+
 export interface SiteData {
   brand: {
     name: string;
@@ -176,6 +182,7 @@ export interface SiteData {
   };
   nav: { links: NavLink[] };
   typography?: TypographyConfig;
+  colors?: ColorsConfig;
   hiddenPages?: string[];
   hero: HeroData;
   sobreNos: SobreNosData;

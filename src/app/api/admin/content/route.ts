@@ -55,6 +55,7 @@ export async function PATCH(request: NextRequest) {
       "visiteNos",
       "footer",
       "typography",
+      "colors",
       "hiddenPages",
     ];
 
