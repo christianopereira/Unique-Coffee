@@ -4,7 +4,7 @@ import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { Button } from "@/components/ui/Button";
+import { MenuCtaButton } from "@/components/ui/MenuCtaButton";
 import { checkPageVisible } from "@/lib/page-visibility";
 
 export const dynamic = "force-dynamic";
@@ -57,9 +57,7 @@ export default function MenuPage() {
           {menu.ctaText && menu.ctaLink && (
             <ScrollReveal delay={0.5}>
               <div className="mt-8 text-center">
-                <Button href={menu.ctaLink} variant="ghost">
-                  {menu.ctaText}
-                </Button>
+                <MenuCtaButton text={menu.ctaText} link={menu.ctaLink} />
               </div>
             </ScrollReveal>
           )}
