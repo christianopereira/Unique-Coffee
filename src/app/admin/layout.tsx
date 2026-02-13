@@ -19,6 +19,7 @@ import {
   Sparkles,
   Bean,
   Target,
+  MessageSquareQuote,
 } from "lucide-react";
 import { AutoLogout } from "@/components/admin/AutoLogout";
 
@@ -35,6 +36,7 @@ const adminLinks = [
   { href: "/admin/equipa", label: "Equipa", icon: Users },
   { href: "/admin/galeria", label: "Galeria", icon: GalleryHorizontalEnd },
   { href: "/admin/contacto", label: "Contacto", icon: MapPin },
+  { href: "/admin/reviews", label: "Reviews", icon: MessageSquareQuote },
   { href: "/admin/config", label: "Configurações", icon: Settings },
 ];
 

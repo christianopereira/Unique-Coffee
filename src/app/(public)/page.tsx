@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
+import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { getSiteData } from "@/lib/get-site-data";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -215,6 +216,17 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>}
+
+      {/* Reviews Carousel */}
+      {(() => {
+        const reviews = siteData.reviews;
+        if (!reviews) return null;
+        const activeReviews = reviews.mode === "google" && reviews.cachedGoogleReviews?.length
+          ? reviews.cachedGoogleReviews
+          : reviews.manualReviews;
+        if (!activeReviews || activeReviews.length === 0) return null;
+        return <ReviewsCarousel title={reviews.title} reviews={activeReviews} />;
+      })()}
 
       {/* CTA — Visite-nos */}
       {show("/contacto") && <section className="section-padding bg-espresso text-warm-white">

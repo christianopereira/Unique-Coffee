@@ -347,6 +347,36 @@ export const siteData = {
     },
   },
 
+  reviews: {
+    mode: "manual" as const,
+    title: "O Que Dizem Sobre Nós",
+    manualReviews: [
+      {
+        author: "Ana M.",
+        text: "O melhor café de especialidade em Caldas da Rainha. Ambiente acolhedor e atendimento impecável.",
+        rating: 5,
+        date: "2025-01-10",
+        source: "manual" as const,
+      },
+      {
+        author: "João P.",
+        text: "Adorei o flat white e o croissant artesanal. Um espaço que convida a voltar.",
+        rating: 5,
+        date: "2025-02-05",
+        source: "manual" as const,
+      },
+      {
+        author: "Sofia R.",
+        text: "O cheesecake é divinal e o café é servido com um cuidado que se nota. Recomendo!",
+        rating: 5,
+        date: "2025-01-22",
+        source: "manual" as const,
+      },
+    ],
+    google: { apiKey: "", placeId: "" },
+    cachedGoogleReviews: [],
+  },
+
   footer: {
     copyright: "© 2025 Unique Coffee. Todos os direitos reservados.",
     location: "R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",

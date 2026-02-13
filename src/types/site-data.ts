@@ -171,6 +171,26 @@ export interface ColorsConfig {
   background: string; // Cor de fundo principal
 }
 
+export interface ReviewItem {
+  author: string;
+  text: string;
+  rating: number;       // 1-5 estrelas
+  date?: string;        // data da review (ex: "2025-01-15")
+  photo?: string;       // URL da foto do autor (opcional)
+  source?: string;      // "manual" | "google"
+}
+
+export interface ReviewsData {
+  mode: "manual" | "google";   // toggle: manual ou automático
+  title: string;
+  manualReviews: ReviewItem[];
+  google?: {
+    apiKey: string;
+    placeId: string;
+  };
+  cachedGoogleReviews?: ReviewItem[];  // cache das reviews do Google
+}
+
 export interface SiteData {
   brand: {
     name: string;
@@ -195,5 +215,6 @@ export interface SiteData {
   equipa: EquipaData;
   galeria: GaleriaData;
   visiteNos: VisiteNosData;
+  reviews?: ReviewsData;
   footer: FooterData;
 }
