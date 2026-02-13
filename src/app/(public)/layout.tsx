@@ -10,10 +10,16 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   const siteData = getSiteData();
+  const hidden = siteData.hiddenPages || [];
+
+  // Filtrar links de páginas ocultas da navbar
+  const visibleLinks = siteData.nav.links.filter(
+    (link) => !hidden.includes(link.href)
+  );
 
   return (
     <>
-      <Navbar navLinks={siteData.nav.links} logoUrl={siteData.brand.logo} />
+      <Navbar navLinks={visibleLinks} logoUrl={siteData.brand.logo} />
       <main>{children}</main>
       <Footer />
     </>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Equipa } from "@/components/sections/Equipa";
+import { checkPageVisible } from "@/lib/page-visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function EquipaPage() {
+  checkPageVisible("/equipa");
   return (
     <>
       <div className="pt-24" />

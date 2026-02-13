@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Graos } from "@/components/sections/Graos";
+import { checkPageVisible } from "@/lib/page-visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function GraosPage() {
+  checkPageVisible("/graos");
   return (
     <>
       <div className="pt-24" />

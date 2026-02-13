@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { getSiteData } from "@/lib/get-site-data";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Button } from "@/components/ui/Button";
+import { checkPageVisible } from "@/lib/page-visibility";
 
 interface PageProps {
   params: { slug: string };
@@ -32,6 +33,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
 }
 
 export default function MenuDetailPage({ params }: PageProps) {
+  checkPageVisible("/menu");
   const category = getCategory(params.slug);
   if (!category) notFound();
 

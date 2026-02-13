@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SobreNos } from "@/components/sections/SobreNos";
 import { MissaoVisaoValores } from "@/components/sections/MissaoVisaoValores";
+import { checkPageVisible } from "@/lib/page-visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function SobrePage() {
+  checkPageVisible("/sobre");
   return (
     <>
       <div className="pt-24" />

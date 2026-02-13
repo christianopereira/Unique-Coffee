@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Galeria } from "@/components/sections/Galeria";
 import { getSiteData } from "@/lib/get-site-data";
+import { checkPageVisible } from "@/lib/page-visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function GaleriaPage() {
+  checkPageVisible("/galeria");
   const { galeria } = getSiteData();
 
   return (

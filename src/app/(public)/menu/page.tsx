@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { checkPageVisible } from "@/lib/page-visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function MenuPage() {
+  checkPageVisible("/menu");
   const { menu } = getSiteData();
 
   return (

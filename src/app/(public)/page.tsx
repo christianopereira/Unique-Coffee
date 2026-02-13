@@ -11,13 +11,15 @@ export const dynamic = "force-dynamic";
 
 export default function Home() {
   const siteData = getSiteData();
+  const hidden = siteData.hiddenPages || [];
+  const show = (route: string) => !hidden.includes(route);
 
   return (
     <>
-      <Hero hero={siteData.hero} brandName={siteData.brand.name} />
+      <Hero hero={siteData.hero} />
 
       {/* Sobre — Teaser */}
-      <section className="section-padding bg-warm-white">
+      {show("/sobre") && <section className="section-padding bg-warm-white">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
@@ -29,8 +31,8 @@ export default function Home() {
               </ScrollReveal>
               <ScrollReveal delay={0.2}>
                 <div className="mt-6">
-                  <Button href="/sobre" variant="ghost">
-                    Conhecer a nossa história
+                  <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant="ghost">
+                    {siteData.sobreNos.ctaText || "Conheça Nossa História"}
                   </Button>
                 </div>
               </ScrollReveal>
@@ -49,10 +51,10 @@ export default function Home() {
             </ScrollReveal>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Conceito — Teaser */}
-      <section className="section-padding bg-cream">
+      {show("/conceito") && <section className="section-padding bg-cream">
         <div className="section-container max-w-4xl">
           <SectionTitle title={siteData.conceito.title} />
           <ScrollReveal>
@@ -62,16 +64,16 @@ export default function Home() {
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <div className="mt-8 text-center">
-              <Button href="/conceito" variant="ghost">
-                Descobrir o nosso conceito
+              <Button href={siteData.conceito.ctaLink || "/conceito"} variant="ghost">
+                {siteData.conceito.ctaText || "Descubra o Nosso Conceito"}
               </Button>
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </section>}
 
       {/* Grãos — Teaser */}
-      <section className="section-padding bg-espresso text-warm-white">
+      {show("/graos") && <section className="section-padding bg-espresso text-warm-white">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
@@ -84,11 +86,11 @@ export default function Home() {
               <ScrollReveal delay={0.2}>
                 <div className="mt-6">
                   <Button
-                    href="/graos"
+                    href={siteData.graos.ctaLink || "/graos"}
                     variant="ghost"
                     className="text-copper after:bg-copper"
                   >
-                    Saber mais sobre os nossos grãos
+                    {siteData.graos.ctaText || "Saiba Mais Sobre os Nossos Grãos"}
                   </Button>
                 </div>
               </ScrollReveal>
@@ -107,10 +109,10 @@ export default function Home() {
             </ScrollReveal>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Menu — Preview */}
-      <section className="section-padding bg-warm-white">
+      {show("/menu") && <section className="section-padding bg-warm-white">
         <div className="section-container">
           <SectionTitle title={siteData.menu.title} />
 
@@ -138,16 +140,16 @@ export default function Home() {
 
           <ScrollReveal delay={0.4}>
             <div className="mt-10 text-center">
-              <Button href="/menu" variant="ghost">
-                Ver menu completo
+              <Button href={siteData.menu.ctaLink || "/menu"} variant="ghost">
+                {siteData.menu.ctaText || "Ver Menu Completo"}
               </Button>
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </section>}
 
       {/* Sobremesas — Preview */}
-      <section className="section-padding bg-cream">
+      {show("/sobremesas") && <section className="section-padding bg-cream">
         <div className="section-container">
           <SectionTitle title={siteData.sobremesas.title} />
 
@@ -175,16 +177,16 @@ export default function Home() {
 
           <ScrollReveal delay={0.4}>
             <div className="mt-10 text-center">
-              <Button href="/sobremesas" variant="ghost">
-                Conhecer as nossas sobremesas
+              <Button href={siteData.sobremesas.ctaLink || "/sobremesas"} variant="ghost">
+                {siteData.sobremesas.ctaText || "Conheça Nossas Sobremesas"}
               </Button>
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </section>}
 
       {/* Galeria — Preview */}
-      <section className="section-padding bg-parchment">
+      {show("/galeria") && <section className="section-padding bg-parchment">
         <div className="section-container">
           <SectionTitle title="Galeria" />
 
@@ -212,10 +214,10 @@ export default function Home() {
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </section>}
 
       {/* CTA — Visite-nos */}
-      <section className="section-padding bg-espresso text-warm-white">
+      {show("/contacto") && <section className="section-padding bg-espresso text-warm-white">
         <div className="section-container text-center max-w-3xl mx-auto">
           <ScrollReveal>
             <h2 className="text-section font-display text-warm-white mb-4">
@@ -251,7 +253,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </section>}
     </>
   );
 }
