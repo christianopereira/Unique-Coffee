@@ -52,13 +52,14 @@ export default function AdminLayout({
   const [logoUrl, setLogoUrl] = useState("/images/Logo.svg");
 
   useEffect(() => {
+    if (pathname === "/admin/login") return;
     fetch("/api/admin/content")
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
         if (data?.brand?.logo) setLogoUrl(data.brand.logo);
       })
       .catch(() => {});
-  }, []);
+  }, [pathname]);
 
   // Não mostrar sidebar no login
   if (pathname === "/admin/login") {
