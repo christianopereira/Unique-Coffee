@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { TextInput, TextArea, SectionHeader } from "@/components/admin/fields";
 import { Star, Trash2, Plus, RefreshCw } from "lucide-react";
 import type { ReviewItem, ReviewsData } from "@/types/site-data";
@@ -34,6 +35,7 @@ function StarInput({ value, onChange }: { value: number; onChange: (v: number) =
 }
 
 export default function AdminReviewsPage() {
+  const router = useRouter();
   const [data, setData] = useState<ReviewsData>(DEFAULT_REVIEWS);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -44,6 +46,10 @@ export default function AdminReviewsPage() {
     async function load() {
       try {
         const res = await fetch("/api/admin/content");
+        if (res.status === 401) {
+          router.push("/admin/login");
+          return;
+        }
         if (!res.ok) throw new Error();
         const json = await res.json();
         if (json.reviews) {
@@ -56,7 +62,7 @@ export default function AdminReviewsPage() {
       }
     }
     load();
-  }, []);
+  }, [router]);
 
   async function handleSave() {
     setSaving(true);

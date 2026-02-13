@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { TextInput, TextArea, SectionHeader } from "@/components/admin/fields";
 import { Globe, FileText, Search } from "lucide-react";
 import type { SeoConfig } from "@/types/site-data";
@@ -34,6 +35,7 @@ const PAGES = [
 ];
 
 export default function AdminSeoPage() {
+  const router = useRouter();
   const [seo, setSeo] = useState<SeoConfig>(DEFAULT_SEO);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -44,6 +46,10 @@ export default function AdminSeoPage() {
     async function load() {
       try {
         const res = await fetch("/api/admin/content");
+        if (res.status === 401) {
+          router.push("/admin/login");
+          return;
+        }
         if (!res.ok) throw new Error();
         const data = await res.json();
         if (data.seo) {
@@ -56,7 +62,7 @@ export default function AdminSeoPage() {
       }
     }
     load();
-  }, []);
+  }, [router]);
 
   async function handleSave() {
     setSaving(true);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader } from "@/components/admin/fields";
 import { DISPLAY_FONTS, BODY_FONTS, UI_FONTS, SIZE_PRESETS, DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
 import { COLOR_PRESETS, DEFAULT_COLORS } from "@/lib/color-options";
@@ -33,6 +34,7 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 export default function AdminConfigPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabId>("marca");
   const [brand, setBrand] = useState({ name: "", tagline: "", url: "", logo: "", favicon: "", ogImage: "" });
   const [footer, setFooter] = useState({ copyright: "", location: "" });
@@ -48,6 +50,10 @@ export default function AdminConfigPage() {
     async function load() {
       try {
         const res = await fetch("/api/admin/content");
+        if (res.status === 401) {
+          router.push("/admin/login");
+          return;
+        }
         if (!res.ok) throw new Error();
         const data = await res.json();
         setBrand({ name: "", tagline: "", url: "", logo: "", favicon: "", ogImage: "", ...data.brand });

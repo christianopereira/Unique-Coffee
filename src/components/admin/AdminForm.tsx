@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import type { SiteData } from "@/types/site-data";
 
 interface AdminFormProps {
@@ -13,6 +14,7 @@ interface AdminFormProps {
 }
 
 export function AdminForm({ section, children }: AdminFormProps) {
+  const router = useRouter();
   const [data, setData] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -21,6 +23,10 @@ export function AdminForm({ section, children }: AdminFormProps) {
   const loadData = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/content");
+      if (res.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       if (!res.ok) throw new Error("Erro ao carregar dados");
       const allData = await res.json();
       setData(allData[section] as Record<string, unknown>);
@@ -29,7 +35,7 @@ export function AdminForm({ section, children }: AdminFormProps) {
     } finally {
       setLoading(false);
     }
-  }, [section]);
+  }, [section, router]);
 
   // Load data on mount
   if (data === null && loading) {
