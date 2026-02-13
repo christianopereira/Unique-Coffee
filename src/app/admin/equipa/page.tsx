@@ -49,6 +49,8 @@ export default function AdminEquipaPage() {
                       label="Foto"
                       value={member.photo || ""}
                       onChange={(v) => updateMember(i, "photo", v)}
+                      aspectRatio={1}
+                      aspectRatioLabel="1:1"
                     />
                   </div>
                   <button onClick={() => removeMember(i)} className="text-red-400 hover:text-red-600 text-sm px-2 py-2 shrink-0">✕</button>

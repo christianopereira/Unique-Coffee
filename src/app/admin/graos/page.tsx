@@ -16,7 +16,12 @@ export default function AdminGraosPage() {
               items={data.paragraphs as string[]}
               onChange={(v) => updateField("paragraphs", v)}
             />
-            <ImagePicker label="Imagem" value={data.image as string} onChange={(v) => updateField("image", v)} />
+            <ImagePicker label="Imagem" value={data.image as string} onChange={(v) => updateField("image", v)} aspectRatio={4 / 5} aspectRatioLabel="4:5" />
+            <div className="border-t border-linen pt-4 space-y-3">
+              <h3 className="text-sm font-sans font-medium text-roast">Botão na Homepage</h3>
+              <TextInput label="Texto do botão" value={(data.ctaText as string) || ""} onChange={(v) => updateField("ctaText", v)} />
+              <TextInput label="Link do botão" value={(data.ctaLink as string) || ""} onChange={(v) => updateField("ctaLink", v)} />
+            </div>
           </div>
         )}
       </AdminForm>

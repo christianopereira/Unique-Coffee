@@ -37,6 +37,11 @@ export default function AdminSobremesasPage() {
               <TextInput label="Título" value={data.title as string} onChange={(v) => updateField("title", v)} />
               <ArrayEditor label="Parágrafos" items={data.paragraphs as string[]} onChange={(v) => updateField("paragraphs", v)} />
               <ArrayEditor label="Highlights" items={data.highlights as string[]} onChange={(v) => updateField("highlights", v)} inputType="text" />
+              <div className="border-t border-linen pt-4 space-y-3">
+                <h3 className="text-sm font-sans font-medium text-roast">Botão na Homepage</h3>
+                <TextInput label="Texto do botão" value={(data.ctaText as string) || ""} onChange={(v) => updateField("ctaText", v)} />
+                <TextInput label="Link do botão" value={(data.ctaLink as string) || ""} onChange={(v) => updateField("ctaLink", v)} />
+              </div>
 
               <div className="border-t border-linen pt-4">
                 <h2 className="text-sm font-sans font-medium text-roast mb-3">Sobremesas</h2>
@@ -53,7 +58,7 @@ export default function AdminSobremesasPage() {
                       <TextInput label="Slug (URL)" value={item.slug} onChange={(v) => updateItem(i, "slug", v)} />
                     </div>
                     <TextArea label="Descrição" value={item.description} onChange={(v) => updateItem(i, "description", v)} rows={3} />
-                    <ImagePicker label="Imagem" value={item.image} onChange={(v) => updateItem(i, "image", v)} />
+                    <ImagePicker label="Imagem" value={item.image} onChange={(v) => updateItem(i, "image", v)} aspectRatio={4 / 3} aspectRatioLabel="4:3" />
                   </div>
                 ))}
                 <button onClick={addItem} className="text-sm text-copper hover:text-copper/80 font-medium">

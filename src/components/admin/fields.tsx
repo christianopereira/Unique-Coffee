@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 // ---------------------------------------------------------------------------
@@ -162,37 +162,74 @@ export function ArrayEditor({
 }
 
 // ---------------------------------------------------------------------------
-// ImagePicker — upload ou URL de imagem
+// ImagePicker — upload com crop ou URL de imagem
 // ---------------------------------------------------------------------------
 interface ImagePickerProps {
   label: string;
   value: string;
   onChange: (url: string) => void;
+  aspectRatio?: number;
+  aspectRatioLabel?: string;
 }
 
-export function ImagePicker({ label, value, onChange }: ImagePickerProps) {
+export function ImagePicker({ label, value, onChange, aspectRatio, aspectRatioLabel }: ImagePickerProps) {
   const [uploading, setUploading] = useState(false);
+  const [cropSource, setCropSource] = useState<string | null>(null);
 
-  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Ficheiro demasiado grande. Máximo: 5MB.");
+      return;
+    }
+
+    // SVG e GIF: upload directo sem crop
+    if (file.type === "image/svg+xml" || file.type === "image/gif") {
+      uploadFileDirectly(file);
+      e.target.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => setCropSource(reader.result as string);
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  }
+
+  async function uploadFileDirectly(file: File) {
     setUploading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
-
-      const res = await fetch("/api/admin/upload", {
-        method: "POST",
-        body: formData,
-      });
-
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
       if (!res.ok) {
         const err = await res.json();
         alert(err.error || "Erro ao fazer upload");
         return;
       }
+      const data = await res.json();
+      onChange(data.url);
+    } catch {
+      alert("Erro ao fazer upload");
+    } finally {
+      setUploading(false);
+    }
+  }
 
+  async function handleCropComplete(croppedBlob: Blob) {
+    setCropSource(null);
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", croppedBlob, "cropped.jpg");
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.error || "Erro ao fazer upload");
+        return;
+      }
       const data = await res.json();
       onChange(data.url);
     } catch {
@@ -206,6 +243,9 @@ export function ImagePicker({ label, value, onChange }: ImagePickerProps) {
     <div className="space-y-2">
       <label className="block text-sm font-sans font-medium text-roast">
         {label}
+        {aspectRatioLabel && (
+          <span className="ml-2 text-xs text-mocha/70">({aspectRatioLabel})</span>
+        )}
       </label>
 
       {value && (
@@ -226,7 +266,7 @@ export function ImagePicker({ label, value, onChange }: ImagePickerProps) {
           <input
             type="file"
             accept="image/*"
-            onChange={handleUpload}
+            onChange={handleFileSelect}
             disabled={uploading}
             className="hidden"
           />
@@ -240,6 +280,107 @@ export function ImagePicker({ label, value, onChange }: ImagePickerProps) {
           className="flex-1 px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-xs"
         />
       </div>
+
+      {/* Crop Modal */}
+      {cropSource && (
+        <CropModalLazy
+          imageSrc={cropSource}
+          aspectRatio={aspectRatio}
+          onComplete={handleCropComplete}
+          onCancel={() => setCropSource(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+// Lazy import do CropModal para não carregar react-easy-crop em todas as páginas
+import dynamic from "next/dynamic";
+const CropModalLazy = dynamic(
+  () => import("./CropModal").then((m) => ({ default: m.CropModal })),
+  { ssr: false }
+);
+
+// ---------------------------------------------------------------------------
+// FontSelect — dropdown de fonte com preview ao vivo
+// ---------------------------------------------------------------------------
+interface FontSelectProps {
+  label: string;
+  value: string;
+  options: Array<{ name: string; label: string }>;
+  onChange: (value: string) => void;
+  previewText?: string;
+}
+
+export function FontSelect({ label, value, options, onChange, previewText }: FontSelectProps) {
+  // Carrega a fonte dinamicamente para preview no admin
+  useEffect(() => {
+    if (!value) return;
+    const fontUrl = `https://fonts.googleapis.com/css2?family=${value.replace(/ /g, "+")}&display=swap`;
+    const existing = document.querySelector(`link[href="${fontUrl}"]`);
+    if (!existing) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = fontUrl;
+      document.head.appendChild(link);
+    }
+  }, [value]);
+
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm"
+      >
+        {options.map((opt) => (
+          <option key={opt.name} value={opt.name}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      {previewText && (
+        <p
+          className="mt-2 text-lg text-roast border border-linen rounded-lg px-3 py-2 bg-warm-white"
+          style={{ fontFamily: `"${value}", serif` }}
+        >
+          {previewText}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SizeSelect — dropdown de presets de tamanho
+// ---------------------------------------------------------------------------
+interface SizeSelectProps {
+  label: string;
+  value: string;
+  options: Array<{ label: string; value: string }>;
+  onChange: (value: string) => void;
+}
+
+export function SizeSelect({ label, value, options, onChange }: SizeSelectProps) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm"
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

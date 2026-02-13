@@ -71,6 +71,11 @@ export default function AdminMenuPage() {
             <div className="space-y-5">
               <TextInput label="Título" value={data.title as string} onChange={(v) => updateField("title", v)} />
               <TextInput label="Subtítulo" value={data.subtitle as string} onChange={(v) => updateField("subtitle", v)} />
+              <div className="border-t border-linen pt-4 space-y-3">
+                <h3 className="text-sm font-sans font-medium text-roast">Botão na Homepage</h3>
+                <TextInput label="Texto do botão" value={(data.ctaText as string) || ""} onChange={(v) => updateField("ctaText", v)} />
+                <TextInput label="Link do botão (URL interna ou externa)" value={(data.ctaLink as string) || ""} onChange={(v) => updateField("ctaLink", v)} />
+              </div>
 
               {categories.map((cat, ci) => (
                 <div key={ci} className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
@@ -88,7 +93,7 @@ export default function AdminMenuPage() {
                     <TextInput label="Slug (URL)" value={cat.slug} onChange={(v) => updateCategory(ci, "slug", v)} />
                   </div>
                   <TextArea label="Descrição" value={cat.description} onChange={(v) => updateCategory(ci, "description", v)} rows={2} />
-                  <ImagePicker label="Imagem" value={cat.image} onChange={(v) => updateCategory(ci, "image", v)} />
+                  <ImagePicker label="Imagem" value={cat.image} onChange={(v) => updateCategory(ci, "image", v)} aspectRatio={4 / 3} aspectRatioLabel="4:3" />
 
                   <div className="border-t border-linen pt-4">
                     <h3 className="text-sm font-sans font-medium text-roast mb-3">Itens</h3>
