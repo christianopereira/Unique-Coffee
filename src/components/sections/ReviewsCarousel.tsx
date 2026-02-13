@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ReviewItem } from "@/types/site-data";
 
 interface ReviewsCarouselProps {
@@ -28,135 +27,132 @@ function formatDate(dateStr?: string): string {
   if (!dateStr) return "";
   try {
     const date = new Date(dateStr);
-    return date.toLocaleDateString("pt-PT", { month: "long", year: "numeric" });
+    return date.toLocaleDateString("pt-PT", { month: "short", year: "numeric" });
   } catch {
     return dateStr;
   }
 }
 
+function ReviewCard({ review }: { review: ReviewItem }) {
+  return (
+    <div className="bg-warm-white rounded-xl border border-linen p-5 flex flex-col h-full">
+      {/* Stars */}
+      <StarRating rating={review.rating} />
+
+      {/* Author info */}
+      <div className="flex items-center gap-3 mt-4">
+        {/* Avatar */}
+        <div className="w-10 h-10 rounded-full bg-parchment flex items-center justify-center shrink-0 border border-linen">
+          <span className="font-sans font-semibold text-roast text-sm">
+            {review.author.charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <div className="min-w-0">
+          <p className="font-sans font-semibold text-espresso text-sm truncate">
+            {review.author}
+          </p>
+          {review.date && (
+            <p className="text-xs text-stone">{formatDate(review.date)}</p>
+          )}
+        </div>
+        {/* Google indicator */}
+        {review.source === "google" && (
+          <span className="ml-auto text-xs font-sans font-medium text-stone bg-parchment px-2 py-0.5 rounded-full shrink-0">
+            G
+          </span>
+        )}
+      </div>
+
+      {/* Review text */}
+      <p className="font-body text-roast text-sm leading-relaxed mt-4 flex-1">
+        {review.text}
+      </p>
+    </div>
+  );
+}
+
 export function ReviewsCarousel({ title, reviews }: ReviewsCarouselProps) {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const total = reviews.length;
   if (total === 0) return null;
 
-  const goTo = useCallback(
-    (index: number, dir: number) => {
-      setDirection(dir);
-      setCurrent(((index % total) + total) % total);
-    },
-    [total]
-  );
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+  }, []);
 
-  const next = useCallback(() => goTo(current + 1, 1), [current, goTo]);
-  const prev = useCallback(() => goTo(current - 1, -1), [current, goTo]);
-
-  // Auto-advance every 8 seconds
   useEffect(() => {
-    if (total <= 1) return;
-    const timer = setInterval(next, 8000);
-    return () => clearInterval(timer);
-  }, [next, total]);
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
 
-  const review = reviews[current];
-
-  const variants = {
-    enter: (dir: number) => ({
-      x: dir >= 0 ? 80 : -80,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      x: dir >= 0 ? -80 : 80,
-      opacity: 0,
-    }),
-  };
+  function scroll(direction: "left" | "right") {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Scroll by approximately one card width + gap
+    const cardWidth = el.querySelector<HTMLElement>("[data-review-card]")?.offsetWidth || 300;
+    const amount = direction === "left" ? -cardWidth - 16 : cardWidth + 16;
+    el.scrollBy({ left: amount, behavior: "smooth" });
+  }
 
   return (
     <section className="section-padding bg-parchment">
-      <div className="section-container max-w-4xl mx-auto">
-        <h2 className="text-section font-display text-espresso text-center mb-10">
-          {title}
-        </h2>
-
-        <div className="relative">
-          {/* Navigation arrows */}
+      <div className="section-container">
+        {/* Header with title and arrows */}
+        <div className="flex items-end justify-between mb-8">
+          <h2 className="text-section font-display text-espresso">
+            {title}
+          </h2>
           {total > 1 && (
-            <>
+            <div className="flex gap-2">
               <button
-                onClick={prev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-10 h-10 flex items-center justify-center rounded-full bg-warm-white border border-linen text-mocha hover:text-copper hover:border-copper transition-colors z-10"
-                aria-label="Review anterior"
+                onClick={() => scroll("left")}
+                disabled={!canScrollLeft}
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-linen text-mocha hover:text-copper hover:border-copper transition-colors disabled:opacity-30 disabled:hover:text-mocha disabled:hover:border-linen bg-warm-white"
+                aria-label="Anterior"
               >
                 <ChevronLeft size={20} />
               </button>
               <button
-                onClick={next}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 w-10 h-10 flex items-center justify-center rounded-full bg-warm-white border border-linen text-mocha hover:text-copper hover:border-copper transition-colors z-10"
-                aria-label="Próxima review"
+                onClick={() => scroll("right")}
+                disabled={!canScrollRight}
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-linen text-mocha hover:text-copper hover:border-copper transition-colors disabled:opacity-30 disabled:hover:text-mocha disabled:hover:border-linen bg-warm-white"
+                aria-label="Próxima"
               >
                 <ChevronRight size={20} />
               </button>
-            </>
-          )}
-
-          {/* Review card */}
-          <div className="overflow-hidden px-4">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="bg-warm-white rounded-2xl p-8 md:p-10 text-center border border-linen"
-              >
-                <Quote size={32} className="text-copper/30 mx-auto mb-4" />
-
-                <p className="font-body text-roast text-base md:text-lg leading-relaxed italic mb-6">
-                  &ldquo;{review.text}&rdquo;
-                </p>
-
-                <StarRating rating={review.rating} />
-
-                <div className="mt-4">
-                  <p className="font-sans font-semibold text-espresso text-sm">
-                    {review.author}
-                  </p>
-                  {review.date && (
-                    <p className="text-xs text-mocha mt-0.5">
-                      {formatDate(review.date)}
-                    </p>
-                  )}
-                  {review.source === "google" && (
-                    <p className="text-[10px] text-stone mt-1">via Google Reviews</p>
-                  )}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Dots indicator */}
-          {total > 1 && (
-            <div className="flex justify-center gap-2 mt-6">
-              {reviews.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i, i > current ? 1 : -1)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    i === current ? "bg-copper" : "bg-linen hover:bg-stone"
-                  }`}
-                  aria-label={`Review ${i + 1}`}
-                />
-              ))}
             </div>
           )}
+        </div>
+
+        {/* Cards row — horizontal scroll */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto scroll-smooth pb-2 -mb-2 snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+          {reviews.map((review, i) => (
+            <div
+              key={i}
+              data-review-card
+              className="w-[280px] sm:w-[300px] md:w-[320px] shrink-0 snap-start"
+            >
+              <ReviewCard review={review} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
