@@ -35,10 +35,16 @@ export async function GET(
   const contentType = MIME_TYPES[ext] || "application/octet-stream";
   const buffer = fs.readFileSync(resolved);
 
-  return new NextResponse(buffer, {
-    headers: {
-      "Content-Type": contentType,
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
-  });
+  const headers: Record<string, string> = {
+    "Content-Type": contentType,
+    "Cache-Control": "public, max-age=31536000, immutable",
+  };
+
+  // SVGs podem conter JS embebido — servir com CSP restritivo para bloquear execução
+  if (ext === ".svg") {
+    headers["Content-Security-Policy"] = "default-src 'none'; style-src 'unsafe-inline'";
+    headers["X-Content-Type-Options"] = "nosniff";
+  }
+
+  return new NextResponse(buffer, { headers });
 }

@@ -8,7 +8,7 @@ import {
   LayoutDashboard,
   Image as ImageIcon,
   FileText,
-  Coffee,
+
   UtensilsCrossed,
   Cake,
   Users,
@@ -20,10 +20,11 @@ import {
   Bean,
   Target,
 } from "lucide-react";
+import { AutoLogout } from "@/components/admin/AutoLogout";
 
 const adminLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/hero", label: "Hero", icon: ImageIcon },
+  { href: "/admin/hero", label: "Home", icon: ImageIcon },
   { href: "/admin/sobre", label: "Sobre Nós", icon: FileText },
   { href: "/admin/missao", label: "Missão/Visão/Valores", icon: Target },
   { href: "/admin/conceito", label: "Conceito", icon: Sparkles },
@@ -128,6 +129,8 @@ export default function AdminLayout({
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto p-8">{children}</div>
       </main>
+
+      <AutoLogout />
     </div>
   );
 }

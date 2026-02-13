@@ -1,8 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyPassword, createSession } from "@/lib/auth";
+import { checkRateLimit, LOGIN_RATE_LIMIT } from "@/lib/rate-limit";
+
+function getClientIP(request: NextRequest): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getClientIP(request);
+    const rateLimit = checkRateLimit(`login:${ip}`, LOGIN_RATE_LIMIT);
+
+    if (!rateLimit.allowed) {
+      const retryMinutes = Math.ceil(rateLimit.retryAfterMs / 60000);
+      return NextResponse.json(
+        { error: `Demasiadas tentativas. Tente novamente em ${retryMinutes} minuto(s).` },
+        {
+          status: 429,
+          headers: { "Retry-After": String(Math.ceil(rateLimit.retryAfterMs / 1000)) },
+        }
+      );
+    }
+
     const body = await request.json();
     const { password } = body as { password?: string };
 
@@ -25,7 +48,7 @@ export async function POST(request: NextRequest) {
     const valid = await verifyPassword(password, storedHash);
     if (!valid) {
       return NextResponse.json(
-        { error: "Password incorrecta" },
+        { error: `Password incorrecta. ${rateLimit.remainingAttempts} tentativa(s) restante(s).` },
         { status: 401 }
       );
     }
