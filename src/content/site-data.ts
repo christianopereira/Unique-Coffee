@@ -377,6 +377,22 @@ export const siteData = {
     cachedGoogleReviews: [],
   },
 
+  seo: {
+    global: {
+      title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+      description:
+        "Café de especialidade, ambiente sofisticado e tranquilo em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
+      keywords: [
+        "café especialidade Caldas da Rainha",
+        "cafeteria premium Portugal",
+        "unique coffee",
+        "melhor café Caldas da Rainha",
+      ],
+    },
+    pages: {} as Record<string, { title: string; description: string }>,
+    googleVerification: "",
+  },
+
   footer: {
     copyright: "© 2025 Unique Coffee. Todos os direitos reservados.",
     location: "R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",

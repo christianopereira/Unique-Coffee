@@ -5,14 +5,17 @@ import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { checkPageVisible } from "@/lib/page-visibility";
+import { getPageSeo } from "@/lib/get-page-seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Sobremesas",
-  description:
-    "Descubra as sobremesas da Unique Coffee. Cada detalhe conta, cada doce é servido no tempo certo.",
-};
+export function generateMetadata(): Metadata {
+  return getPageSeo("/sobremesas", {
+    title: "Sobremesas",
+    description:
+      "Descubra as sobremesas da Unique Coffee. Cada detalhe conta, cada doce é servido no tempo certo.",
+  });
+}
 
 export default function SobremesasPage() {
   checkPageVisible("/sobremesas");

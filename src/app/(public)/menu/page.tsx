@@ -6,14 +6,17 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { MenuCtaButton } from "@/components/ui/MenuCtaButton";
 import { checkPageVisible } from "@/lib/page-visibility";
+import { getPageSeo } from "@/lib/get-page-seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Menu",
-  description:
-    "Descubra o menu da Unique Coffee: tostas, doces, especialidades e cafés de qualidade.",
-};
+export function generateMetadata(): Metadata {
+  return getPageSeo("/menu", {
+    title: "Menu",
+    description:
+      "Descubra o menu da Unique Coffee: tostas, doces, especialidades e cafés de qualidade.",
+  });
+}
 
 export default function MenuPage() {
   checkPageVisible("/menu");

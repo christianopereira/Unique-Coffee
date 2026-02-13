@@ -58,6 +58,7 @@ export async function PATCH(request: NextRequest) {
       "colors",
       "hiddenPages",
       "reviews",
+      "seo",
     ];
 
     if (!validSections.includes(section)) {

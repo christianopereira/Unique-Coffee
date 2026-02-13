@@ -191,6 +191,21 @@ export interface ReviewsData {
   cachedGoogleReviews?: ReviewItem[];  // cache das reviews do Google
 }
 
+export interface PageSeo {
+  title: string;
+  description: string;
+}
+
+export interface SeoConfig {
+  global: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+  pages: Record<string, PageSeo>;           // chave = rota (ex: "/sobre")
+  googleVerification?: string;              // meta tag de verificação do Google Search Console
+}
+
 export interface SiteData {
   brand: {
     name: string;
@@ -216,5 +231,6 @@ export interface SiteData {
   galeria: GaleriaData;
   visiteNos: VisiteNosData;
   reviews?: ReviewsData;
+  seo?: SeoConfig;
   footer: FooterData;
 }

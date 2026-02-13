@@ -1,14 +1,24 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
 import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { getSiteData } from "@/lib/get-site-data";
+import { getPageSeo } from "@/lib/get-page-seo";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Button } from "@/components/ui/Button";
 import { MapPin, Clock } from "lucide-react";
 
 export const dynamic = "force-dynamic";
+
+export function generateMetadata(): Metadata {
+  return getPageSeo("/", {
+    title: "Unique Coffee — Cafeteria Premium em Caldas da Rainha",
+    description:
+      "Café de especialidade, ambiente sofisticado e tranquilo em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
+  });
+}
 
 export default function Home() {
   const siteData = getSiteData();

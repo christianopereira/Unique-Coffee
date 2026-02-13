@@ -20,6 +20,7 @@ import {
   Bean,
   Target,
   MessageSquareQuote,
+  Search,
 } from "lucide-react";
 import { AutoLogout } from "@/components/admin/AutoLogout";
 
@@ -37,6 +38,7 @@ const adminLinks = [
   { href: "/admin/galeria", label: "Galeria", icon: GalleryHorizontalEnd },
   { href: "/admin/contacto", label: "Contacto", icon: MapPin },
   { href: "/admin/reviews", label: "Reviews", icon: MessageSquareQuote },
+  { href: "/admin/seo", label: "SEO", icon: Search },
   { href: "/admin/config", label: "Configurações", icon: Settings },
 ];
 
