@@ -43,6 +43,14 @@ export function generateMetadata(): Metadata {
       "café especialidade Caldas da Rainha",
       "cafeteria premium Portugal",
       "unique coffee",
+      "specialty coffee Caldas da Rainha",
+      "melhor café Caldas da Rainha",
+      "café premium Portugal",
+      "cafetaria Caldas da Rainha",
+      "brunch Caldas da Rainha",
+      "tostas artesanais Caldas da Rainha",
+      "sobremesas Caldas da Rainha",
+      "pet friendly café Portugal",
     ],
     icons: {
       icon: faviconUrl,
@@ -69,20 +77,60 @@ export function generateMetadata(): Metadata {
   };
 }
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "CafeOrCoffeeShop",
-  name: "Unique Coffee",
-  description: "Cafeteria premium de café de especialidade em Caldas da Rainha, Portugal.",
-  url: "https://uniquecoffee.pt",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Caldas da Rainha",
-    addressCountry: "PT",
-  },
-  servesCuisine: "Café de Especialidade",
-  priceRange: "€€",
-};
+function buildJsonLd() {
+  const siteData = getSiteData();
+  return {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    name: siteData.brand.name || "Unique Coffee",
+    description: "Cafeteria premium de café de especialidade em Caldas da Rainha, Portugal. Tostas artesanais, sobremesas caseiras e ambiente sofisticado.",
+    url: `https://${siteData.brand.url || "uniquecoffee.pt"}`,
+    telephone: siteData.visiteNos.phone || "+351925903132",
+    email: siteData.visiteNos.email || "hello@uniquecoffee.pt",
+    image: siteData.brand.ogImage || "/images/og-image.png",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "R. Vitorino Fróis 12A",
+      addressLocality: "Caldas da Rainha",
+      postalCode: "2500-256",
+      addressCountry: "PT",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteData.visiteNos.mapCoordinates?.lat || 39.4036,
+      longitude: siteData.visiteNos.mapCoordinates?.lng || -9.1366,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "08:00",
+        closes: "19:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "19:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Sunday",
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
+    servesCuisine: ["Café de Especialidade", "Tostas", "Sobremesas", "Brunch"],
+    priceRange: "€€",
+    amenityFeature: [
+      { "@type": "LocationFeatureSpecification", name: "Wi-Fi Gratuito", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Pet Friendly", value: true },
+    ],
+    sameAs: [
+      siteData.visiteNos.social?.instagram || "https://instagram.com/uniquecoffee.cr",
+    ].filter(Boolean),
+  };
+}
 
 function buildTypographyCSS(typo: TypographyConfig): string {
   const defaults = DEFAULT_TYPOGRAPHY;
@@ -185,7 +233,7 @@ export default function RootLayout({
         )}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd()) }}
         />
         <script
           dangerouslySetInnerHTML={{
