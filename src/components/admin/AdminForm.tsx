@@ -29,7 +29,7 @@ export function AdminForm({ section, children }: AdminFormProps) {
       }
       if (!res.ok) throw new Error("Erro ao carregar dados");
       const allData = await res.json();
-      setData(allData[section] as Record<string, unknown>);
+      setData((allData[section] as Record<string, unknown>) || {});
     } catch {
       setMessage({ type: "error", text: "Erro ao carregar dados" });
     } finally {

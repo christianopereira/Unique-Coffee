@@ -17,6 +17,7 @@ const TOGGLEABLE_PAGES = [
   { route: "/sobre", label: "Sobre Nós" },
   { route: "/conceito", label: "Conceito" },
   { route: "/graos", label: "Grãos" },
+  { route: "/produtos", label: "Nossos Produtos" },
   { route: "/menu", label: "Menu" },
   { route: "/sobremesas", label: "Sobremesas" },
   { route: "/equipa", label: "Equipa" },
