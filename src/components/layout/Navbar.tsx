@@ -108,7 +108,7 @@ export function Navbar({ navLinks, logoUrl }: NavbarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-espresso/95 backdrop-blur-md flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-navbar-bg/95 backdrop-blur-md flex items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => {

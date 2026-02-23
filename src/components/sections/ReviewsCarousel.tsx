@@ -140,10 +140,9 @@ export function ReviewsCarousel({ title, reviews }: ReviewsCarouselProps) {
         {/* Cards row — horizontal scroll */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto scroll-smooth pb-2 -mb-2 snap-x snap-mandatory"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex gap-4 overflow-x-auto scroll-smooth pb-2 -mb-2 snap-x snap-mandatory scrollbar-hide"
         >
-          <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+
           {reviews.map((review, i) => (
             <div
               key={i}

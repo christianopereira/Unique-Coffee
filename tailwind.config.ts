@@ -20,6 +20,9 @@ const config: Config = {
         sage: "rgb(var(--color-sage, 139 154 123) / <alpha-value>)",
         stone: "rgb(var(--color-stone, 160 150 144) / <alpha-value>)",
         linen: "rgb(var(--color-linen, 212 204 196) / <alpha-value>)",
+        "navbar-bg": "rgb(var(--color-navbar-bg, var(--color-espresso, 44 24 16)) / <alpha-value>)",
+        "footer-bg": "rgb(var(--color-footer-bg, var(--color-espresso, 44 24 16)) / <alpha-value>)",
+        "text-main": "rgb(var(--color-text-main, var(--color-espresso, 44 24 16)) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--font-display)"],

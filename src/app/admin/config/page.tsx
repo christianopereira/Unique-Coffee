@@ -257,12 +257,12 @@ export default function AdminConfigPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <ColorPicker
-                  label="Cor escura (navbar, footer, texto)"
+                  label="Cor escura base"
                   value={colors.dark}
                   onChange={(v) => setColors({ ...colors, dark: v })}
                 />
                 <ColorPicker
-                  label="Cor de destaque (botões, links)"
+                  label="Cor de destaque (botoes, links)"
                   value={colors.accent}
                   onChange={(v) => setColors({ ...colors, accent: v })}
                 />
@@ -273,9 +273,55 @@ export default function AdminConfigPage() {
                 />
               </div>
 
+              <div className="border-t border-linen pt-4 mt-2">
+                <p className="text-xs text-mocha mb-3">Personalizacao avancada (opcional &mdash; deixe vazio para usar a cor escura base):</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <ColorPicker
+                      label="Navbar (fundo mobile)"
+                      value={colors.navbar || ""}
+                      onChange={(v) => setColors({ ...colors, navbar: v || undefined })}
+                    />
+                    {colors.navbar && (
+                      <button onClick={() => setColors({ ...colors, navbar: undefined })} className="text-[10px] text-copper hover:underline">
+                        Limpar (usar cor base)
+                      </button>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <ColorPicker
+                      label="Footer (fundo)"
+                      value={colors.footer || ""}
+                      onChange={(v) => setColors({ ...colors, footer: v || undefined })}
+                    />
+                    {colors.footer && (
+                      <button onClick={() => setColors({ ...colors, footer: undefined })} className="text-[10px] text-copper hover:underline">
+                        Limpar (usar cor base)
+                      </button>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <ColorPicker
+                      label="Texto principal"
+                      value={colors.text || ""}
+                      onChange={(v) => setColors({ ...colors, text: v || undefined })}
+                    />
+                    {colors.text && (
+                      <button onClick={() => setColors({ ...colors, text: undefined })} className="text-[10px] text-copper hover:underline">
+                        Limpar (usar cor base)
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               {/* Preview da paleta derivada */}
               {(() => {
-                const palette = derivePalette(colors.dark, colors.accent, colors.background);
+                const palette = derivePalette(colors.dark, colors.accent, colors.background, {
+                  navbar: colors.navbar,
+                  footer: colors.footer,
+                  text: colors.text,
+                });
                 const swatches = [
                   { name: "Escura", color: palette.espresso },
                   { name: "Roast", color: palette.roast },
@@ -287,6 +333,9 @@ export default function AdminConfigPage() {
                   { name: "Neutro", color: palette.parchment },
                   { name: "Stone", color: palette.stone },
                   { name: "Linen", color: palette.linen },
+                  ...(palette["navbar-bg"] ? [{ name: "Navbar", color: palette["navbar-bg"] }] : []),
+                  ...(palette["footer-bg"] ? [{ name: "Footer", color: palette["footer-bg"] }] : []),
+                  ...(palette["text-main"] ? [{ name: "Texto", color: palette["text-main"] }] : []),
                 ];
                 return (
                   <div className="border-t border-linen pt-3 mt-2">

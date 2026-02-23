@@ -71,6 +71,9 @@ export interface DerivedPalette {
   sage: string;
   stone: string;
   linen: string;
+  "navbar-bg"?: string;
+  "footer-bg"?: string;
+  "text-main"?: string;
 }
 
 /**
@@ -79,7 +82,12 @@ export interface DerivedPalette {
  * accent → copper, gold-soft
  * background → cream, warm-white, parchment
  */
-export function derivePalette(dark: string, accent: string, background: string): DerivedPalette {
+export function derivePalette(
+  dark: string,
+  accent: string,
+  background: string,
+  extras?: { navbar?: string; footer?: string; text?: string },
+): DerivedPalette {
   return {
     espresso: dark,
     roast: lighten(dark, 0.18),
@@ -92,5 +100,8 @@ export function derivePalette(dark: string, accent: string, background: string):
     sage: "#8B9A7B", // verde — independente do tema
     stone: desaturate(lighten(dark, 0.5), 0.4),
     linen: desaturate(lighten(dark, 0.7), 0.5),
+    ...(extras?.navbar ? { "navbar-bg": extras.navbar } : {}),
+    ...(extras?.footer ? { "footer-bg": extras.footer } : {}),
+    ...(extras?.text ? { "text-main": extras.text } : {}),
   };
 }

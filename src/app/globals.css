@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-cream text-espresso font-body;
+    @apply bg-cream text-text-main font-body;
     font-size: var(--size-body, 16px);
   }
 
@@ -22,6 +22,12 @@
     background-color: rgba(184, 115, 51, 0.15);
     color: #2C1810;
   }
+}
+
+@layer base {
+  /* Hide scrollbar for horizontal carousels */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
 }
 
 @layer components {

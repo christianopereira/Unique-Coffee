@@ -177,7 +177,11 @@ function buildTypographyCSS(typo: TypographyConfig): string {
 }
 
 function buildColorsCSS(colors: ColorsConfig): string {
-  const palette = derivePalette(colors.dark, colors.accent, colors.background);
+  const palette = derivePalette(colors.dark, colors.accent, colors.background, {
+    navbar: colors.navbar,
+    footer: colors.footer,
+    text: colors.text,
+  });
   const lines = [":root {"];
 
   const mapping: Record<string, string> = {
@@ -193,6 +197,16 @@ function buildColorsCSS(colors: ColorsConfig): string {
     "color-stone": palette.stone,
     "color-linen": palette.linen,
   };
+
+  if (palette["navbar-bg"]) {
+    mapping["color-navbar-bg"] = palette["navbar-bg"];
+  }
+  if (palette["footer-bg"]) {
+    mapping["color-footer-bg"] = palette["footer-bg"];
+  }
+  if (palette["text-main"]) {
+    mapping["color-text-main"] = palette["text-main"];
+  }
 
   for (const [varName, hex] of Object.entries(mapping)) {
     lines.push(`  --${varName}: ${hexToRgbChannels(hex)};`);
@@ -226,7 +240,10 @@ export default function RootLayout({
   const hasCustomColors =
     colors.dark !== DEFAULT_COLORS.dark ||
     colors.accent !== DEFAULT_COLORS.accent ||
-    colors.background !== DEFAULT_COLORS.background;
+    colors.background !== DEFAULT_COLORS.background ||
+    !!colors.navbar ||
+    !!colors.footer ||
+    !!colors.text;
 
   return (
     <html

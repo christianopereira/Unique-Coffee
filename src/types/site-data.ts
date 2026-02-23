@@ -181,9 +181,12 @@ export interface TypographyConfig {
 }
 
 export interface ColorsConfig {
-  dark: string;       // Cor escura (navbar, footer, secções escuras, texto)
-  accent: string;     // Cor de destaque (botões, links, hover)
+  dark: string;       // Cor escura base (seccoes escuras, texto)
+  accent: string;     // Cor de destaque (botoes, links, hover)
   background: string; // Cor de fundo principal
+  navbar?: string;    // Cor de fundo da navbar (default: dark)
+  footer?: string;    // Cor de fundo do footer (default: dark)
+  text?: string;      // Cor do texto principal (default: dark)
 }
 
 export interface ReviewItem {
