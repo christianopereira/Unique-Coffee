@@ -81,9 +81,9 @@ export default function AdminLayout({
 
   return (
     <div className="flex min-h-screen bg-cream">
-      {/* Sidebar */}
-      <aside className="w-64 bg-espresso text-warm-white flex flex-col shrink-0">
-        <div className="p-5 border-b border-roast flex justify-center">
+      {/* Sidebar — usa navbar-bg para seguir as cores do site */}
+      <aside className="w-64 bg-navbar-bg text-warm-white flex flex-col shrink-0">
+        <div className="p-5 border-b border-warm-white/10 flex justify-center">
           <Link href="/admin">
             <Image
               src={logoUrl}
@@ -109,8 +109,8 @@ export default function AdminLayout({
                 href={link.href}
                 className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
                   isActive
-                    ? "bg-roast text-copper font-medium"
-                    : "text-stone hover:text-warm-white hover:bg-roast/50"
+                    ? "bg-warm-white/10 text-copper font-medium"
+                    : "text-warm-white/60 hover:text-warm-white hover:bg-warm-white/5"
                 }`}
               >
                 <Icon size={18} />
@@ -120,17 +120,17 @@ export default function AdminLayout({
           })}
         </nav>
 
-        <div className="p-4 border-t border-roast">
+        <div className="p-4 border-t border-warm-white/10">
           <Link
             href="/"
             target="_blank"
-            className="block text-xs text-stone hover:text-copper mb-3 transition-colors"
+            className="block text-xs text-warm-white/50 hover:text-copper mb-3 transition-colors"
           >
             Ver site →
           </Link>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-sm text-stone hover:text-copper transition-colors w-full"
+            className="flex items-center gap-2 text-sm text-warm-white/50 hover:text-copper transition-colors w-full"
           >
             <LogOut size={16} />
             Sair
