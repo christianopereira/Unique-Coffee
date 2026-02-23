@@ -19,6 +19,7 @@ export const siteData = {
       { label: "Sobre", href: "/sobre" },
       { label: "Conceito", href: "/conceito" },
       { label: "Grãos", href: "/graos" },
+      { label: "Produtos", href: "/produtos" },
       { label: "Menu", href: "/menu" },
       { label: "Sobremesas", href: "/sobremesas" },
       { label: "Equipa", href: "/equipa" },
@@ -150,6 +151,85 @@ export const siteData = {
     ctaLink: "/graos",
   },
 
+  produtos: {
+    title: "Nossos Produtos",
+    subtitle: "Uma seleção cuidadosa de cafés de especialidade e acessórios para quem valoriza cada detalhe na preparação do café perfeito.",
+    items: [
+      {
+        name: "Café Honduras",
+        slug: "cafe-honduras",
+        image: "/images/produtos/1_800x1000.png",
+        description: "Perfil: chocolate, amêndoa, frutos amarelos. Embalagem 250g.",
+      },
+      {
+        name: "Café Rwanda",
+        slug: "cafe-rwanda",
+        image: "/images/produtos/2_800x1000.png",
+        description: "Perfil: chocolate de leite, maçã, damasco. Embalagem 250g.",
+      },
+      {
+        name: "Café Colombia Decaf",
+        slug: "cafe-colombia-decaf",
+        image: "/images/produtos/3_800x1000.png",
+        description: "Perfil: especiarias, canela, mirtilo. Descafeinado natural.",
+      },
+      {
+        name: "Hario V60 Dripper",
+        slug: "hario-v60-dripper",
+        image: "/images/produtos/4_800x1000.png",
+        description: "Dripper cerâmico Hario V60 02 para extracção manual de café.",
+      },
+      {
+        name: "Filtros Chemex",
+        slug: "filtros-chemex",
+        image: "/images/produtos/5_800x1000.png",
+        description: "Filtros de papel para cafeteira Chemex. Design puro, filtragem perfeita.",
+      },
+      {
+        name: "Filtros Hario V60",
+        slug: "filtros-hario-v60",
+        image: "/images/produtos/6_800x1000.png",
+        description: "Filtros de papel Hario V60 02. Caixa com 100 unidades.",
+      },
+      {
+        name: "Bialetti French Press",
+        slug: "bialetti-french-press",
+        image: "/images/produtos/7_800x1000.png",
+        description: "French Press Bialetti Smart 350ml. Qualidade premium desde 1919.",
+      },
+      {
+        name: "Hario V60 Drip Decanter",
+        slug: "hario-v60-drip-decanter",
+        image: "/images/produtos/8_800x1000.png",
+        description: "Decanter com dripper integrado e filtros incluídos.",
+      },
+      {
+        name: "Hario V60 Kit Completo",
+        slug: "hario-v60-kit-completo",
+        image: "/images/produtos/9_800x1000.png",
+        description: "Kit com dripper cerâmico, servidor de vidro, colher e filtros.",
+      },
+      {
+        name: "Hario V60 Craft Coffee Maker",
+        slug: "hario-v60-craft-coffee-maker",
+        image: "/images/produtos/10_800x1000.png",
+        description: "Conjunto completo: dripper, servidor, colher e filtros de papel.",
+      },
+      {
+        name: "AeroPress Micro-Filtros",
+        slug: "aeropress-micro-filtros",
+        image: "/images/produtos/11_800x1000.png",
+        description: "Micro-filtros AeroPress. Absorvem óleos para um café mais limpo.",
+      },
+      {
+        name: "Moccamaster Filtros No.4",
+        slug: "moccamaster-filtros-no4",
+        image: "/images/produtos/12_800x1000.png",
+        description: "Filtros Technivorm Moccamaster No.4. Caixa com 100 unidades.",
+      },
+    ],
+  },
+
   menu: {
     title: "Nosso Menu",
     subtitle: "E muito mais...",
@@ -256,6 +336,38 @@ export const siteData = {
           "https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=500&h=500&fit=crop&q=80",
         description:
           "Cremosa e suave, a nossa cheesecake é preparada com queijo fresco de qualidade e uma base crocante. Um clássico servido com a elegância que merece.",
+      },
+      {
+        name: "Brownie",
+        slug: "brownie",
+        image:
+          "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&h=500&fit=crop&q=80",
+        description:
+          "Intenso e fudgy, o nosso brownie de chocolate é preparado com cacau de qualidade. Para quem aprecia um doce com personalidade.",
+      },
+      {
+        name: "Scone de Frutos Vermelhos",
+        slug: "scone-frutos-vermelhos",
+        image:
+          "https://images.unsplash.com/photo-1558303926-f5b2079ceee1?w=500&h=500&fit=crop&q=80",
+        description:
+          "Leve e perfumado, com frutos vermelhos naturais que trazem frescura a cada dentada. Ideal com um chá ou um café suave.",
+      },
+      {
+        name: "Cookie Artesanal",
+        slug: "cookie-artesanal",
+        image:
+          "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&h=500&fit=crop&q=80",
+        description:
+          "Crocante por fora, macio por dentro. O nosso cookie artesanal com pepitas de chocolate é feito em pequenas quantidades para garantir frescura.",
+      },
+      {
+        name: "Muffin do Dia",
+        slug: "muffin-do-dia",
+        image:
+          "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=500&h=500&fit=crop&q=80",
+        description:
+          "Uma surpresa que muda diariamente — mirtilos, maçã-canela ou chocolate. Sempre fofo, sempre fresco, sempre irresistível.",
       },
     ],
   },

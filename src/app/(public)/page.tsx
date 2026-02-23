@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
+import { NossosProdutos } from "@/components/sections/NossosProdutos";
+import { SobremesasCarousel } from "@/components/sections/SobremesasCarousel";
 import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { getSiteData } from "@/lib/get-site-data";
 import { getPageSeo } from "@/lib/get-page-seo";
@@ -50,7 +52,7 @@ export default function Home() {
             </div>
 
             <ScrollReveal direction="right">
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg shadow-2xl">
                 <Image
                   src={siteData.sobreNos.image}
                   alt="A história da Unique Coffee"
@@ -65,17 +67,25 @@ export default function Home() {
       </section>}
 
       {/* Conceito — Teaser */}
-      {show("/conceito") && <section className="section-padding bg-cream">
-        <div className="section-container max-w-4xl">
-          <SectionTitle title={siteData.conceito.title} />
+      {show("/conceito") && <section
+        className="section-padding relative bg-cover bg-center bg-fixed"
+        style={siteData.conceito.backgroundImage
+          ? { backgroundImage: `url(${siteData.conceito.backgroundImage})` }
+          : undefined}
+      >
+        {siteData.conceito.backgroundImage && (
+          <div className="absolute inset-0 bg-espresso/65" />
+        )}
+        <div className={`section-container max-w-4xl relative z-10 ${!siteData.conceito.backgroundImage ? 'bg-cream' : ''}`}>
+          <SectionTitle title={siteData.conceito.title} light={!!siteData.conceito.backgroundImage} />
           <ScrollReveal>
-            <p className="text-base md:text-lg font-body text-roast leading-relaxed text-center">
+            <p className={`text-base md:text-lg font-body leading-relaxed text-center ${siteData.conceito.backgroundImage ? 'text-warm-white/90' : 'text-roast'}`}>
               {siteData.conceito.paragraphs[0]}
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <div className="mt-8 text-center">
-              <Button href={siteData.conceito.ctaLink || "/conceito"} variant="ghost">
+              <Button href={siteData.conceito.ctaLink || "/conceito"} variant="primary">
                 {siteData.conceito.ctaText || "Descubra o Nosso Conceito"}
               </Button>
             </div>
@@ -98,8 +108,7 @@ export default function Home() {
                 <div className="mt-6">
                   <Button
                     href={siteData.graos.ctaLink || "/graos"}
-                    variant="ghost"
-                    className="text-copper after:bg-copper"
+                    variant="primary"
                   >
                     {siteData.graos.ctaText || "Saiba Mais Sobre os Nossos Grãos"}
                   </Button>
@@ -108,7 +117,7 @@ export default function Home() {
             </div>
 
             <ScrollReveal direction="right">
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-2xl shadow-black/40 border-2 border-warm-white/10">
                 <Image
                   src={siteData.graos.image}
                   alt="Grãos de café seleccionados"
@@ -121,6 +130,11 @@ export default function Home() {
           </div>
         </div>
       </section>}
+
+      {/* Nossos Produtos */}
+      {siteData.produtos && siteData.produtos.items.length > 0 && (
+        <NossosProdutos produtos={siteData.produtos} />
+      )}
 
       {/* Menu — Preview */}
       {show("/menu") && <section className="section-padding bg-warm-white">
@@ -159,34 +173,14 @@ export default function Home() {
         </div>
       </section>}
 
-      {/* Sobremesas — Preview */}
-      {show("/sobremesas") && <section className="section-padding bg-cream">
+      {/* Sobremesas — Carousel */}
+      {show("/sobremesas") && <section className="section-padding bg-cream overflow-hidden">
         <div className="section-container">
           <SectionTitle title={siteData.sobremesas.title} />
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
-            {siteData.sobremesas.items.map((item, i) => (
-              <ScrollReveal key={item.slug} delay={i * 0.1}>
-                <Link href={`/sobremesas/${item.slug}`} className="group block">
-                  <div className="relative aspect-square overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-cover transition-transform duration-600 group-hover:scale-[1.04]"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
-                  </div>
-                  <p className="mt-4 font-sans text-sm uppercase tracking-[0.12em] text-espresso text-center font-medium group-hover:text-copper transition-colors">
-                    {item.name}
-                  </p>
-                </Link>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal delay={0.4}>
+        </div>
+        <SobremesasCarousel items={siteData.sobremesas.items} />
+        <div className="section-container">
+          <ScrollReveal delay={0.2}>
             <div className="mt-10 text-center">
               <Button href={siteData.sobremesas.ctaLink || "/sobremesas"} variant="ghost">
                 {siteData.sobremesas.ctaText || "Conheça Nossas Sobremesas"}
@@ -201,16 +195,16 @@ export default function Home() {
         <div className="section-container">
           <SectionTitle title="Galeria" />
 
-          <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
-            {siteData.galeria.images.slice(0, 3).map((img, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="flex flex-col gap-6 md:gap-8 max-w-2xl mx-auto">
+            {siteData.galeria.images.slice(0, 6).map((img, i) => (
+              <ScrollReveal key={i} delay={i * 0.08}>
+                <div className="relative aspect-[16/10] overflow-hidden rounded-lg shadow-xl">
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
                     className="object-cover"
-                    sizes="33vw"
+                    sizes="(max-width: 768px) 100vw, 672px"
                   />
                 </div>
               </ScrollReveal>

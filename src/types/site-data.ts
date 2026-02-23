@@ -13,6 +13,7 @@ export interface HeroData {
   subtitle: string;
   cta: string;
   image: string;
+  images?: string[];
 }
 
 export interface SobreNosData {
@@ -38,6 +39,7 @@ export interface MissaoVisaoValoresData {
 export interface ConceitoData {
   title: string;
   paragraphs: string[];
+  backgroundImage?: string;
   ctaText?: string;
   ctaLink?: string;
 }
@@ -76,6 +78,19 @@ export interface MenuData {
   categories: MenuCategory[];
   ctaText?: string;
   ctaLink?: string;
+}
+
+export interface ProdutoItem {
+  name: string;
+  slug: string;
+  image: string;
+  description: string;
+}
+
+export interface ProdutosData {
+  title: string;
+  subtitle: string;
+  items: ProdutoItem[];
 }
 
 export interface SobremesaItem {
@@ -225,6 +240,7 @@ export interface SiteData {
   conceito: ConceitoData;
   diferencial: DiferencialData;
   graos: GraosData;
+  produtos?: ProdutosData;
   menu: MenuData;
   sobremesas: SobremesasData;
   equipa: EquipaData;

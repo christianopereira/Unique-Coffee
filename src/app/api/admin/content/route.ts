@@ -48,6 +48,7 @@ export async function PATCH(request: NextRequest) {
       "conceito",
       "diferencial",
       "graos",
+      "produtos",
       "menu",
       "sobremesas",
       "equipa",

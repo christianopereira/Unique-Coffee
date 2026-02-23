@@ -108,7 +108,7 @@ export function ReviewsCarousel({ title, reviews }: ReviewsCarouselProps) {
   }
 
   return (
-    <section className="section-padding bg-parchment">
+    <section className="section-padding bg-warm-white">
       <div className="section-container">
         {/* Header with title and arrows */}
         <div className="flex items-end justify-between mb-8">

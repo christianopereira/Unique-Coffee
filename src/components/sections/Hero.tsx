@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import type { HeroData } from "@/types/site-data";
@@ -10,20 +11,45 @@ interface HeroProps {
 }
 
 export function Hero({ hero }: HeroProps) {
+  const images = hero.images && hero.images.length > 0 ? hero.images : [hero.image];
+  const hasMultiple = images.length > 1;
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  useEffect(() => {
+    if (!hasMultiple) return;
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [hasMultiple, next]);
+
   return (
     <section id="inicio" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <Image
-          src={hero.image}
-          alt="Interior da Unique Coffee"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-espresso/50 via-espresso/30 to-espresso/60" />
-      </div>
+      {/* Background images with fade transition */}
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={images[current]}
+            alt="Unique Coffee"
+            fill
+            priority={current === 0}
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-espresso/50 via-espresso/30 to-espresso/60" />
+        </motion.div>
+      </AnimatePresence>
 
+      {/* Content */}
       <div className="relative z-10 section-container text-center">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -59,18 +85,28 @@ export function Hero({ hero }: HeroProps) {
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
+      {/* Slide indicators */}
+      {hasMultiple && (
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-px h-12 bg-gradient-to-b from-warm-white/0 via-warm-white/50 to-warm-white/0"
-        />
-      </motion.div>
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2"
+        >
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`w-2 h-2 rounded-full transition-all duration-400 ${
+                i === current
+                  ? "bg-warm-white w-6"
+                  : "bg-warm-white/40 hover:bg-warm-white/60"
+              }`}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
+        </motion.div>
+      )}
     </section>
   );
 }

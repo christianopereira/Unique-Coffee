@@ -39,13 +39,6 @@ export function SectionTitle({
           </p>
         </ScrollReveal>
       )}
-      <ScrollReveal delay={0.2}>
-        <div
-          className={`mt-6 mx-auto h-px w-16 ${
-            align === "center" ? "mx-auto" : "mx-0"
-          } ${light ? "bg-gold-soft/40" : "bg-copper/30"}`}
-        />
-      </ScrollReveal>
     </div>
   );
 }
