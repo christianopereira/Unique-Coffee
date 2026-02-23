@@ -60,6 +60,9 @@ export async function PATCH(request: NextRequest) {
       "hiddenPages",
       "reviews",
       "seo",
+      "privacidade",
+      "cookies",
+      "livroReclamacoes",
     ];
 
     if (!validSections.includes(section)) {

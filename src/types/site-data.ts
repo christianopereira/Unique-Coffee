@@ -214,6 +214,13 @@ export interface PageSeo {
   description: string;
 }
 
+export interface LegalSection {
+  title: string;
+  intro?: string;
+  sections: { heading: string; content: string }[];
+  lastUpdated?: string;
+}
+
 export interface SeoConfig {
   global: {
     title: string;
@@ -252,4 +259,7 @@ export interface SiteData {
   reviews?: ReviewsData;
   seo?: SeoConfig;
   footer: FooterData;
+  privacidade?: LegalSection;
+  cookies?: LegalSection;
+  livroReclamacoes?: LegalSection;
 }

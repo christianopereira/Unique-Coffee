@@ -509,6 +509,92 @@ export const siteData = {
     copyright: "© 2025 Unique Coffee. Todos os direitos reservados.",
     location: "R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",
   },
+
+  privacidade: {
+    title: "Privacidade e Termos de Utilização",
+    sections: [
+      {
+        heading: "1. Responsável pelo Tratamento",
+        content: "O responsável pelo tratamento dos dados pessoais recolhidos neste website é a Unique Coffee, com sede na R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha, Portugal.\n\nContacto: hello@uniquecoffee.pt",
+      },
+      {
+        heading: "2. Dados Pessoais Recolhidos",
+        content: "Este website pode recolher os seguintes dados pessoais:\n- Dados de navegação (cookies, endereço IP, tipo de browser)\n- Dados fornecidos voluntariamente pelo utilizador (nome, email, telefone) em formulários de contacto",
+      },
+      {
+        heading: "3. Finalidade do Tratamento",
+        content: "Os dados recolhidos são utilizados para:\n- Responder a pedidos de informação e contacto\n- Melhorar a experiência de navegação no site\n- Fins estatísticos e analíticos (de forma anonimizada)",
+      },
+      {
+        heading: "4. Partilha de Dados",
+        content: "Os dados pessoais não serão partilhados com terceiros, excepto quando necessário para cumprimento de obrigações legais ou com o consentimento explícito do utilizador.",
+      },
+      {
+        heading: "5. Direitos do Titular",
+        content: "Nos termos do Regulamento Geral sobre a Protecção de Dados (RGPD), o utilizador tem direito a:\n- Aceder aos seus dados pessoais\n- Solicitar a rectificação ou eliminação dos dados\n- Opor-se ao tratamento dos dados\n- Solicitar a portabilidade dos dados\n\nPara exercer estes direitos, contacte-nos em hello@uniquecoffee.pt.",
+      },
+      {
+        heading: "6. Cookies",
+        content: "Este website utiliza cookies. Para mais informações, consulte a nossa Política de Cookies.",
+      },
+      {
+        heading: "7. Termos de Utilização",
+        content: "O conteúdo deste website é propriedade da Unique Coffee e está protegido por direitos de autor. A reprodução total ou parcial do conteúdo sem autorização prévia é proibida.\n\nA Unique Coffee reserva-se o direito de alterar esta política a qualquer momento, sendo as alterações publicadas nesta página.",
+      },
+      {
+        heading: "8. Legislação Aplicável",
+        content: "Esta política rege-se pela legislação portuguesa e europeia, nomeadamente o Regulamento (UE) 2016/679 (RGPD) e a Lei n.º 58/2019 de 8 de agosto.",
+      },
+    ],
+    lastUpdated: "Fevereiro de 2026",
+  },
+
+  cookies: {
+    title: "Política de Cookies",
+    sections: [
+      {
+        heading: "O que são Cookies?",
+        content: "Cookies são pequenos ficheiros de texto armazenados no seu dispositivo quando visita um website. São amplamente utilizados para garantir o funcionamento correcto dos sites, melhorar a experiência do utilizador e fornecer informações aos proprietários do site.",
+      },
+      {
+        heading: "Cookies que Utilizamos",
+        content: "Essenciais: Necessários para o funcionamento básico do site (sessão, preferências de cookies). Duração: Sessão / 1 ano.\n\nAnalíticos: Ajudam-nos a compreender como os visitantes interagem com o site (Google Analytics). Duração: Até 2 anos.",
+      },
+      {
+        heading: "Gestão de Cookies",
+        content: "Pode gerir as suas preferências de cookies a qualquer momento. A maioria dos browsers permite-lhe recusar ou eliminar cookies. Note que a desactivação de cookies pode afectar a funcionalidade de algumas partes do site.\n\nPara alterar as definições de cookies no seu browser:\n- Chrome: Definições > Privacidade e segurança > Cookies\n- Firefox: Definições > Privacidade e Segurança > Cookies\n- Safari: Preferências > Privacidade > Cookies\n- Edge: Definições > Privacidade > Cookies",
+      },
+      {
+        heading: "Consentimento",
+        content: "Ao continuar a navegar neste website após a apresentação do aviso de cookies, está a consentir a utilização de cookies de acordo com esta política.\n\nPode retirar o seu consentimento a qualquer momento limpando os cookies do seu browser.",
+      },
+      {
+        heading: "Mais Informações",
+        content: "Para questões sobre a nossa política de cookies, consulte a nossa Política de Privacidade ou contacte-nos em hello@uniquecoffee.pt.",
+      },
+    ],
+    lastUpdated: "Fevereiro de 2026",
+  },
+
+  livroReclamacoes: {
+    title: "Livro de Reclamações",
+    intro: "Em conformidade com o Decreto-Lei n.º 156/2005 e legislação subsequente, disponibilizamos o acesso ao Livro de Reclamações Electrónico.",
+    sections: [
+      {
+        heading: "Livro de Reclamações Electrónico",
+        content: "Pode apresentar a sua reclamação através do portal oficial do Governo de Portugal em www.livroreclamacoes.pt.",
+      },
+      {
+        heading: "Contacto Directo",
+        content: "Antes de recorrer ao livro de reclamações, pode contactar-nos directamente. Valorizamos o seu feedback e faremos o possível para resolver qualquer situação.\n\nEmail: hello@uniquecoffee.pt\nTelefone: 925 903 132\nMorada: R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",
+      },
+      {
+        heading: "Entidade Reguladora",
+        content: "A Unique Coffee está sujeita a fiscalização da ASAE — Autoridade de Segurança Alimentar e Económica.",
+      },
+    ],
+    lastUpdated: "Fevereiro de 2026",
+  },
 } as const;
 
 export type SiteData = typeof siteData;

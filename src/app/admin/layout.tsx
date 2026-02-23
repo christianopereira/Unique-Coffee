@@ -22,6 +22,9 @@ import {
   Target,
   MessageSquareQuote,
   Search,
+  Shield,
+  Cookie,
+  BookOpen,
 } from "lucide-react";
 import { AutoLogout } from "@/components/admin/AutoLogout";
 
@@ -40,6 +43,9 @@ const adminLinks = [
   { href: "/admin/galeria", label: "Galeria", icon: GalleryHorizontalEnd },
   { href: "/admin/contacto", label: "Contacto", icon: MapPin },
   { href: "/admin/reviews", label: "Reviews", icon: MessageSquareQuote },
+  { href: "/admin/privacidade", label: "Privacidade", icon: Shield },
+  { href: "/admin/cookies", label: "Cookies", icon: Cookie },
+  { href: "/admin/livro-reclamacoes", label: "Livro Reclamacoes", icon: BookOpen },
   { href: "/admin/seo", label: "SEO", icon: Search },
   { href: "/admin/config", label: "Configurações", icon: Settings },
 ];
