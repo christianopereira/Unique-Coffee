@@ -58,11 +58,8 @@ export function Hero({ hero }: HeroProps) {
           }}
         >
           <div
-            className="absolute inset-0"
-            style={{
-              animation: i === current ? `heroZoom ${SLIDE_DURATION + FADE_DURATION}ms ease-out forwards` : "none",
-              transform: "scale(1)",
-            }}
+            className={`absolute inset-0 ${i === current ? "animate-hero-zoom" : ""}`}
+            style={{ transform: i === current ? undefined : "scale(1)" }}
           >
             <Image
               src={img}
@@ -156,13 +153,6 @@ export function Hero({ hero }: HeroProps) {
         </motion.div>
       )}
 
-      {/* Ken Burns zoom keyframes */}
-      <style jsx>{`
-        @keyframes heroZoom {
-          from { transform: scale(1); }
-          to { transform: scale(1.2); }
-        }
-      `}</style>
     </section>
   );
 }

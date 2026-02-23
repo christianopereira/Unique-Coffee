@@ -52,11 +52,16 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "hero-zoom": {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.2)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.8s ease-out forwards",
         "fade-in": "fade-in 0.6s ease-out forwards",
         "marquee": "marquee 30s linear infinite",
+        "hero-zoom": "hero-zoom 12s ease-out forwards",
       },
     },
   },
