@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import type { HeroData } from "@/types/site-data";
 
@@ -14,40 +15,67 @@ export function Hero({ hero }: HeroProps) {
   const images = hero.images && hero.images.length > 0 ? hero.images : [hero.image];
   const hasMultiple = images.length > 1;
   const [current, setCurrent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const SLIDE_DURATION = 10000; // 10s por slide (tempo do zoom)
+  const FADE_DURATION = 2000;  // 2s de fade entre slides
+
+  const goTo = useCallback(
+    (index: number) => {
+      if (isTransitioning || index === current) return;
+      setIsTransitioning(true);
+      setCurrent(index);
+      setTimeout(() => setIsTransitioning(false), FADE_DURATION);
+    },
+    [current, isTransitioning]
+  );
 
   const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+    goTo((current + 1) % images.length);
+  }, [current, images.length, goTo]);
+
+  const prev = useCallback(() => {
+    goTo((current - 1 + images.length) % images.length);
+  }, [current, images.length, goTo]);
 
   useEffect(() => {
     if (!hasMultiple) return;
-    const timer = setInterval(next, 5000);
+    const timer = setInterval(next, SLIDE_DURATION);
     return () => clearInterval(timer);
   }, [hasMultiple, next]);
 
   return (
     <section id="inicio" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background images with fade transition */}
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          className="absolute inset-0"
+      {/* Background images — all layered, visibility controlled by opacity */}
+      {images.map((img, i) => (
+        <div
+          key={img + i}
+          className="absolute inset-0 transition-opacity ease-in-out"
+          style={{
+            opacity: i === current ? 1 : 0,
+            transitionDuration: `${FADE_DURATION}ms`,
+            zIndex: i === current ? 1 : 0,
+          }}
         >
-          <Image
-            src={images[current]}
-            alt="Unique Coffee"
-            fill
-            priority={current === 0}
-            className="object-cover"
-            sizes="100vw"
-          />
+          <div
+            className="absolute inset-0"
+            style={{
+              animation: i === current ? `heroZoom ${SLIDE_DURATION + FADE_DURATION}ms ease-out forwards` : "none",
+              transform: "scale(1)",
+            }}
+          >
+            <Image
+              src={img}
+              alt="Unique Coffee"
+              fill
+              priority={i === 0}
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-espresso/50 via-espresso/30 to-espresso/60" />
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      ))}
 
       {/* Content */}
       <div className="relative z-10 section-container text-center">
@@ -85,6 +113,26 @@ export function Hero({ hero }: HeroProps) {
         </motion.div>
       </div>
 
+      {/* Arrow navigation */}
+      {hasMultiple && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-espresso/20 backdrop-blur-sm border border-warm-white/15 text-warm-white/70 hover:bg-espresso/40 hover:text-warm-white transition-all duration-300"
+            aria-label="Slide anterior"
+          >
+            <ChevronLeft size={22} />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-espresso/20 backdrop-blur-sm border border-warm-white/15 text-warm-white/70 hover:bg-espresso/40 hover:text-warm-white transition-all duration-300"
+            aria-label="Próximo slide"
+          >
+            <ChevronRight size={22} />
+          </button>
+        </>
+      )}
+
       {/* Slide indicators */}
       {hasMultiple && (
         <motion.div
@@ -96,7 +144,7 @@ export function Hero({ hero }: HeroProps) {
           {images.map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrent(i)}
+              onClick={() => goTo(i)}
               className={`w-2 h-2 rounded-full transition-all duration-400 ${
                 i === current
                   ? "bg-warm-white w-6"
@@ -107,6 +155,14 @@ export function Hero({ hero }: HeroProps) {
           ))}
         </motion.div>
       )}
+
+      {/* Ken Burns zoom keyframes */}
+      <style jsx>{`
+        @keyframes heroZoom {
+          from { transform: scale(1); }
+          to { transform: scale(1.2); }
+        }
+      `}</style>
     </section>
   );
 }

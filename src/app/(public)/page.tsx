@@ -44,7 +44,7 @@ export default function Home() {
               </ScrollReveal>
               <ScrollReveal delay={0.2}>
                 <div className="mt-6">
-                  <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant="ghost">
+                  <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant="primary">
                     {siteData.sobreNos.ctaText || "Conheça Nossa História"}
                   </Button>
                 </div>
