@@ -25,10 +25,15 @@ export function getSiteData(): SiteData {
     return cachedData;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { siteData: staticData } = require("@/content/site-data");
+
   try {
     if (fs.existsSync(DATA_PATH)) {
       const raw = fs.readFileSync(DATA_PATH, "utf-8");
-      cachedData = JSON.parse(raw) as SiteData;
+      const jsonData = JSON.parse(raw) as SiteData;
+      // Merge: secções que faltam no JSON são preenchidas pelo fallback estático
+      cachedData = { ...(staticData as unknown as SiteData), ...jsonData };
       cacheTime = now;
       return cachedData;
     }
@@ -37,9 +42,7 @@ export function getSiteData(): SiteData {
   }
 
   // Fallback: dados estáticos originais
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { siteData } = require("@/content/site-data");
-  cachedData = siteData as unknown as SiteData;
+  cachedData = staticData as unknown as SiteData;
   cacheTime = now;
   return cachedData;
 }
