@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { GripVertical } from "lucide-react";
 import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader } from "@/components/admin/fields";
 import { DISPLAY_FONTS, BODY_FONTS, UI_FONTS, SIZE_PRESETS, DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
 import { COLOR_PRESETS, DEFAULT_COLORS } from "@/lib/color-options";
@@ -120,6 +121,39 @@ export default function AdminConfigPage() {
 
   function removeNavLink(index: number) {
     setNavLinks(navLinks.filter((_, i) => i !== index));
+  }
+
+  // Drag & drop reorder
+  const dragIdx = useRef<number | null>(null);
+  const [dropIdx, setDropIdx] = useState<number | null>(null);
+
+  function handleDragStart(index: number) {
+    dragIdx.current = index;
+  }
+
+  function handleDragOver(e: React.DragEvent, index: number) {
+    e.preventDefault();
+    if (dragIdx.current !== null && dragIdx.current !== index) {
+      setDropIdx(index);
+    }
+  }
+
+  function handleDrop(index: number) {
+    if (dragIdx.current === null || dragIdx.current === index) {
+      setDropIdx(null);
+      return;
+    }
+    const updated = [...navLinks];
+    const [moved] = updated.splice(dragIdx.current, 1);
+    updated.splice(index, 0, moved);
+    setNavLinks(updated);
+    dragIdx.current = null;
+    setDropIdx(null);
+  }
+
+  function handleDragEnd() {
+    dragIdx.current = null;
+    setDropIdx(null);
   }
 
   if (loading) return <div className="text-mocha py-12 text-center">A carregar...</div>;
@@ -403,8 +437,22 @@ export default function AdminConfigPage() {
 
             <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
               <h2 className="font-sans font-semibold text-espresso">Links de Navegação</h2>
+              <p className="text-xs text-mocha">Arraste o ícone ⠿ para reordenar os links.</p>
               {navLinks.map((link, i) => (
-                <div key={i} className="flex gap-3 items-end">
+                <div
+                  key={i}
+                  draggable
+                  onDragStart={() => handleDragStart(i)}
+                  onDragOver={(e) => handleDragOver(e, i)}
+                  onDrop={() => handleDrop(i)}
+                  onDragEnd={handleDragEnd}
+                  className={`flex gap-3 items-end transition-all ${
+                    dropIdx === i ? "border-t-2 border-copper pt-1" : ""
+                  }`}
+                >
+                  <div className="cursor-grab active:cursor-grabbing text-stone hover:text-copper transition-colors py-2.5 shrink-0" title="Arrastar para reordenar">
+                    <GripVertical size={18} />
+                  </div>
                   <div className="flex-1">
                     <TextInput label="Label" value={link.label} onChange={(v) => updateNavLink(i, "label", v)} />
                   </div>
