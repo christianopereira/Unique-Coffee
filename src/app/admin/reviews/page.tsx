@@ -146,6 +146,32 @@ export default function AdminReviewsPage() {
       <SectionEffectsEditor sectionKey="reviews" sectionTitle="Reviews" />
 
       <div className="space-y-8">
+        {/* Toggle visibilidade */}
+        <div className="p-5 bg-warm-white rounded-xl border border-linen">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-sans font-semibold text-espresso">Visibilidade</h2>
+              <p className="text-xs text-mocha mt-0.5">
+                {data.enabled !== false
+                  ? "A secção Reviews está visível na homepage."
+                  : "A secção Reviews está oculta na homepage."}
+              </p>
+            </div>
+            <button
+              onClick={() => setData({ ...data, enabled: data.enabled === false ? true : false })}
+              className={`relative w-12 h-6 rounded-full transition-colors ${
+                data.enabled !== false ? "bg-copper" : "bg-stone/40"
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
+                  data.enabled !== false ? "translate-x-6" : "translate-x-0"
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+
         {/* Título da secção */}
         <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
           <h2 className="font-sans font-semibold text-espresso">Título da Secção</h2>

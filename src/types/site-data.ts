@@ -255,6 +255,7 @@ export interface ReviewItem {
 }
 
 export interface ReviewsData {
+  enabled?: boolean;             // true = visível na homepage (default: true)
   mode: "manual" | "google";   // toggle: manual ou automático
   title: string;
   manualReviews: ReviewItem[];

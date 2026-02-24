@@ -288,7 +288,7 @@ export default function Home() {
 
     reviews: () => {
       const reviews = siteData.reviews;
-      if (!reviews) return null;
+      if (!reviews || reviews.enabled === false) return null;
       const activeReviews = reviews.mode === "google" && reviews.cachedGoogleReviews?.length
         ? reviews.cachedGoogleReviews
         : reviews.manualReviews;
