@@ -117,14 +117,16 @@ export default function Home() {
             </div>
 
             <ScrollReveal direction="right">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-2xl shadow-black/40 border-2 border-warm-white/10">
-                <Image
-                  src={siteData.graos.image}
-                  alt="Grãos de café seleccionados"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+              <div className="bg-roast/80 p-3 md:p-4 rounded-lg shadow-2xl shadow-black/50">
+                <div className="relative aspect-[4/3] overflow-hidden rounded">
+                  <Image
+                    src={siteData.graos.image}
+                    alt="Grãos de café seleccionados"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
               </div>
             </ScrollReveal>
           </div>
@@ -195,17 +197,18 @@ export default function Home() {
         <div className="section-container">
           <SectionTitle title="Galeria" />
 
-          <div className="flex flex-col gap-6 md:gap-8 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {siteData.galeria.images.slice(0, 6).map((img, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="relative aspect-[16/10] overflow-hidden rounded-lg shadow-xl">
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-500">
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 672px"
+                    className="object-cover transition-transform duration-600 group-hover:scale-[1.03]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-espresso/40 via-espresso/10 to-transparent pointer-events-none" />
                 </div>
               </ScrollReveal>
             ))}

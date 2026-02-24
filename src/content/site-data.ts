@@ -115,6 +115,8 @@ export const siteData = {
 
   conceito: {
     title: "Nosso Conceito",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1920&h=1080&fit=crop&q=80",
     paragraphs: [
       "Na Unique Coffee, o conceito vai além do café. Assenta na forma como cada pessoa é recebida, no cuidado com os detalhes e na criação de uma experiência verdadeiramente diferenciadora.",
       "Acreditamos num atendimento atento, discreto e personalizado, onde cada cliente é tratado de forma única. Aqui, o serviço não é apressado nem impessoal. É pensado para quem valoriza qualidade, tranquilidade e um ambiente onde tudo acontece no tempo certo.",

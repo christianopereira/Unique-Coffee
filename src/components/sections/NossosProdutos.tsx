@@ -19,15 +19,17 @@ export function NossosProdutos({ produtos }: NossosProdutosProps) {
           {produtos.items.map((item, i) => (
             <ScrollReveal key={item.slug} delay={i * 0.06}>
               <div className="group">
-                <div className="relative aspect-square overflow-hidden rounded-lg shadow-xl shadow-black/30 border border-warm-white/10">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    className="object-cover transition-transform duration-600 group-hover:scale-[1.04]"
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  />
-                  <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
+                <div className="bg-warm-white/10 p-2 rounded-lg shadow-xl shadow-black/30 group-hover:bg-warm-white/15 transition-colors duration-400">
+                  <div className="relative aspect-square overflow-hidden rounded">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover transition-transform duration-600 group-hover:scale-[1.04]"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
+                  </div>
                 </div>
                 <h3 className="mt-3 font-sans text-sm uppercase tracking-[0.1em] text-warm-white font-medium text-center">
                   {item.name}
