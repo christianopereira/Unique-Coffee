@@ -16,14 +16,24 @@ interface NavbarColorsEditorProps {
   pageTitle: string;
 }
 
-const FALLBACK_LINKS = ["HOME", "SOBRE NÓS", "CONCEITO", "GRÃOS", "MENU", "SOBREMESAS", "PRODUTOS", "GALERIA", "VISITE-NOS"];
+const FALLBACK_LINKS: NavLink[] = [
+  { label: "HOME", href: "/" },
+  { label: "SOBRE NÓS", href: "/sobre" },
+  { label: "CONCEITO", href: "/conceito" },
+  { label: "GRÃOS", href: "/graos" },
+  { label: "MENU", href: "/menu" },
+  { label: "SOBREMESAS", href: "/sobremesas" },
+  { label: "PRODUTOS", href: "/produtos" },
+  { label: "GALERIA", href: "/galeria" },
+  { label: "VISITE-NOS", href: "/contacto" },
+];
 
 export function NavbarColorsEditor({ pageKey, pageTitle }: NavbarColorsEditorProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<PageHeroConfig>({});
   const [navbarBg, setNavbarBg] = useState<string>("");
-  const [navLinks, setNavLinks] = useState<string[]>(FALLBACK_LINKS);
+  const [navLinks, setNavLinks] = useState<NavLink[]>(FALLBACK_LINKS);
   const [loaded, setLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -37,10 +47,10 @@ export function NavbarColorsEditor({ pageKey, pageTitle }: NavbarColorsEditorPro
       setData(heroes[pageKey] || {});
       // Get navbar desktop bg from colors config
       setNavbarBg(all.colors?.navbarDesktop || "#2C1810");
-      // Get actual nav links for preview
+      // Get actual nav links for preview (keep full objects with href for reliable matching)
       const links = all.nav?.links as NavLink[] | undefined;
       if (links?.length) {
-        setNavLinks(links.map((l) => l.label.toUpperCase()));
+        setNavLinks(links.map((l) => ({ label: l.label.trim().toUpperCase(), href: l.href.trim() })));
       }
     } catch { /* ignore */ }
     setLoaded(true);
@@ -84,11 +94,9 @@ export function NavbarColorsEditor({ pageKey, pageTitle }: NavbarColorsEditorPro
   const hasCustom = !!(data.navLinkColor || data.navActiveLinkColor);
 
   // Determine which link should appear "active" in the preview
-  const pageTitleNorm = pageTitle.toLowerCase().replace(/\s+/g, "");
+  // Match by href path segment (e.g. "/produtos" → "produtos" === pageKey) — exact, never falls back
   const activeIndex = navLinks.findIndex(
-    (l) => l.toLowerCase().replace(/\s+/g, "") === pageTitleNorm
-      || l.toLowerCase().replace(/\s+/g, "").includes(pageTitleNorm)
-      || pageTitleNorm.includes(l.toLowerCase().replace(/\s+/g, ""))
+    (l) => l.href.replace(/^\//, "").split("/")[0] === pageKey
   );
 
   // Preview colors with defaults
@@ -183,19 +191,19 @@ export function NavbarColorsEditor({ pageKey, pageTitle }: NavbarColorsEditorPro
               <div className="px-4 py-3 flex items-center gap-6 overflow-x-auto">
                 {navLinks.map((link, i) => (
                   <span
-                    key={link}
+                    key={link.href}
                     className="text-[10px] font-sans font-medium uppercase tracking-[0.12em] whitespace-nowrap transition-colors"
                     style={{
                       color: i === activeIndex ? previewActiveColor : previewLinkColor,
                     }}
                   >
-                    {link}
+                    {link.label}
                   </span>
                 ))}
               </div>
             </div>
             <p className="text-[10px] text-mocha/50 mt-1">
-              O link &ldquo;{activeIndex >= 0 ? navLinks[activeIndex] : pageTitle.toUpperCase()}&rdquo; aparece com a cor activa
+              O link &ldquo;{activeIndex >= 0 ? navLinks[activeIndex].label : pageTitle.toUpperCase()}&rdquo; aparece com a cor activa
             </p>
           </div>
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { MenuCtaButton } from "@/components/ui/MenuCtaButton";
@@ -22,12 +23,14 @@ export function generateMetadata(): Metadata {
 export default function MenuPage() {
   checkPageVisible("/menu");
   const { menu } = getSiteData();
+  const bg = getSectionBgStyle("menu", "bg-warm-white");
 
   return (
     <>
       <PageHero pageKey="menu" fallbackTitle="Menu" />
-      <section className="section-padding bg-warm-white">
-        <div className="section-container">
+      <section className={`section-padding relative ${bg.className}`} style={bg.style}>
+        {bg.overlay}
+        <div className="section-container relative z-10">
           <SectionTitle title={menu.title} />
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">

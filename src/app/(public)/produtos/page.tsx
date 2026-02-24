@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { PageHero } from "@/components/sections/PageHero";
@@ -19,13 +20,15 @@ export function generateMetadata(): Metadata {
 
 export default function ProdutosPage() {
   const { produtos } = getSiteData();
+  const bg = getSectionBgStyle("produtos", "bg-espresso");
   if (!produtos) return null;
 
   return (
     <>
       <PageHero pageKey="produtos" fallbackTitle="Nossos Produtos" />
-      <section className="section-padding bg-espresso">
-        <div className="section-container">
+      <section className={`section-padding relative ${bg.className}`} style={bg.style}>
+        {bg.overlay}
+        <div className="section-container relative z-10">
           <SectionTitle
             title={produtos.title}
             subtitle={produtos.subtitle}
