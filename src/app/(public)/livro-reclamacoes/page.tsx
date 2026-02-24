@@ -1,33 +1,12 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getSiteData } from "@/lib/get-site-data";
-import { LegalPage } from "@/components/sections/LegalPage";
 
 export const dynamic = "force-dynamic";
 
-export function generateMetadata(): Metadata {
-  const data = getSiteData();
-  return {
-    title: data.livroReclamacoes?.title || "Livro de Reclamacoes",
-    description: "Acesso ao livro de reclamacoes electronico da Unique Coffee.",
-  };
-}
+const DEFAULT_LINK = "https://www.livroreclamacoes.pt/Inicio/";
 
 export default function LivroReclamacoesPage() {
   const data = getSiteData();
-  const livro = data.livroReclamacoes;
-
-  if (!livro) {
-    return (
-      <>
-        <div className="pt-24" />
-        <section className="section-padding bg-cream">
-          <div className="section-container max-w-3xl text-center text-mocha">
-            Conteudo em preparacao.
-          </div>
-        </section>
-      </>
-    );
-  }
-
-  return <LegalPage data={livro} />;
+  const link = data.livroReclamacoes?.link || DEFAULT_LINK;
+  redirect(link);
 }

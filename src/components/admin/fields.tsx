@@ -11,9 +11,10 @@ interface TextInputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  hint?: string;
 }
 
-export function TextInput({ label, value, onChange, placeholder }: TextInputProps) {
+export function TextInput({ label, value, onChange, placeholder, hint }: TextInputProps) {
   return (
     <div className="space-y-1.5">
       <label className="block text-sm font-sans font-medium text-roast">
@@ -26,6 +27,7 @@ export function TextInput({ label, value, onChange, placeholder }: TextInputProp
         placeholder={placeholder}
         className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm"
       />
+      {hint && <p className="text-xs text-mocha/70">{hint}</p>}
     </div>
   );
 }
@@ -435,6 +437,43 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
           className="w-28 px-3 py-2 text-sm rounded-lg border border-linen bg-white text-espresso font-mono focus:border-copper focus:outline-none"
         />
       </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// VariantSelect — escolha de variante de botão
+// ---------------------------------------------------------------------------
+interface VariantSelectProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const VARIANT_OPTIONS = [
+  { value: "", label: "Predefinido (global)" },
+  { value: "primary", label: "Primário (preenchido)" },
+  { value: "secondary", label: "Secundário (contorno)" },
+  { value: "ghost", label: "Ghost (sublinhado)" },
+];
+
+export function VariantSelect({ label, value, onChange }: VariantSelectProps) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-sm font-sans font-medium text-roast">
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full px-3 py-2 rounded-lg border border-linen bg-white text-espresso focus:border-copper focus:outline-none text-sm"
+      >
+        {VARIANT_OPTIONS.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

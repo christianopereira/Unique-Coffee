@@ -3,11 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { GripVertical } from "lucide-react";
-import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader } from "@/components/admin/fields";
+import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { DISPLAY_FONTS, BODY_FONTS, UI_FONTS, SIZE_PRESETS, DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
 import { COLOR_PRESETS, DEFAULT_COLORS } from "@/lib/color-options";
 import { derivePalette } from "@/lib/color-utils";
-import type { TypographyConfig, ColorsConfig } from "@/types/site-data";
+import type { TypographyConfig, ColorsConfig, ButtonsConfig } from "@/types/site-data";
+
+const DEFAULT_BUTTONS: ButtonsConfig = { defaultVariant: "primary", borderRadius: "8px" };
 
 interface NavLink {
   label: string;
@@ -43,6 +45,7 @@ export default function AdminConfigPage() {
   const [navLinks, setNavLinks] = useState<NavLink[]>([]);
   const [typography, setTypography] = useState<TypographyConfig>(DEFAULT_TYPOGRAPHY);
   const [colors, setColors] = useState<ColorsConfig>(DEFAULT_COLORS);
+  const [buttons, setButtons] = useState<ButtonsConfig>(DEFAULT_BUTTONS);
   const [hiddenPages, setHiddenPages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -66,6 +69,9 @@ export default function AdminConfigPage() {
         }
         if (data.colors) {
           setColors({ ...DEFAULT_COLORS, ...data.colors });
+        }
+        if (data.buttons) {
+          setButtons({ ...DEFAULT_BUTTONS, ...data.buttons });
         }
         if (data.hiddenPages) {
           setHiddenPages(data.hiddenPages);
@@ -98,6 +104,7 @@ export default function AdminConfigPage() {
         saveSection("nav", { links: navLinks }),
         saveSection("typography", typography),
         saveSection("colors", colors),
+        saveSection("buttons", buttons),
         saveSection("hiddenPages", hiddenPages),
       ]);
       setMessage({ type: "success", text: "Guardado com sucesso!" });
@@ -275,7 +282,7 @@ export default function AdminConfigPage() {
 
               <div className="border-t border-linen pt-4 mt-2">
                 <p className="text-xs text-mocha mb-3">Personalizacao avancada (opcional &mdash; deixe vazio para usar a cor escura base):</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <ColorPicker
                       label="Navbar (fundo mobile)"
@@ -285,6 +292,18 @@ export default function AdminConfigPage() {
                     {colors.navbar && (
                       <button onClick={() => setColors({ ...colors, navbar: undefined })} className="text-[10px] text-copper hover:underline">
                         Limpar (usar cor base)
+                      </button>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <ColorPicker
+                      label="Navbar (fundo desktop)"
+                      value={colors.navbarDesktop || ""}
+                      onChange={(v) => setColors({ ...colors, navbarDesktop: v || undefined })}
+                    />
+                    {colors.navbarDesktop && (
+                      <button onClick={() => setColors({ ...colors, navbarDesktop: undefined })} className="text-[10px] text-copper hover:underline">
+                        Limpar (usar cor clara)
                       </button>
                     )}
                   </div>
@@ -319,6 +338,7 @@ export default function AdminConfigPage() {
               {(() => {
                 const palette = derivePalette(colors.dark, colors.accent, colors.background, {
                   navbar: colors.navbar,
+                  navbarDesktop: colors.navbarDesktop,
                   footer: colors.footer,
                   text: colors.text,
                 });
@@ -334,6 +354,7 @@ export default function AdminConfigPage() {
                   { name: "Stone", color: palette.stone },
                   { name: "Linen", color: palette.linen },
                   ...(palette["navbar-bg"] ? [{ name: "Navbar", color: palette["navbar-bg"] }] : []),
+                  ...(palette["navbar-desktop-bg"] ? [{ name: "Nav Desktop", color: palette["navbar-desktop-bg"] }] : []),
                   ...(palette["footer-bg"] ? [{ name: "Footer", color: palette["footer-bg"] }] : []),
                   ...(palette["text-main"] ? [{ name: "Texto", color: palette["text-main"] }] : []),
                 ];
@@ -343,12 +364,19 @@ export default function AdminConfigPage() {
                     <div className="flex gap-1.5 flex-wrap">
                       {swatches.map((s) => (
                         <div key={s.name} className="text-center">
-                          <div
-                            className="w-8 h-8 rounded-lg border border-linen"
+                          <button
+                            type="button"
+                            className="w-8 h-8 rounded-lg border border-linen cursor-pointer hover:ring-2 hover:ring-copper/50 transition-all"
                             style={{ backgroundColor: s.color }}
-                            title={`${s.name}: ${s.color}`}
+                            title={`${s.name}: ${s.color} — clique para copiar`}
+                            onClick={() => {
+                              navigator.clipboard.writeText(s.color);
+                              setMessage({ type: "success", text: `Cor copiada: ${s.color}` });
+                              setTimeout(() => setMessage(null), 2000);
+                            }}
                           />
-                          <span className="text-[10px] text-mocha">{s.name}</span>
+                          <span className="text-[10px] text-mocha block">{s.name}</span>
+                          <span className="text-[9px] text-stone block">{s.color}</span>
                         </div>
                       ))}
                     </div>
@@ -435,6 +463,31 @@ export default function AdminConfigPage() {
                     })}
                   />
                 </div>
+              </div>
+            </div>
+
+            {/* Botões */}
+            <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
+              <h2 className="font-sans font-semibold text-espresso">Botões</h2>
+              <p className="text-xs text-mocha">Configurações globais dos botões do site. As cores dos botões seguem a cor de destaque definida acima.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <VariantSelect
+                  label="Variante predefinida"
+                  value={buttons.defaultVariant || "primary"}
+                  onChange={(v) => setButtons({ ...buttons, defaultVariant: (v || "primary") as ButtonsConfig["defaultVariant"] })}
+                />
+                <SizeSelect
+                  label="Arredondamento (border-radius)"
+                  value={buttons.borderRadius || "8px"}
+                  options={[
+                    { label: "Nenhum (recto)", value: "0px" },
+                    { label: "Ligeiro (4px)", value: "4px" },
+                    { label: "Médio (8px)", value: "8px" },
+                    { label: "Arredondado (16px)", value: "16px" },
+                    { label: "Pílula (9999px)", value: "9999px" },
+                  ]}
+                  onChange={(v) => setButtons({ ...buttons, borderRadius: v })}
+                />
               </div>
             </div>
           </>

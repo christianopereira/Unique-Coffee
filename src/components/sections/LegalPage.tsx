@@ -4,6 +4,38 @@ interface LegalPageProps {
   data: LegalSection;
 }
 
+const URL_REGEX = /(https?:\/\/[^\s,.!?)]+(?:[,.!?)]+[^\s,.!?)]+)*)/g;
+
+function linkify(text: string, keyPrefix: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  URL_REGEX.lastIndex = 0;
+  while ((match = URL_REGEX.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <a
+        key={`${keyPrefix}-link-${match.index}`}
+        href={match[1]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-copper underline hover:text-copper/80 transition-colors"
+      >
+        {match[1]}
+      </a>
+    );
+    lastIndex = URL_REGEX.lastIndex;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+}
+
 function renderContent(content: string) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
@@ -14,7 +46,7 @@ function renderContent(content: string) {
       elements.push(
         <ul key={`list-${elements.length}`} className="list-disc pl-5 mt-2 space-y-1">
           {listItems.map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>{linkify(item, `li-${elements.length}-${i}`)}</li>
           ))}
         </ul>
       );
@@ -33,7 +65,7 @@ function renderContent(content: string) {
       }
       elements.push(
         <p key={`p-${elements.length}`} className={elements.length > 0 ? "mt-2" : ""}>
-          {trimmed}
+          {linkify(trimmed, `p-${elements.length}`)}
         </p>
       );
     }

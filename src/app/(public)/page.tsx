@@ -44,7 +44,7 @@ export default function Home() {
               </ScrollReveal>
               <ScrollReveal delay={0.2}>
                 <div className="mt-6">
-                  <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant="primary">
+                  <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant={siteData.sobreNos.ctaVariant || "primary"}>
                     {siteData.sobreNos.ctaText || "Conheça Nossa História"}
                   </Button>
                 </div>
@@ -85,7 +85,7 @@ export default function Home() {
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <div className="mt-8 text-center">
-              <Button href={siteData.conceito.ctaLink || "/conceito"} variant="primary">
+              <Button href={siteData.conceito.ctaLink || "/conceito"} variant={siteData.conceito.ctaVariant || "primary"}>
                 {siteData.conceito.ctaText || "Descubra o Nosso Conceito"}
               </Button>
             </div>
@@ -108,7 +108,7 @@ export default function Home() {
                 <div className="mt-6">
                   <Button
                     href={siteData.graos.ctaLink || "/graos"}
-                    variant="primary"
+                    variant={siteData.graos.ctaVariant || "primary"}
                   >
                     {siteData.graos.ctaText || "Saiba Mais Sobre os Nossos Grãos"}
                   </Button>
@@ -167,7 +167,7 @@ export default function Home() {
 
           <ScrollReveal delay={0.4}>
             <div className="mt-10 text-center">
-              <Button href={siteData.menu.ctaLink || "/menu"} variant="ghost">
+              <Button href={siteData.menu.ctaLink || "/menu"} variant={siteData.menu.ctaVariant || "ghost"}>
                 {siteData.menu.ctaText || "Ver Menu Completo"}
               </Button>
             </div>
@@ -184,7 +184,7 @@ export default function Home() {
         <div className="section-container">
           <ScrollReveal delay={0.2}>
             <div className="mt-10 text-center">
-              <Button href={siteData.sobremesas.ctaLink || "/sobremesas"} variant="ghost">
+              <Button href={siteData.sobremesas.ctaLink || "/sobremesas"} variant={siteData.sobremesas.ctaVariant || "ghost"}>
                 {siteData.sobremesas.ctaText || "Conheça Nossas Sobremesas"}
               </Button>
             </div>
@@ -216,8 +216,8 @@ export default function Home() {
 
           <ScrollReveal delay={0.3}>
             <div className="mt-10 text-center">
-              <Button href="/galeria" variant="ghost">
-                Ver galeria completa
+              <Button href={siteData.galeria.ctaLink || "/galeria"} variant={siteData.galeria.ctaVariant || "ghost"}>
+                {siteData.galeria.ctaText || "Ver galeria completa"}
               </Button>
             </div>
           </ScrollReveal>
@@ -264,10 +264,10 @@ export default function Home() {
             <div className="mt-8">
               <Button
                 href="/contacto"
-                variant="secondary"
+                variant={siteData.visiteNos.ctaVariant || "secondary"}
                 className="border-copper/60 text-copper hover:bg-copper hover:text-warm-white"
               >
-                Como chegar
+                {siteData.visiteNos.mapCtaText || "Como chegar"}
               </Button>
             </div>
           </ScrollReveal>

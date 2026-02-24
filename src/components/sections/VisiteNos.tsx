@@ -128,11 +128,11 @@ export function VisiteNos() {
                   {visiteNos.cta}
                 </p>
                 <Button
-                  variant="secondary"
+                  variant={visiteNos.mapCtaVariant || "secondary"}
                   href={`https://maps.google.com/?q=${encodeURIComponent(visiteNos.address)}`}
                   className="border-copper/60 text-copper hover:bg-copper hover:text-warm-white"
                 >
-                  Como chegar
+                  {visiteNos.mapCtaText || "Como chegar"}
                 </Button>
               </div>
             </ScrollReveal>

@@ -72,6 +72,7 @@ export interface DerivedPalette {
   stone: string;
   linen: string;
   "navbar-bg"?: string;
+  "navbar-desktop-bg"?: string;
   "footer-bg"?: string;
   "text-main"?: string;
 }
@@ -86,7 +87,7 @@ export function derivePalette(
   dark: string,
   accent: string,
   background: string,
-  extras?: { navbar?: string; footer?: string; text?: string },
+  extras?: { navbar?: string; navbarDesktop?: string; footer?: string; text?: string },
 ): DerivedPalette {
   return {
     espresso: dark,
@@ -101,6 +102,7 @@ export function derivePalette(
     stone: desaturate(lighten(dark, 0.5), 0.4),
     linen: desaturate(lighten(dark, 0.7), 0.5),
     ...(extras?.navbar ? { "navbar-bg": extras.navbar } : {}),
+    ...(extras?.navbarDesktop ? { "navbar-desktop-bg": extras.navbarDesktop } : {}),
     ...(extras?.footer ? { "footer-bg": extras.footer } : {}),
     ...(extras?.text ? { "text-main": extras.text } : {}),
   };

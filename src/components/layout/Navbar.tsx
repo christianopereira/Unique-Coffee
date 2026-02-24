@@ -47,7 +47,7 @@ export function Navbar({ navLinks, logoUrl }: NavbarProps) {
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           isTransparent
             ? "bg-transparent py-6"
-            : "bg-warm-white/95 backdrop-blur-md shadow-sm py-4"
+            : "bg-navbar-desktop-bg/95 backdrop-blur-md shadow-sm py-4"
         )}
       >
         <div className="section-container flex items-center justify-between">

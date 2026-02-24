@@ -3,6 +3,13 @@
  * Baseado na estrutura de src/content/site-data.ts.
  */
 
+export type ButtonVariant = "primary" | "secondary" | "ghost";
+
+export interface ButtonsConfig {
+  defaultVariant?: ButtonVariant;
+  borderRadius?: string;
+}
+
 export interface NavLink {
   label: string;
   href: string;
@@ -12,6 +19,8 @@ export interface HeroData {
   title: string;
   subtitle: string;
   cta: string;
+  ctaLink?: string;
+  ctaVariant?: ButtonVariant;
   image: string;
   images?: string[];
 }
@@ -23,6 +32,7 @@ export interface SobreNosData {
   image: string;
   ctaText?: string;
   ctaLink?: string;
+  ctaVariant?: ButtonVariant;
 }
 
 export interface ValorItem {
@@ -42,6 +52,7 @@ export interface ConceitoData {
   backgroundImage?: string;
   ctaText?: string;
   ctaLink?: string;
+  ctaVariant?: ButtonVariant;
 }
 
 export interface DiferencialData {
@@ -57,6 +68,7 @@ export interface GraosData {
   image: string;
   ctaText?: string;
   ctaLink?: string;
+  ctaVariant?: ButtonVariant;
 }
 
 export interface MenuItem {
@@ -78,6 +90,10 @@ export interface MenuData {
   categories: MenuCategory[];
   ctaText?: string;
   ctaLink?: string;
+  ctaVariant?: ButtonVariant;
+  detailCtaText?: string;
+  detailCtaLink?: string;
+  detailCtaVariant?: ButtonVariant;
 }
 
 export interface ProdutoItem {
@@ -91,6 +107,9 @@ export interface ProdutosData {
   title: string;
   subtitle: string;
   items: ProdutoItem[];
+  detailCtaText?: string;
+  detailCtaLink?: string;
+  detailCtaVariant?: ButtonVariant;
 }
 
 export interface SobremesaItem {
@@ -107,6 +126,10 @@ export interface SobremesasData {
   items: SobremesaItem[];
   ctaText?: string;
   ctaLink?: string;
+  ctaVariant?: ButtonVariant;
+  detailCtaText?: string;
+  detailCtaLink?: string;
+  detailCtaVariant?: ButtonVariant;
 }
 
 export interface TeamMember {
@@ -130,6 +153,9 @@ export interface GaleriaData {
   title: string;
   description: string[];
   images: GaleriaImage[];
+  ctaText?: string;
+  ctaLink?: string;
+  ctaVariant?: ButtonVariant;
 }
 
 export interface VisiteNosData {
@@ -137,6 +163,9 @@ export interface VisiteNosData {
   intro: string;
   description: string;
   cta: string;
+  ctaVariant?: ButtonVariant;
+  mapCtaText?: string;
+  mapCtaVariant?: ButtonVariant;
   address: string;
   phone: string;
   email: string;
@@ -184,7 +213,8 @@ export interface ColorsConfig {
   dark: string;       // Cor escura base (seccoes escuras, texto)
   accent: string;     // Cor de destaque (botoes, links, hover)
   background: string; // Cor de fundo principal
-  navbar?: string;    // Cor de fundo da navbar (default: dark)
+  navbar?: string;    // Cor de fundo da navbar mobile (default: dark)
+  navbarDesktop?: string; // Cor de fundo da navbar desktop (default: warm-white)
   footer?: string;    // Cor de fundo do footer (default: dark)
   text?: string;      // Cor do texto principal (default: dark)
 }
@@ -219,6 +249,7 @@ export interface LegalSection {
   intro?: string;
   sections: { heading: string; content: string }[];
   lastUpdated?: string;
+  link?: string;
 }
 
 export interface SeoConfig {
@@ -243,6 +274,7 @@ export interface SiteData {
   nav: { links: NavLink[] };
   typography?: TypographyConfig;
   colors?: ColorsConfig;
+  buttons?: ButtonsConfig;
   hiddenPages?: string[];
   hero: HeroData;
   sobreNos: SobreNosData;

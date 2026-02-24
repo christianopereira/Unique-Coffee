@@ -1,7 +1,7 @@
 "use client";
 
 import { AdminForm } from "@/components/admin/AdminForm";
-import { TextInput, TextArea, ImagePicker, SectionHeader } from "@/components/admin/fields";
+import { TextInput, TextArea, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 
 interface MenuItem {
   name: string;
@@ -74,7 +74,8 @@ export default function AdminMenuPage() {
               <div className="border-t border-linen pt-4 space-y-3">
                 <h3 className="text-sm font-sans font-medium text-roast">Botão (Homepage + Página Menu)</h3>
                 <TextInput label="Texto do botão" value={(data.ctaText as string) || ""} onChange={(v) => updateField("ctaText", v)} />
-                <TextInput label="Link do botão (URL interna ou externa)" value={(data.ctaLink as string) || ""} onChange={(v) => updateField("ctaLink", v)} />
+                <TextInput label="Link do botão" value={(data.ctaLink as string) || ""} onChange={(v) => updateField("ctaLink", v)} placeholder="/menu" hint="Página interna: /sobre, /menu, /contacto — Link externo: https://exemplo.com" />
+                <VariantSelect label="Estilo do botão" value={(data.ctaVariant as string) || ""} onChange={(v) => updateField("ctaVariant", v)} />
               </div>
 
               {categories.map((cat, ci) => (

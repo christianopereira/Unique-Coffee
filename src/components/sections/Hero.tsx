@@ -101,8 +101,8 @@ export function Hero({ hero }: HeroProps) {
           className="mt-10"
         >
           <Button
-            variant="secondary"
-            href="/sobre"
+            variant={hero.ctaVariant || "secondary"}
+            href={hero.ctaLink || "/sobre"}
             className="border-warm-white/60 text-warm-white hover:bg-warm-white hover:text-espresso"
           >
             {hero.cta}

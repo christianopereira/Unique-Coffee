@@ -5,11 +5,11 @@ import { Instagram, Facebook } from "lucide-react";
 const LEGAL_LINKS = [
   { label: "Privacidade e Termos", href: "/privacidade" },
   { label: "Politica de Cookies", href: "/cookies" },
-  { label: "Livro de Reclamacoes", href: "/livro-reclamacoes" },
 ];
 
 export function Footer() {
   const siteData = getSiteData();
+  const livroLink = siteData.livroReclamacoes?.link || "https://www.livroreclamacoes.pt/Inicio/";
   return (
     <footer className="bg-footer-bg text-warm-white/70 py-12">
       <div className="section-container">
@@ -56,7 +56,7 @@ export function Footer() {
 
         {/* Legal links */}
         <div className="mt-8 pt-6 border-t border-warm-white/10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-          {LEGAL_LINKS.map((link, i) => (
+          {LEGAL_LINKS.map((link) => (
             <span key={link.href} className="flex items-center gap-6">
               <Link
                 href={link.href}
@@ -64,11 +64,19 @@ export function Footer() {
               >
                 {link.label}
               </Link>
-              {i < LEGAL_LINKS.length - 1 && (
-                <span className="text-warm-white/20">|</span>
-              )}
+              <span className="text-warm-white/20">|</span>
             </span>
           ))}
+          {livroLink && (
+            <a
+              href={livroLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-warm-white/50 hover:text-copper transition-colors duration-300"
+            >
+              Livro de Reclamacoes
+            </a>
+          )}
         </div>
       </div>
     </footer>

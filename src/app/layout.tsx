@@ -179,6 +179,7 @@ function buildTypographyCSS(typo: TypographyConfig): string {
 function buildColorsCSS(colors: ColorsConfig): string {
   const palette = derivePalette(colors.dark, colors.accent, colors.background, {
     navbar: colors.navbar,
+    navbarDesktop: colors.navbarDesktop,
     footer: colors.footer,
     text: colors.text,
   });
@@ -200,6 +201,9 @@ function buildColorsCSS(colors: ColorsConfig): string {
 
   if (palette["navbar-bg"]) {
     mapping["color-navbar-bg"] = palette["navbar-bg"];
+  }
+  if (palette["navbar-desktop-bg"]) {
+    mapping["color-navbar-desktop-bg"] = palette["navbar-desktop-bg"];
   }
   if (palette["footer-bg"]) {
     mapping["color-footer-bg"] = palette["footer-bg"];
@@ -242,8 +246,12 @@ export default function RootLayout({
     colors.accent !== DEFAULT_COLORS.accent ||
     colors.background !== DEFAULT_COLORS.background ||
     !!colors.navbar ||
+    !!colors.navbarDesktop ||
     !!colors.footer ||
     !!colors.text;
+
+  const buttons = siteData.buttons;
+  const hasCustomButtons = buttons?.borderRadius && buttons.borderRadius !== "8px";
 
   return (
     <html
@@ -260,6 +268,11 @@ export default function RootLayout({
         {hasCustomColors && (
           <style
             dangerouslySetInnerHTML={{ __html: buildColorsCSS(colors) }}
+          />
+        )}
+        {hasCustomButtons && (
+          <style
+            dangerouslySetInnerHTML={{ __html: `:root { --btn-radius: ${buttons!.borderRadius}; }` }}
           />
         )}
         <script

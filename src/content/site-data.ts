@@ -48,6 +48,11 @@ export const siteData = {
     background: "#F5F0EB",
   },
 
+  buttons: {
+    defaultVariant: "primary" as const,
+    borderRadius: "8px",
+  },
+
   hiddenPages: [] as string[],
 
   hero: {
@@ -55,6 +60,7 @@ export const siteData = {
     subtitle:
       "Sua cafetaria em Caldas da Rainha. Um espaço pensado para quem valoriza a pausa, o sabor e os pequenos detalhes.",
     cta: "Descubra o nosso espaço",
+    ctaLink: "/sobre",
     image:
       "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1920&h=1080&fit=crop&q=80",
   },
@@ -402,6 +408,8 @@ export const siteData = {
 
   galeria: {
     title: "Nossa Galeria",
+    ctaText: "Ver galeria completa",
+    ctaLink: "/galeria",
     description: [
       "Cada imagem da Unique Coffee revela mais do que um espaço, revela sensações, detalhes e momentos vividos.",
       "A nossa galeria é um convite a conhecer o ambiente, a atmosfera e a essência que tornam cada visita única. Luz natural, linhas cuidadas, detalhes pensados e um equilíbrio entre conforto e elegância compõem um espaço onde tudo tem propósito.",
@@ -441,6 +449,7 @@ export const siteData = {
     description:
       "Visite a Unique Coffee e permita-se uma pausa onde o tempo abranda, o café é tratado com respeito e cada detalhe foi totalmente pensado para si.",
     cta: "Esperamos por si!",
+    mapCtaText: "Como chegar",
     address: "R. Vitorino Fróis 12A, 2500-256 Caldas da Rainha",
     phone: "925 903 132",
     email: "hello@uniquecoffee.pt",
@@ -580,11 +589,12 @@ export const siteData = {
 
   livroReclamacoes: {
     title: "Livro de Reclamações",
+    link: "https://www.livroreclamacoes.pt/Inicio/",
     intro: "Em conformidade com o Decreto-Lei n.º 156/2005 e legislação subsequente, disponibilizamos o acesso ao Livro de Reclamações Electrónico.",
     sections: [
       {
         heading: "Livro de Reclamações Electrónico",
-        content: "Pode apresentar a sua reclamação através do portal oficial do Governo de Portugal em www.livroreclamacoes.pt.",
+        content: "Pode apresentar a sua reclamação através do portal oficial do Governo de Portugal em https://www.livroreclamacoes.pt/Inicio/.",
       },
       {
         heading: "Contacto Directo",

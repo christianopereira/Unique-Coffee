@@ -3,9 +3,11 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { Eye, EyeOff } from "lucide-react";
 
 function LoginForm() {
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -70,16 +72,27 @@ function LoginForm() {
           >
             Password
           </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-roast text-warm-white border border-mocha/30 focus:border-copper focus:outline-none placeholder:text-mocha"
-            placeholder="Introduza a password"
-            required
-            autoFocus
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 pr-12 rounded-lg bg-roast text-warm-white border border-mocha/30 focus:border-copper focus:outline-none placeholder:text-mocha"
+              placeholder="Introduza a password"
+              required
+              autoFocus
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-mocha hover:text-warm-white transition-colors"
+              tabIndex={-1}
+              aria-label={showPassword ? "Esconder password" : "Mostrar password"}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
         </div>
 
         {error && (

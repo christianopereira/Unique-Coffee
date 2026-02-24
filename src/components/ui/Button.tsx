@@ -26,6 +26,7 @@ export function Button({
   };
 
   const classes = cn(baseStyles, variants[variant], className);
+  const btnStyle = { borderRadius: "var(--btn-radius, 8px)" };
 
   if (href) {
     const isExternal = href.startsWith("http");
@@ -33,6 +34,7 @@ export function Button({
       <a
         href={href}
         className={classes}
+        style={btnStyle}
         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {children}
@@ -41,7 +43,7 @@ export function Button({
   }
 
   return (
-    <button className={classes} {...props}>
+    <button className={classes} style={btnStyle} {...props}>
       {children}
     </button>
   );

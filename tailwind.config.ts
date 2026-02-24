@@ -21,6 +21,7 @@ const config: Config = {
         stone: "rgb(var(--color-stone, 160 150 144) / <alpha-value>)",
         linen: "rgb(var(--color-linen, 212 204 196) / <alpha-value>)",
         "navbar-bg": "rgb(var(--color-navbar-bg, var(--color-espresso, 44 24 16)) / <alpha-value>)",
+        "navbar-desktop-bg": "rgb(var(--color-navbar-desktop-bg, var(--color-warm-white, 250 248 245)) / <alpha-value>)",
         "footer-bg": "rgb(var(--color-footer-bg, var(--color-espresso, 44 24 16)) / <alpha-value>)",
         "text-main": "rgb(var(--color-text-main, var(--color-espresso, 44 24 16)) / <alpha-value>)",
       },
