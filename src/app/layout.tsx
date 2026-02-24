@@ -310,23 +310,6 @@ export default function RootLayout({
     typography.sizes.subtitle !== defaults.sizes.subtitle ||
     typography.sizes.body !== defaults.sizes.body;
 
-  const hasCustomColors =
-    colors.dark !== DEFAULT_COLORS.dark ||
-    colors.accent !== DEFAULT_COLORS.accent ||
-    colors.background !== DEFAULT_COLORS.background ||
-    !!colors.navbar ||
-    !!colors.navbarDesktop ||
-    !!colors.footer ||
-    !!colors.text ||
-    !!colors.roast ||
-    !!colors.mocha ||
-    !!colors.goldSoft ||
-    !!colors.warmWhite ||
-    !!colors.parchment ||
-    !!colors.sage ||
-    !!colors.stone ||
-    !!colors.linen;
-
   const buttons = siteData.buttons;
   const hasCustomButtons = !!(
     (buttons?.borderRadius && buttons.borderRadius !== "8px") ||
@@ -357,11 +340,9 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{ __html: buildTypographyCSS(typography) }}
           />
         )}
-        {hasCustomColors && (
-          <style
-            dangerouslySetInnerHTML={{ __html: buildColorsCSS(colors) }}
-          />
-        )}
+        <style
+          dangerouslySetInnerHTML={{ __html: buildColorsCSS(colors) }}
+        />
         {hasCustomButtons && (
           <style
             dangerouslySetInnerHTML={{ __html: buildButtonsCSS(buttons!) }}
