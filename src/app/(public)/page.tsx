@@ -70,7 +70,7 @@ export default function Home() {
                 </ScrollReveal>
                 <ScrollReveal delay={0.2} {...a}>
                   <div className="mt-6">
-                    <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant={siteData.sobreNos.ctaVariant || "primary"}>
+                    <Button href={siteData.sobreNos.ctaLink || "/sobre"} variant={siteData.sobreNos.ctaVariant || "primary"} ctaBg={siteData.sobreNos.ctaBg} ctaTextColor={siteData.sobreNos.ctaTextColor}>
                       {siteData.sobreNos.ctaText || "Conheça Nossa História"}
                     </Button>
                   </div>
@@ -119,7 +119,7 @@ export default function Home() {
             </ScrollReveal>
             <ScrollReveal delay={0.2} {...a}>
               <div className="mt-8 text-center">
-                <Button href={siteData.conceito.ctaLink || "/conceito"} variant={siteData.conceito.ctaVariant || "primary"}>
+                <Button href={siteData.conceito.ctaLink || "/conceito"} variant={siteData.conceito.ctaVariant || "primary"} ctaBg={siteData.conceito.ctaBg} ctaTextColor={siteData.conceito.ctaTextColor}>
                   {siteData.conceito.ctaText || "Descubra o Nosso Conceito"}
                 </Button>
               </div>
@@ -150,6 +150,8 @@ export default function Home() {
                     <Button
                       href={siteData.graos.ctaLink || "/graos"}
                       variant={siteData.graos.ctaVariant || "primary"}
+                      ctaBg={siteData.graos.ctaBg}
+                      ctaTextColor={siteData.graos.ctaTextColor}
                     >
                       {siteData.graos.ctaText || "Saiba Mais Sobre os Nossos Grãos"}
                     </Button>
@@ -213,7 +215,7 @@ export default function Home() {
             </div>
             <ScrollReveal delay={0.4} {...a}>
               <div className="mt-10 text-center">
-                <Button href={siteData.menu.ctaLink || "/menu"} variant={siteData.menu.ctaVariant || "ghost"}>
+                <Button href={siteData.menu.ctaLink || "/menu"} variant={siteData.menu.ctaVariant || "ghost"} ctaBg={siteData.menu.ctaBg} ctaTextColor={siteData.menu.ctaTextColor}>
                   {siteData.menu.ctaText || "Ver Menu Completo"}
                 </Button>
               </div>
@@ -237,7 +239,7 @@ export default function Home() {
           <div className="section-container">
             <ScrollReveal delay={0.2} {...a}>
               <div className="mt-10 text-center">
-                <Button href={siteData.sobremesas.ctaLink || "/sobremesas"} variant={siteData.sobremesas.ctaVariant || "ghost"}>
+                <Button href={siteData.sobremesas.ctaLink || "/sobremesas"} variant={siteData.sobremesas.ctaVariant || "ghost"} ctaBg={siteData.sobremesas.ctaBg} ctaTextColor={siteData.sobremesas.ctaTextColor}>
                   {siteData.sobremesas.ctaText || "Conheça Nossas Sobremesas"}
                 </Button>
               </div>
@@ -274,7 +276,7 @@ export default function Home() {
             </div>
             <ScrollReveal delay={0.3} {...a}>
               <div className="mt-10 text-center">
-                <Button href={siteData.galeria.ctaLink || "/galeria"} variant={siteData.galeria.ctaVariant || "ghost"}>
+                <Button href={siteData.galeria.ctaLink || "/galeria"} variant={siteData.galeria.ctaVariant || "ghost"} ctaBg={siteData.galeria.ctaBg} ctaTextColor={siteData.galeria.ctaTextColor}>
                   {siteData.galeria.ctaText || "Ver galeria completa"}
                 </Button>
               </div>

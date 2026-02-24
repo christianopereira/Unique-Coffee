@@ -271,14 +271,42 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
             </div>
           </div>
 
-          {/* Preview swatch */}
-          {data.color && (
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-mocha">Preview:</span>
+          {/* Live text preview */}
+          {(data.color || data.titleColor || data.bodyColor || data.subtitleColor || data.titleFont || data.bodyFont || data.textLight) && (
+            <div className="border-t border-linen pt-4 mt-2">
+              <p className="text-xs font-sans font-medium text-mocha mb-2 uppercase tracking-wider">Preview</p>
               <div
-                className="w-20 h-8 rounded border border-linen"
-                style={{ backgroundColor: data.color }}
-              />
+                className="rounded-lg p-5 border border-linen overflow-hidden"
+                style={{
+                  backgroundColor: data.color || (data.textLight ? "#2C1810" : "#F5F0EB"),
+                  color: data.textLight ? "#FAF8F5" : "#2C1810",
+                }}
+              >
+                <p
+                  className="text-lg font-bold mb-2"
+                  style={{
+                    color: data.titleColor || undefined,
+                    fontFamily: data.titleFont ? `"${data.titleFont}", serif` : undefined,
+                  }}
+                >
+                  Título da Secção
+                </p>
+                <p
+                  className="text-sm mb-1"
+                  style={{
+                    color: data.bodyColor || undefined,
+                    fontFamily: data.bodyFont ? `"${data.bodyFont}", serif` : undefined,
+                  }}
+                >
+                  Texto principal da secção com as cores e fontes escolhidas.
+                </p>
+                <p
+                  className="text-xs italic"
+                  style={{ color: data.subtitleColor || undefined }}
+                >
+                  Subtítulo / caption
+                </p>
+              </div>
             </div>
           )}
 

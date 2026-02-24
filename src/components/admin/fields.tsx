@@ -459,6 +459,11 @@ interface VariantSelectProps {
   onChange: (value: string) => void;
   buttonColors?: ButtonColors;
   previewText?: string;
+  /** Per-section CTA color overrides */
+  ctaBg?: string;
+  ctaTextColor?: string;
+  onCtaBgChange?: (v: string | undefined) => void;
+  onCtaTextColorChange?: (v: string | undefined) => void;
 }
 
 const VARIANT_OPTIONS = [
@@ -468,7 +473,7 @@ const VARIANT_OPTIONS = [
   { value: "ghost", label: "Ghost (sublinhado)" },
 ];
 
-export function VariantSelect({ label, value, onChange, buttonColors, previewText = "Botão" }: VariantSelectProps) {
+export function VariantSelect({ label, value, onChange, buttonColors, previewText = "Botão", ctaBg, ctaTextColor, onCtaBgChange, onCtaTextColorChange }: VariantSelectProps) {
   const [fetchedColors, setFetchedColors] = useState<ButtonColors | null>(null);
 
   // Se não recebeu cores por prop, busca as globais
@@ -482,8 +487,20 @@ export function VariantSelect({ label, value, onChange, buttonColors, previewTex
       .catch(() => {});
   }, [buttonColors]);
 
-  const colors = buttonColors ?? fetchedColors ?? {};
+  const globalColors = buttonColors ?? fetchedColors ?? {};
   const variant = value || "primary";
+
+  // Merge per-section overrides into the preview colors
+  const previewColors: ButtonColors = { ...globalColors };
+  if (ctaBg) {
+    if (variant === "secondary") previewColors.secondaryBorder = ctaBg;
+    else if (variant === "ghost") previewColors.ghostText = ctaBg;
+    else previewColors.primaryBg = ctaBg;
+  }
+  if (ctaTextColor) {
+    if (variant === "secondary") previewColors.secondaryText = ctaTextColor;
+    else if (variant !== "ghost") previewColors.primaryText = ctaTextColor;
+  }
 
   return (
     <div className="space-y-1.5">
@@ -501,8 +518,36 @@ export function VariantSelect({ label, value, onChange, buttonColors, previewTex
           </option>
         ))}
       </select>
+
+      {/* Per-section color overrides */}
+      {onCtaBgChange && (
+        <div className="pt-2 space-y-2">
+          <p className="text-[10px] text-mocha uppercase tracking-wider">Cores do botão (opcional — sobrepõe as globais)</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <ColorPicker
+                label={variant === "secondary" ? "Cor da borda" : variant === "ghost" ? "Cor do texto" : "Cor de fundo"}
+                value={ctaBg || ""}
+                onChange={(v) => onCtaBgChange(v || undefined)}
+              />
+              {ctaBg && <button onClick={() => onCtaBgChange(undefined)} className="text-[10px] text-copper hover:underline">Limpar (usar global)</button>}
+            </div>
+            {variant !== "ghost" && onCtaTextColorChange && (
+              <div className="space-y-1">
+                <ColorPicker
+                  label="Cor do texto"
+                  value={ctaTextColor || ""}
+                  onChange={(v) => onCtaTextColorChange(v || undefined)}
+                />
+                {ctaTextColor && <button onClick={() => onCtaTextColorChange(undefined)} className="text-[10px] text-copper hover:underline">Limpar (usar global)</button>}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="pt-2">
-        <ButtonPreviewItem variant={variant} colors={colors} text={previewText} />
+        <ButtonPreviewItem variant={variant} colors={previewColors} text={previewText} />
       </div>
     </div>
   );

@@ -1,9 +1,13 @@
 import { cn } from "@/lib/utils";
-import { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, CSSProperties } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "ghost";
   href?: string;
+  /** Per-button background/border color override */
+  ctaBg?: string;
+  /** Per-button text color override */
+  ctaTextColor?: string;
 }
 
 export function Button({
@@ -11,6 +15,8 @@ export function Button({
   variant = "primary",
   href,
   className,
+  ctaBg,
+  ctaTextColor,
   ...props
 }: ButtonProps) {
   const baseStyles =
@@ -23,7 +29,17 @@ export function Button({
   };
 
   const classes = cn(baseStyles, variants[variant], className);
-  const btnStyle = { borderRadius: "var(--btn-radius, 8px)" };
+  const btnStyle: CSSProperties = { borderRadius: "var(--btn-radius, 8px)" };
+
+  // Apply per-button color overrides via inline styles
+  if (ctaBg) {
+    if (variant === "primary") btnStyle.backgroundColor = ctaBg;
+    else if (variant === "secondary") btnStyle.borderColor = ctaBg;
+    else if (variant === "ghost") btnStyle.color = ctaBg;
+  }
+  if (ctaTextColor) {
+    if (variant === "primary" || variant === "secondary") btnStyle.color = ctaTextColor;
+  }
 
   if (href) {
     const isExternal = href.startsWith("http");

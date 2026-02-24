@@ -38,6 +38,8 @@ export interface SobreNosData {
   ctaText?: string;
   ctaLink?: string;
   ctaVariant?: ButtonVariant;
+  ctaBg?: string;
+  ctaTextColor?: string;
 }
 
 export interface ValorItem {
@@ -58,6 +60,8 @@ export interface ConceitoData {
   ctaText?: string;
   ctaLink?: string;
   ctaVariant?: ButtonVariant;
+  ctaBg?: string;
+  ctaTextColor?: string;
 }
 
 export interface DiferencialData {
@@ -74,6 +78,8 @@ export interface GraosData {
   ctaText?: string;
   ctaLink?: string;
   ctaVariant?: ButtonVariant;
+  ctaBg?: string;
+  ctaTextColor?: string;
 }
 
 export interface MenuItem {
@@ -96,6 +102,8 @@ export interface MenuData {
   ctaText?: string;
   ctaLink?: string;
   ctaVariant?: ButtonVariant;
+  ctaBg?: string;
+  ctaTextColor?: string;
   detailCtaText?: string;
   detailCtaLink?: string;
   detailCtaVariant?: ButtonVariant;
@@ -132,6 +140,8 @@ export interface SobremesasData {
   ctaText?: string;
   ctaLink?: string;
   ctaVariant?: ButtonVariant;
+  ctaBg?: string;
+  ctaTextColor?: string;
   detailCtaText?: string;
   detailCtaLink?: string;
   detailCtaVariant?: ButtonVariant;
@@ -161,6 +171,8 @@ export interface GaleriaData {
   ctaText?: string;
   ctaLink?: string;
   ctaVariant?: ButtonVariant;
+  ctaBg?: string;
+  ctaTextColor?: string;
 }
 
 export interface VisiteNosData {
