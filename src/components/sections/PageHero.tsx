@@ -36,6 +36,7 @@ export function PageHero({ pageKey, fallbackTitle }: PageHeroProps) {
             alt=""
             fill
             className="object-cover"
+            style={cfg.imagePosition ? { objectPosition: cfg.imagePosition } : undefined}
             priority
             sizes="100vw"
           />

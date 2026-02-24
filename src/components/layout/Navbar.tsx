@@ -7,19 +7,26 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { NavLink } from "@/types/site-data";
+import type { NavLink, PageHeroConfig } from "@/types/site-data";
 
 interface NavbarProps {
   navLinks: NavLink[];
   logoUrl?: string;
+  pageHeroes?: Record<string, PageHeroConfig>;
 }
 
-export function Navbar({ navLinks, logoUrl }: NavbarProps) {
+export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  // Resolve per-page navbar color overrides
+  const pageKey = pathname.replace(/^\//, "").split("/")[0] || "";
+  const heroCfg = pageHeroes?.[pageKey];
+  const navLinkColor = heroCfg?.navLinkColor;
+  const navActiveColor = heroCfg?.navActiveLinkColor;
 
   useEffect(() => {
     setMounted(true);
@@ -71,6 +78,13 @@ export function Navbar({ navLinks, logoUrl }: NavbarProps) {
                 ? pathname === "/"
                 : pathname.startsWith(link.href);
 
+              // Per-page color overrides (only on non-transparent state)
+              const linkStyle = !isTransparent && (navLinkColor || navActiveColor)
+                ? isActive
+                  ? { color: navActiveColor || navLinkColor }
+                  : { color: navLinkColor }
+                : undefined;
+
               return (
                 <Link
                   key={link.href}
@@ -79,8 +93,9 @@ export function Navbar({ navLinks, logoUrl }: NavbarProps) {
                     "font-sans text-xs font-medium uppercase tracking-[0.12em] transition-colors duration-300 hover:text-copper",
                     isTransparent
                       ? isActive ? "text-copper" : "text-warm-white/90"
-                      : isActive ? "text-copper" : "text-roast"
+                      : !linkStyle && (isActive ? "text-copper" : "text-roast")
                   )}
+                  style={linkStyle}
                 >
                   {link.label}
                 </Link>

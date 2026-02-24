@@ -67,6 +67,7 @@ export function Hero({ hero }: HeroProps) {
               fill
               priority={i === 0}
               className="object-cover"
+              style={hero.imagePosition ? { objectPosition: hero.imagePosition } : undefined}
               sizes="100vw"
             />
           </div>

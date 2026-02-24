@@ -28,6 +28,7 @@ export interface HeroData {
   ctaVariant?: ButtonVariant;
   image: string;
   images?: string[];
+  imagePosition?: string;      // object-position para controlo de foco (ex: "center top")
 }
 
 export interface SobreNosData {
@@ -284,11 +285,15 @@ export interface PageHeroConfig {
   title?: string;
   subtitle?: string;
   image?: string;
+  imagePosition?: string;      // object-position para foco da imagem (ex: "center top")
   overlayOpacity?: number;   // 0-100 (default: 50)
   height?: "small" | "medium" | "large"; // 25vh, 35vh, 45vh
   titleColor?: string;       // cor do título (hex)
   subtitleColor?: string;    // cor do subtítulo (hex)
   titleFont?: string;        // fonte do título (ex: "Playfair Display")
+  // Cores da navbar nesta página
+  navLinkColor?: string;       // cor dos links normais da navbar (hex)
+  navActiveLinkColor?: string; // cor do link activo da navbar (hex)
 }
 
 export interface SectionBgConfig {

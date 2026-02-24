@@ -20,7 +20,7 @@ export default function PublicLayout({
 
   return (
     <>
-      <Navbar navLinks={visibleLinks} logoUrl={siteData.brand.logo} />
+      <Navbar navLinks={visibleLinks} logoUrl={siteData.brand.logo} pageHeroes={siteData.pageHeroes} />
       <main>{children}</main>
       <Footer />
       <CookieConsent />

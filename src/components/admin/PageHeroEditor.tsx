@@ -26,6 +26,18 @@ const OVERLAY_OPTIONS = [
   { label: "Muito forte (90%)", value: "90" },
 ];
 
+const POSITION_OPTIONS = [
+  { label: "↖", value: "left top", title: "Topo esquerda" },
+  { label: "↑", value: "center top", title: "Topo centro" },
+  { label: "↗", value: "right top", title: "Topo direita" },
+  { label: "←", value: "left center", title: "Centro esquerda" },
+  { label: "●", value: "center center", title: "Centro" },
+  { label: "→", value: "right center", title: "Centro direita" },
+  { label: "↙", value: "left bottom", title: "Base esquerda" },
+  { label: "↓", value: "center bottom", title: "Base centro" },
+  { label: "↘", value: "right bottom", title: "Base direita" },
+];
+
 export function PageHeroEditor({ pageKey, pageTitle }: PageHeroEditorProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -130,6 +142,33 @@ export function PageHeroEditor({ pageKey, pageTitle }: PageHeroEditorProps) {
                 aspectRatio={21 / 9}
                 aspectRatioLabel="21:9 (banner)"
               />
+              {data.image && (
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-sans font-medium text-roast">
+                    Ponto focal da imagem
+                  </label>
+                  <div className="grid grid-cols-3 gap-1 w-32">
+                    {POSITION_OPTIONS.map((pos) => (
+                      <button
+                        key={pos.value}
+                        type="button"
+                        onClick={() => update("imagePosition", pos.value)}
+                        title={pos.title}
+                        className={`w-10 h-10 rounded text-xs font-bold transition-colors ${
+                          (data.imagePosition || "center center") === pos.value
+                            ? "bg-copper text-white"
+                            : "bg-linen/50 text-mocha hover:bg-copper/20"
+                        }`}
+                      >
+                        {pos.label}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-mocha/70">
+                    Escolha onde deve ficar o foco da imagem
+                  </p>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <SizeSelect
                   label="Altura"
