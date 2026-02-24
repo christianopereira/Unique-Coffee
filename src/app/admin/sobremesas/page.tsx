@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -17,6 +18,7 @@ export default function AdminSobremesasPage() {
   return (
     <>
       <SectionHeader title="Sobremesas" description="Página /sobremesas — Textos, destaques e itens" />
+      <NavbarColorsEditor pageKey="sobremesas" pageTitle="Sobremesas" />
       <PageHeroEditor pageKey="sobremesas" pageTitle="Sobremesas" />
       <SectionBgEditor sectionKey="sobremesas" sectionTitle="Sobremesas" />
       <SectionEffectsEditor sectionKey="sobremesas" sectionTitle="Sobremesas" />

@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ImagePicker, SectionHeader } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -17,6 +18,7 @@ export default function AdminEquipaPage() {
   return (
     <>
       <SectionHeader title="Equipa" description="Página /equipa — Membros da equipa" />
+      <NavbarColorsEditor pageKey="equipa" pageTitle="Equipa" />
       <PageHeroEditor pageKey="equipa" pageTitle="Equipa" />
       <SectionBgEditor sectionKey="equipa" sectionTitle="Equipa" />
       <SectionEffectsEditor sectionKey="equipa" sectionTitle="Equipa" />

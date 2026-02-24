@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { ArrayEditor, ImagePicker, TextInput, SectionHeader } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -15,6 +16,7 @@ export default function AdminGaleriaPage() {
   return (
     <>
       <SectionHeader title="Galeria" description="Página /galeria — Imagens e descrição" />
+      <NavbarColorsEditor pageKey="galeria" pageTitle="Galeria" />
       <PageHeroEditor pageKey="galeria" pageTitle="Galeria" />
       <SectionBgEditor sectionKey="galeria" sectionTitle="Galeria" />
       <SectionEffectsEditor sectionKey="galeria" sectionTitle="Galeria" />

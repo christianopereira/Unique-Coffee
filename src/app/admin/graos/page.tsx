@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -10,6 +11,7 @@ export default function AdminGraosPage() {
   return (
     <>
       <SectionHeader title="Grãos" description="Página /graos — Grãos seleccionados e imagem" />
+      <NavbarColorsEditor pageKey="graos" pageTitle="Grãos" />
       <PageHeroEditor pageKey="graos" pageTitle="Grãos" />
       <SectionBgEditor sectionKey="graos" sectionTitle="Grãos" />
       <SectionEffectsEditor sectionKey="graos" sectionTitle="Grãos" />

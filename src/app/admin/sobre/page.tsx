@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 import { AdminSubSections } from "@/components/admin/AdminSubSections";
@@ -12,6 +13,7 @@ export default function AdminSobrePage() {
   return (
     <>
       <SectionHeader title="Sobre Nós" description="Página /sobre — História, missão, visão e valores" />
+      <NavbarColorsEditor pageKey="sobre" pageTitle="Sobre Nós" />
       <PageHeroEditor pageKey="sobre" pageTitle="Sobre Nós" />
       <SectionBgEditor sectionKey="sobreNos" sectionTitle="Sobre Nós" />
       <SectionEffectsEditor sectionKey="sobreNos" sectionTitle="Sobre Nós" />

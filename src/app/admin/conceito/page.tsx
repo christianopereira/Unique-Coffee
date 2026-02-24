@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 import { AdminSubSections } from "@/components/admin/AdminSubSections";
@@ -12,6 +13,7 @@ export default function AdminConceitoPage() {
   return (
     <>
       <SectionHeader title="Conceito" description="Página /conceito — Conceito e diferencial" />
+      <NavbarColorsEditor pageKey="conceito" pageTitle="Conceito" />
       <PageHeroEditor pageKey="conceito" pageTitle="Conceito" />
       <SectionBgEditor sectionKey="conceito" sectionTitle="Conceito" />
       <SectionEffectsEditor sectionKey="conceito" sectionTitle="Conceito" />

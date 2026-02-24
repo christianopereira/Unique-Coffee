@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -23,6 +24,7 @@ export default function AdminMenuPage() {
   return (
     <>
       <SectionHeader title="Menu" description="Página /menu — Categorias e itens" />
+      <NavbarColorsEditor pageKey="menu" pageTitle="Menu" />
       <PageHeroEditor pageKey="menu" pageTitle="Menu" />
       <SectionBgEditor sectionKey="menu" sectionTitle="Menu" />
       <SectionEffectsEditor sectionKey="menu" sectionTitle="Menu" />

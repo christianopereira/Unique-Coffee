@@ -3,6 +3,7 @@
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ImagePicker, SectionHeader } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -17,6 +18,7 @@ export default function AdminProdutosPage() {
   return (
     <>
       <SectionHeader title="Nossos Produtos" description="Cafés e acessórios à venda na loja" />
+      <NavbarColorsEditor pageKey="produtos" pageTitle="Nossos Produtos" />
       <PageHeroEditor pageKey="produtos" pageTitle="Nossos Produtos" />
       <SectionBgEditor sectionKey="produtos" sectionTitle="Nossos Produtos" />
       <SectionEffectsEditor sectionKey="produtos" sectionTitle="Nossos Produtos" />
