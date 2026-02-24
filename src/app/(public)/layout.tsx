@@ -13,10 +13,10 @@ export default function PublicLayout({
   const siteData = getSiteData();
   const hidden = siteData.hiddenPages || [];
 
-  // Filtrar links de páginas ocultas da navbar
-  const visibleLinks = siteData.nav.links.filter(
-    (link) => !hidden.includes(link.href)
-  );
+  // Filtrar links de páginas ocultas e limpar espaços em branco
+  const visibleLinks = siteData.nav.links
+    .map((link) => ({ ...link, href: link.href.trim(), label: link.label.trim() }))
+    .filter((link) => !hidden.includes(link.href));
 
   return (
     <>

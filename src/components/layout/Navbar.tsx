@@ -74,9 +74,10 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
 
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
-              const isActive = link.href === "/"
+              const href = link.href.trim();
+              const isActive = href === "/"
                 ? pathname === "/"
-                : pathname === link.href || pathname.startsWith(link.href + "/");
+                : pathname === href || pathname.startsWith(href + "/");
 
               // Per-page color overrides (only on non-transparent state)
               // Active link: only override if navActiveColor is explicitly set
@@ -89,8 +90,8 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
 
               return (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={href}
+                  href={href}
                   className={cn(
                     "font-sans text-xs font-medium uppercase tracking-[0.12em] transition-colors duration-300 hover:text-copper",
                     isTransparent
@@ -99,7 +100,7 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
                   )}
                   style={linkStyle}
                 >
-                  {link.label}
+                  {link.label.trim()}
                 </Link>
               );
             })}
@@ -129,25 +130,26 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => {
-                const isActive = link.href === "/"
+                const href = link.href.trim();
+                const isActive = href === "/"
                   ? pathname === "/"
-                  : pathname === link.href || pathname.startsWith(link.href + "/");
+                  : pathname === href || pathname.startsWith(href + "/");
 
                 return (
                   <motion.div
-                    key={link.href}
+                    key={href}
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 + 0.1 }}
                   >
                     <Link
-                      href={link.href}
+                      href={href}
                       className={cn(
                         "font-sans text-sm uppercase tracking-[0.15em] transition-colors",
                         isActive ? "text-copper" : "text-warm-white/90 hover:text-copper"
                       )}
                     >
-                      {link.label}
+                      {link.label.trim()}
                     </Link>
                   </motion.div>
                 );
