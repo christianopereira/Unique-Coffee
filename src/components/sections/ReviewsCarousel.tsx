@@ -3,10 +3,12 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ReviewItem } from "@/types/site-data";
+import type { SectionBgData } from "@/lib/section-bg";
 
 interface ReviewsCarouselProps {
   title: string;
   reviews: ReviewItem[];
+  sectionBg?: SectionBgData;
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -71,7 +73,7 @@ function ReviewCard({ review }: { review: ReviewItem }) {
   );
 }
 
-export function ReviewsCarousel({ title, reviews }: ReviewsCarouselProps) {
+export function ReviewsCarousel({ title, reviews, sectionBg }: ReviewsCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -108,11 +110,17 @@ export function ReviewsCarousel({ title, reviews }: ReviewsCarouselProps) {
   }
 
   return (
-    <section className="section-padding bg-warm-white">
-      <div className="section-container">
+    <section className={`section-padding relative ${sectionBg?.className ?? "bg-warm-white"}`} style={sectionBg?.style}>
+      {sectionBg?.overlayColor && (
+        <div className="absolute inset-0 z-0" style={{ backgroundColor: sectionBg.overlayColor }} aria-hidden />
+      )}
+      <div className="section-container relative z-10">
         {/* Header with title and arrows */}
         <div className="flex items-end justify-between mb-8">
-          <h2 className="text-section font-display text-espresso">
+          <h2
+            className={`text-section font-display ${sectionBg && !sectionBg.isLight ? "text-warm-white" : "text-espresso"}`}
+            style={sectionBg?.textStyles?.title}
+          >
             {title}
           </h2>
           {total > 1 && (

@@ -293,7 +293,8 @@ export default function Home() {
         ? reviews.cachedGoogleReviews
         : reviews.manualReviews;
       if (!activeReviews || activeReviews.length === 0) return null;
-      return <ReviewsCarousel key="reviews" title={reviews.title} reviews={activeReviews} />;
+      const reviewsBg = getSectionBgData("reviews", "bg-warm-white");
+      return <ReviewsCarousel key="reviews" title={reviews.title} reviews={activeReviews} sectionBg={reviewsBg} />;
     },
 
     visiteNos: () => {
