@@ -32,7 +32,9 @@ export default function ProdutosPage() {
           <SectionTitle
             title={produtos.title}
             subtitle={produtos.subtitle}
-            light
+            light={!bg.isLight}
+            style={bg.textStyles.title}
+            subtitleStyle={bg.textStyles.subtitle}
           />
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
@@ -49,10 +51,12 @@ export default function ProdutosPage() {
                     />
                     <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
                   </div>
-                  <h3 className="mt-3 font-sans text-sm uppercase tracking-[0.1em] text-warm-white font-medium text-center group-hover:text-copper transition-colors">
+                  <h3 className={`mt-3 font-sans text-sm uppercase tracking-[0.1em] font-medium text-center group-hover:text-copper transition-colors ${!bg.isLight ? "text-warm-white" : "text-espresso"}`}
+                    style={bg.textStyles.body}>
                     {item.name}
                   </h3>
-                  <p className="mt-1 font-body text-xs text-warm-white/60 text-center leading-relaxed">
+                  <p className={`mt-1 font-body text-xs text-center leading-relaxed ${!bg.isLight ? "text-warm-white/60" : "text-mocha"}`}
+                    style={bg.textStyles.subtitle}>
                     {item.description}
                   </p>
                 </Link>

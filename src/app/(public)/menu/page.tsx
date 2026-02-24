@@ -31,7 +31,7 @@ export default function MenuPage() {
       <section className={`section-padding relative ${bg.className}`} style={bg.style}>
         {bg.overlay}
         <div className="section-container relative z-10">
-          <SectionTitle title={menu.title} />
+          <SectionTitle title={menu.title} light={!bg.isLight} style={bg.textStyles.title} />
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {menu.categories.map((cat, i) => (
@@ -56,7 +56,8 @@ export default function MenuPage() {
           </div>
 
           <ScrollReveal delay={0.4}>
-            <p className="mt-10 text-center font-body italic text-mocha text-lg">
+            <p className={`mt-10 text-center font-body italic text-lg ${!bg.isLight ? "text-linen" : "text-mocha"}`}
+              style={bg.textStyles.body}>
               {menu.subtitle}
             </p>
           </ScrollReveal>

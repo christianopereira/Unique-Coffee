@@ -30,7 +30,7 @@ export default function SobremesasPage() {
       <section className={`section-padding relative ${bg.className}`} style={bg.style}>
         {bg.overlay}
         <div className="section-container relative z-10">
-          <SectionTitle title={sobremesas.title} />
+          <SectionTitle title={sobremesas.title} light={!bg.isLight} style={bg.textStyles.title} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Images grid — clickable */}
@@ -64,7 +64,8 @@ export default function SobremesasPage() {
               <div className="space-y-5">
                 {sobremesas.paragraphs.map((paragraph, i) => (
                   <ScrollReveal key={i} delay={i * 0.1}>
-                    <p className="text-base md:text-lg font-body text-roast leading-relaxed">
+                    <p className={`text-base md:text-lg font-body leading-relaxed ${!bg.isLight ? "text-linen" : "text-roast"}`}
+                      style={bg.textStyles.body}>
                       {paragraph}
                     </p>
                   </ScrollReveal>
@@ -74,7 +75,8 @@ export default function SobremesasPage() {
               <ScrollReveal delay={0.3}>
                 <div className="mt-8 border-l-2 border-copper/30 pl-6 space-y-2">
                   {sobremesas.highlights.map((line, i) => (
-                    <p key={i} className="font-body font-semibold text-espresso">
+                    <p key={i} className={`font-body font-semibold ${!bg.isLight ? "text-warm-white" : "text-espresso"}`}
+                      style={bg.textStyles.subtitle}>
                       {line}
                     </p>
                   ))}
