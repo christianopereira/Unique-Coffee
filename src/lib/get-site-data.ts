@@ -3,7 +3,7 @@
  *
  * Lê o conteúdo de data/site-data.json (editável via admin).
  * Se o ficheiro não existir, retorna os dados estáticos originais como fallback.
- * Cache em memória de 60 segundos para evitar leituras excessivas do disco.
+ * Cache em memória baseado no mtime do ficheiro — funciona entre múltiplos workers.
  */
 
 import fs from "fs";
@@ -11,30 +11,32 @@ import type { SiteData } from "@/types/site-data";
 import { DATA_PATH, ensureDataDirs } from "@/lib/data-dir";
 
 let cachedData: SiteData | null = null;
-let cacheTime = 0;
-const CACHE_TTL = 60_000; // 60 segundos
+let cachedMtime = 0;
 
 /**
  * Retorna os dados do site. Lê de data/site-data.json se existir,
  * senão usa os dados estáticos de src/content/site-data.ts.
+ * Usa o mtime do ficheiro para invalidar o cache automaticamente
+ * (funciona correctamente mesmo com múltiplos workers Node.js).
  */
 export function getSiteData(): SiteData {
-  const now = Date.now();
-
-  if (cachedData && now - cacheTime < CACHE_TTL) {
-    return cachedData;
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { siteData: staticData } = require("@/content/site-data");
 
   try {
     if (fs.existsSync(DATA_PATH)) {
+      const mtime = fs.statSync(DATA_PATH).mtimeMs;
+
+      // Cache válido: ficheiro não foi modificado desde a última leitura
+      if (cachedData && mtime === cachedMtime) {
+        return cachedData;
+      }
+
       const raw = fs.readFileSync(DATA_PATH, "utf-8");
       const jsonData = JSON.parse(raw) as SiteData;
       // Merge: secções que faltam no JSON são preenchidas pelo fallback estático
       cachedData = { ...(staticData as unknown as SiteData), ...jsonData };
-      cacheTime = now;
+      cachedMtime = mtime;
       return cachedData;
     }
   } catch (err) {
@@ -43,7 +45,7 @@ export function getSiteData(): SiteData {
 
   // Fallback: dados estáticos originais
   cachedData = staticData as unknown as SiteData;
-  cacheTime = now;
+  cachedMtime = 0;
   return cachedData;
 }
 
@@ -52,7 +54,7 @@ export function getSiteData(): SiteData {
  */
 export function invalidateSiteDataCache(): void {
   cachedData = null;
-  cacheTime = 0;
+  cachedMtime = 0;
 }
 
 /**

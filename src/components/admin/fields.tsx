@@ -416,23 +416,44 @@ interface ColorPickerProps {
 }
 
 export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
+  const [draft, setDraft] = useState(value);
+  const [focused, setFocused] = useState(false);
+
+  // Sync draft when parent value changes (but not while user is typing)
+  useEffect(() => {
+    if (!focused) setDraft(value);
+  }, [value, focused]);
+
+  function commitDraft(v: string) {
+    if (/^#[0-9A-Fa-f]{6}$/.test(v)) {
+      onChange(v);
+    } else {
+      setDraft(value); // revert to last valid
+    }
+  }
+
   return (
     <div className="space-y-1.5">
       <label className="block text-xs font-sans font-medium text-roast">{label}</label>
       <div className="flex items-center gap-3">
         <input
           type="color"
-          value={value}
+          value={value || "#000000"}
           onChange={(e) => onChange(e.target.value)}
           className="w-10 h-10 rounded-lg border border-linen cursor-pointer p-0.5"
         />
         <input
           type="text"
-          value={value.toUpperCase()}
+          value={focused ? draft : (value ? value.toUpperCase() : "")}
           onChange={(e) => {
             const v = e.target.value;
+            setDraft(v);
+            // Auto-commit when user types a valid hex
             if (/^#[0-9A-Fa-f]{6}$/.test(v)) onChange(v);
           }}
+          onFocus={() => { setFocused(true); setDraft(value); }}
+          onBlur={() => { setFocused(false); commitDraft(draft); }}
+          onKeyDown={(e) => { if (e.key === "Enter") commitDraft(draft); }}
           placeholder="#000000"
           className="w-28 px-3 py-2 text-sm rounded-lg border border-linen bg-white text-espresso font-mono focus:border-copper focus:outline-none"
         />
