@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -23,7 +24,7 @@ export default function SobremesasPage() {
 
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="sobremesas" fallbackTitle="Sobremesas" />
       <section className="section-padding bg-cream">
         <div className="section-container">
           <SectionTitle title={sobremesas.title} />

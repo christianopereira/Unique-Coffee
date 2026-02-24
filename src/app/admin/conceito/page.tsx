@@ -2,11 +2,17 @@
 
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
+import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { AdminSubSections } from "@/components/admin/AdminSubSections";
+import { Sparkles } from "lucide-react";
 
 export default function AdminConceitoPage() {
   return (
     <>
-      <SectionHeader title="Conceito" description="O conceito do espaço" />
+      <SectionHeader title="Conceito" description="Página /conceito — Conceito e diferencial" />
+      <PageHeroEditor pageKey="conceito" pageTitle="Conceito" />
+      <SectionBgEditor sectionKey="conceito" sectionTitle="Conceito" />
       <AdminForm section="conceito">
         {({ data, updateField }) => (
           <div className="space-y-5">
@@ -26,6 +32,12 @@ export default function AdminConceitoPage() {
           </div>
         )}
       </AdminForm>
+      <AdminSubSections
+        title="Outras secções desta página"
+        sections={[
+          { name: "Diferencial", description: "O que torna a Unique Coffee diferente", href: "/admin/diferencial", icon: Sparkles },
+        ]}
+      />
     </>
   );
 }

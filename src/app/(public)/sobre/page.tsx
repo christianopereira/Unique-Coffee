@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SobreNos } from "@/components/sections/SobreNos";
 import { MissaoVisaoValores } from "@/components/sections/MissaoVisaoValores";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -18,7 +19,7 @@ export default function SobrePage() {
   checkPageVisible("/sobre");
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="sobre" fallbackTitle="Sobre Nós" />
       <SobreNos />
       <MissaoVisaoValores />
     </>

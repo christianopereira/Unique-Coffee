@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,17 +9,29 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { GaleriaData } from "@/types/site-data";
 
-interface GaleriaProps {
-  galeria: GaleriaData;
+interface SectionBg {
+  className: string;
+  style?: CSSProperties;
+  overlayColor?: string;
+  isLight: boolean;
 }
 
-export function Galeria({ galeria }: GaleriaProps) {
+interface GaleriaProps {
+  galeria: GaleriaData;
+  sectionBg?: SectionBg;
+}
+
+export function Galeria({ galeria, sectionBg }: GaleriaProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const bg = sectionBg ?? { className: "bg-warm-white", isLight: true };
 
   return (
     <>
-      <section id="galeria" className="section-padding bg-warm-white">
-        <div className="section-container">
+      <section id="galeria" className={`section-padding relative ${bg.className}`} style={bg.style}>
+        {bg.overlayColor && (
+          <div className="absolute inset-0 z-0" style={{ backgroundColor: bg.overlayColor }} aria-hidden />
+        )}
+        <div className="section-container relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 mb-12">
             {/* Text column */}
             <div>

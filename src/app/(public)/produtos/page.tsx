@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { PageHero } from "@/components/sections/PageHero";
 import { getPageSeo } from "@/lib/get-page-seo";
 
 export const dynamic = "force-dynamic";
@@ -22,7 +23,7 @@ export default function ProdutosPage() {
 
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="produtos" fallbackTitle="Nossos Produtos" />
       <section className="section-padding bg-espresso">
         <div className="section-container">
           <SectionTitle

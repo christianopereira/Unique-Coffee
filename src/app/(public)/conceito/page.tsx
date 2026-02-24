@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Conceito } from "@/components/sections/Conceito";
 import { Diferencial } from "@/components/sections/Diferencial";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -18,7 +19,7 @@ export default function ConceitoPage() {
   checkPageVisible("/conceito");
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="conceito" fallbackTitle="Conceito & Diferencial" />
       <Conceito />
       <Diferencial />
     </>

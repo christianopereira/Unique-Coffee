@@ -2,58 +2,18 @@
 
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ImagePicker, SectionHeader } from "@/components/admin/fields";
-import Link from "next/link";
-import { ChevronRight, Type, Image, Coffee, UtensilsCrossed, Cake, Users, Camera, MapPin } from "lucide-react";
+import { AdminSubSections } from "@/components/admin/AdminSubSections";
+import { Type, Image, Coffee, UtensilsCrossed, Cake, Users, Camera, MapPin } from "lucide-react";
 
 const HOMEPAGE_SECTIONS = [
-  {
-    name: "Sobre Nós",
-    description: "Texto de apresentação + highlights",
-    href: "/admin/sobre",
-    icon: Type,
-  },
-  {
-    name: "Conceito",
-    description: "O conceito do espaço + imagem",
-    href: "/admin/conceito",
-    icon: Coffee,
-  },
-  {
-    name: "Grãos",
-    description: "Grãos seleccionados + imagem",
-    href: "/admin/graos",
-    icon: Image,
-  },
-  {
-    name: "Menu",
-    description: "Categorias + itens do menu",
-    href: "/admin/menu",
-    icon: UtensilsCrossed,
-  },
-  {
-    name: "Sobremesas",
-    description: "Sobremesas + textos + destaques",
-    href: "/admin/sobremesas",
-    icon: Cake,
-  },
-  {
-    name: "Equipa",
-    description: "Membros da equipa",
-    href: "/admin/equipa",
-    icon: Users,
-  },
-  {
-    name: "Galeria",
-    description: "Fotos do espaço",
-    href: "/admin/galeria",
-    icon: Camera,
-  },
-  {
-    name: "Visite-nos",
-    description: "Morada, horário, contactos",
-    href: "/admin/contacto",
-    icon: MapPin,
-  },
+  { name: "Sobre Nós", description: "Texto de apresentação + highlights", href: "/admin/sobre", icon: Type },
+  { name: "Conceito", description: "O conceito do espaço + imagem", href: "/admin/conceito", icon: Coffee },
+  { name: "Grãos", description: "Grãos seleccionados + imagem", href: "/admin/graos", icon: Image },
+  { name: "Menu", description: "Categorias + itens do menu", href: "/admin/menu", icon: UtensilsCrossed },
+  { name: "Sobremesas", description: "Sobremesas + textos + destaques", href: "/admin/sobremesas", icon: Cake },
+  { name: "Equipa", description: "Membros da equipa", href: "/admin/equipa", icon: Users },
+  { name: "Galeria", description: "Fotos do espaço", href: "/admin/galeria", icon: Camera },
+  { name: "Visite-nos", description: "Morada, horário, contactos", href: "/admin/contacto", icon: MapPin },
 ];
 
 export default function AdminHeroPage() {
@@ -86,35 +46,11 @@ export default function AdminHeroPage() {
         </AdminForm>
       </div>
 
-      {/* Secções da Homepage — links para editar */}
-      <div className="border-t border-linen pt-6">
-        <h2 className="font-sans font-semibold text-espresso mb-1">Secções da Homepage</h2>
-        <p className="text-xs text-mocha mb-4">Cada secção da homepage mostra um resumo. Clique para editar o conteúdo completo.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {HOMEPAGE_SECTIONS.map((section, i) => {
-            const Icon = section.icon;
-            return (
-              <Link
-                key={section.href}
-                href={section.href}
-                className="flex items-center gap-3 p-4 rounded-xl border border-linen bg-warm-white hover:border-copper/50 hover:bg-copper/5 transition-all group"
-              >
-                <span className="w-8 h-8 rounded-lg bg-copper/10 flex items-center justify-center text-copper shrink-0">
-                  <Icon size={16} />
-                </span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs text-mocha/50 font-sans">{i + 2}.</span>
-                    <span className="font-sans font-medium text-sm text-espresso">{section.name}</span>
-                  </div>
-                  <p className="text-xs text-mocha truncate">{section.description}</p>
-                </div>
-                <ChevronRight size={16} className="text-stone group-hover:text-copper transition-colors shrink-0" />
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+      <AdminSubSections
+        title="Secções da Homepage"
+        subtitle="Cada secção da homepage mostra um resumo. Clique para editar o conteúdo completo."
+        sections={HOMEPAGE_SECTIONS}
+      />
     </>
   );
 }

@@ -1,14 +1,17 @@
 import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function SobreNos() {
   const { sobreNos } = getSiteData();
+  const bg = getSectionBgStyle("sobreNos", "bg-warm-white");
 
   return (
-    <section id="sobre" className="section-padding bg-warm-white">
-      <div className="section-container">
+    <section id="sobre" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
             <SectionTitle title={sobreNos.title} align="left" />

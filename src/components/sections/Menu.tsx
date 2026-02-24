@@ -1,14 +1,17 @@
 import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Menu() {
   const { menu } = getSiteData();
+  const bg = getSectionBgStyle("menu", "bg-warm-white");
 
   return (
-    <section id="menu" className="section-padding bg-warm-white">
-      <div className="section-container">
+    <section id="menu" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container relative z-10">
         <SectionTitle title={menu.title} />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">

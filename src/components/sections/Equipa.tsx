@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { User } from "lucide-react";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Equipa() {
   const { equipa } = getSiteData();
+  const bg = getSectionBgStyle("equipa", "bg-parchment");
 
   return (
-    <section id="equipa" className="section-padding bg-parchment">
-      <div className="section-container">
+    <section id="equipa" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container relative z-10">
         <SectionTitle title={equipa.title} />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Equipa } from "@/components/sections/Equipa";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -17,7 +18,7 @@ export default function EquipaPage() {
   checkPageVisible("/equipa");
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="equipa" fallbackTitle="Nossa Equipa" />
       <Equipa />
     </>
   );

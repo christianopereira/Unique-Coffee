@@ -1,13 +1,16 @@
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Conceito() {
   const { conceito } = getSiteData();
+  const bg = getSectionBgStyle("conceito", "bg-cream");
 
   return (
-    <section id="conceito" className="section-padding bg-cream">
-      <div className="section-container max-w-4xl">
+    <section id="conceito" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container max-w-4xl relative z-10">
         <SectionTitle title={conceito.title} />
 
         <div className="space-y-6">

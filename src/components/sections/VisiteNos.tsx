@@ -1,5 +1,6 @@
 import { MapPin, Clock, Phone, Globe, PawPrint, Wifi, Coffee } from "lucide-react";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Button } from "@/components/ui/Button";
@@ -12,10 +13,12 @@ const badgeIcons: Record<string, typeof Coffee> = {
 
 export function VisiteNos() {
   const { visiteNos } = getSiteData();
+  const bg = getSectionBgStyle("visiteNos", "bg-espresso");
 
   return (
-    <section id="visite-nos" className="section-padding bg-espresso text-warm-white">
-      <div className="section-container">
+    <section id="visite-nos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container relative z-10">
         <SectionTitle title={visiteNos.title} light />
 
         {/* Intro text */}

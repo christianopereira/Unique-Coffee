@@ -53,6 +53,9 @@ export const siteData = {
     borderRadius: "8px",
   },
 
+  pageHeroes: {},
+  sectionBgs: {},
+
   hiddenPages: [] as string[],
 
   hero: {

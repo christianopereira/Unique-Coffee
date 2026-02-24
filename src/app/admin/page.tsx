@@ -34,21 +34,22 @@ const sections = [
 export default function AdminDashboard() {
   return (
     <div>
-      <h1 className="font-display text-3xl text-espresso mb-2">
+      <h1 className="font-display text-3xl text-espresso mb-2" data-tour="dashboard-title">
         Painel de Administração
       </h1>
       <p className="text-mocha mb-8">
         Edite o conteúdo do site. As alterações ficam visíveis em cerca de 1 minuto.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {sections.map((section) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-tour="section-cards">
+        {sections.map((section, idx) => {
           const Icon = section.icon;
           return (
             <Link
               key={section.href}
               href={section.href}
               className="group flex items-start gap-4 p-5 rounded-xl bg-warm-white border border-linen hover:border-copper hover:shadow-md transition-all"
+              {...(idx === 0 ? { "data-tour": "section-card-first" } : {})}
             >
               <div className="p-2.5 rounded-lg bg-parchment text-copper group-hover:bg-copper group-hover:text-white transition-colors">
                 <Icon size={22} />

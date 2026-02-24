@@ -6,6 +6,7 @@ import { NossosProdutos } from "@/components/sections/NossosProdutos";
 import { SobremesasCarousel } from "@/components/sections/SobremesasCarousel";
 import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle, getSectionBgData } from "@/lib/section-bg";
 import { getPageSeo } from "@/lib/get-page-seo";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -27,13 +28,23 @@ export default function Home() {
   const hidden = siteData.hiddenPages || [];
   const show = (route: string) => !hidden.includes(route);
 
+  // Section backgrounds (shared with full section components)
+  const sobreBg = getSectionBgStyle("sobreNos", "bg-warm-white");
+  const graosBg = getSectionBgStyle("graos", "bg-espresso");
+  const menuBg = getSectionBgStyle("menu", "bg-warm-white");
+  const sobremesasBg = getSectionBgStyle("sobremesas", "bg-cream");
+  const galeriaBg = getSectionBgStyle("galeria", "bg-parchment");
+  const visiteNosBg = getSectionBgStyle("visiteNos", "bg-espresso");
+  const produtosBg = getSectionBgData("produtos", "bg-espresso");
+
   return (
     <>
       <Hero hero={siteData.hero} />
 
       {/* Sobre — Teaser */}
-      {show("/sobre") && <section className="section-padding bg-warm-white">
-        <div className="section-container">
+      {show("/sobre") && <section className={`section-padding relative ${sobreBg.className}`} style={sobreBg.style}>
+        {sobreBg.overlay}
+        <div className="section-container relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
               <SectionTitle title={siteData.sobreNos.title} align="left" />
@@ -94,8 +105,9 @@ export default function Home() {
       </section>}
 
       {/* Grãos — Teaser */}
-      {show("/graos") && <section className="section-padding bg-espresso text-warm-white">
-        <div className="section-container">
+      {show("/graos") && <section className={`section-padding relative ${graosBg.className} ${graosBg.isLight ? "" : "text-warm-white"}`} style={graosBg.style}>
+        {graosBg.overlay}
+        <div className="section-container relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
               <SectionTitle title={siteData.graos.title} align="left" light />
@@ -135,12 +147,13 @@ export default function Home() {
 
       {/* Nossos Produtos */}
       {siteData.produtos && siteData.produtos.items.length > 0 && (
-        <NossosProdutos produtos={siteData.produtos} />
+        <NossosProdutos produtos={siteData.produtos} sectionBg={produtosBg} />
       )}
 
       {/* Menu — Preview */}
-      {show("/menu") && <section className="section-padding bg-warm-white">
-        <div className="section-container">
+      {show("/menu") && <section className={`section-padding relative ${menuBg.className}`} style={menuBg.style}>
+        {menuBg.overlay}
+        <div className="section-container relative z-10">
           <SectionTitle title={siteData.menu.title} />
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -176,7 +189,7 @@ export default function Home() {
       </section>}
 
       {/* Sobremesas — Carousel */}
-      {show("/sobremesas") && <section className="section-padding bg-cream overflow-hidden">
+      {show("/sobremesas") && <section className={`section-padding relative overflow-hidden ${sobremesasBg.className}`} style={sobremesasBg.style}>
         <div className="section-container">
           <SectionTitle title={siteData.sobremesas.title} />
         </div>
@@ -193,8 +206,9 @@ export default function Home() {
       </section>}
 
       {/* Galeria — Preview */}
-      {show("/galeria") && <section className="section-padding bg-parchment">
-        <div className="section-container">
+      {show("/galeria") && <section className={`section-padding relative ${galeriaBg.className}`} style={galeriaBg.style}>
+        {galeriaBg.overlay}
+        <div className="section-container relative z-10">
           <SectionTitle title="Galeria" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
@@ -236,8 +250,9 @@ export default function Home() {
       })()}
 
       {/* CTA — Visite-nos */}
-      {show("/contacto") && <section className="section-padding bg-espresso text-warm-white">
-        <div className="section-container text-center max-w-3xl mx-auto">
+      {show("/contacto") && <section className={`section-padding relative ${visiteNosBg.className} ${visiteNosBg.isLight ? "" : "text-warm-white"}`} style={visiteNosBg.style}>
+        {visiteNosBg.overlay}
+        <div className="section-container text-center max-w-3xl mx-auto relative z-10">
           <ScrollReveal>
             <h2 className="text-section font-display text-warm-white mb-4">
               {siteData.visiteNos.title}

@@ -2,6 +2,8 @@
 
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ImagePicker, SectionHeader } from "@/components/admin/fields";
+import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 
 interface TeamMember {
   name: string;
@@ -13,7 +15,9 @@ interface TeamMember {
 export default function AdminEquipaPage() {
   return (
     <>
-      <SectionHeader title="Equipa" description="Membros da equipa" />
+      <SectionHeader title="Equipa" description="Página /equipa — Membros da equipa" />
+      <PageHeroEditor pageKey="equipa" pageTitle="Equipa" />
+      <SectionBgEditor sectionKey="equipa" sectionTitle="Equipa" />
       <AdminForm section="equipa">
         {({ data, updateField }) => {
           const members = (data.members || []) as TeamMember[];

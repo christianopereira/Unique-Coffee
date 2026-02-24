@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { VisiteNos } from "@/components/sections/VisiteNos";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -17,7 +18,7 @@ export default function ContactoPage() {
   checkPageVisible("/contacto");
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="contacto" fallbackTitle="Visite-nos" />
       <VisiteNos />
     </>
   );

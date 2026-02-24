@@ -2,6 +2,7 @@
 
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, SectionHeader } from "@/components/admin/fields";
+import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 
 interface ValorItem {
   name: string;
@@ -12,6 +13,7 @@ export default function AdminMissaoPage() {
   return (
     <>
       <SectionHeader title="Missão / Visão / Valores" description="Missão, visão e valores da Unique Coffee" />
+      <SectionBgEditor sectionKey="missaoVisaoValores" sectionTitle="Missão / Visão / Valores" />
       <AdminForm section="missaoVisaoValores">
         {({ data, updateField }) => {
           const missao = data.missao as { title: string; text: string };

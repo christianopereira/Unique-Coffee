@@ -252,6 +252,22 @@ export interface LegalSection {
   link?: string;
 }
 
+export interface PageHeroConfig {
+  enabled?: boolean;
+  title?: string;
+  subtitle?: string;
+  image?: string;
+  overlayOpacity?: number;   // 0-100 (default: 50)
+  height?: "small" | "medium" | "large"; // 25vh, 35vh, 45vh
+}
+
+export interface SectionBgConfig {
+  color?: string;            // hex (ex: "#F5F0EB")
+  image?: string;            // URL da imagem de fundo
+  imageOverlay?: number;     // 0-100 opacidade do overlay (default: 50)
+  textLight?: boolean;       // true = texto claro (para fundos escuros)
+}
+
 export interface SeoConfig {
   global: {
     title: string;
@@ -290,6 +306,8 @@ export interface SiteData {
   visiteNos: VisiteNosData;
   reviews?: ReviewsData;
   seo?: SeoConfig;
+  pageHeroes?: Record<string, PageHeroConfig>;
+  sectionBgs?: Record<string, SectionBgConfig>;
   footer: FooterData;
   privacidade?: LegalSection;
   cookies?: LegalSection;

@@ -1,13 +1,16 @@
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Diferencial() {
   const { diferencial } = getSiteData();
+  const bg = getSectionBgStyle("diferencial", "bg-parchment");
 
   return (
-    <section id="diferencial" className="section-padding bg-parchment">
-      <div className="section-container">
+    <section id="diferencial" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Title side */}
           <div>

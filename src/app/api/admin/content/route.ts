@@ -64,6 +64,8 @@ export async function PATCH(request: NextRequest) {
       "privacidade",
       "cookies",
       "livroReclamacoes",
+      "pageHeroes",
+      "sectionBgs",
     ];
 
     if (!validSections.includes(section)) {

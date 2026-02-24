@@ -5,6 +5,7 @@ import { getSiteData } from "@/lib/get-site-data";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { MenuCtaButton } from "@/components/ui/MenuCtaButton";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -24,7 +25,7 @@ export default function MenuPage() {
 
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="menu" fallbackTitle="Menu" />
       <section className="section-padding bg-warm-white">
         <div className="section-container">
           <SectionTitle title={menu.title} />

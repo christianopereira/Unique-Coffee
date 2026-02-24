@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,6 +27,8 @@ import {
   BookOpen,
 } from "lucide-react";
 import { AutoLogout } from "@/components/admin/AutoLogout";
+import { HelpMenu } from "@/components/admin/HelpMenu";
+import { useAdminTour } from "@/components/admin/useAdminTour";
 
 const adminLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -58,6 +60,8 @@ export default function AdminLayout({
   const pathname = usePathname();
   const router = useRouter();
   const [logoUrl, setLogoUrl] = useState("/images/Logo.svg");
+  const [pendingTour, setPendingTour] = useState(false);
+  const { startTour } = useAdminTour();
 
   useEffect(() => {
     if (pathname === "/admin/login") return;
@@ -68,6 +72,26 @@ export default function AdminLayout({
       })
       .catch(() => {});
   }, [pathname]);
+
+  // Start tour after navigating to dashboard
+  useEffect(() => {
+    if (pendingTour && pathname === "/admin") {
+      const timer = setTimeout(() => {
+        startTour();
+        setPendingTour(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [pendingTour, pathname, startTour]);
+
+  const handleStartTour = useCallback(() => {
+    if (pathname === "/admin") {
+      startTour();
+    } else {
+      setPendingTour(true);
+      router.push("/admin");
+    }
+  }, [pathname, startTour, router]);
 
   // Não mostrar sidebar no login
   if (pathname === "/admin/login") {
@@ -82,7 +106,7 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen bg-cream">
       {/* Sidebar — usa navbar-bg para seguir as cores do site */}
-      <aside className="w-64 bg-navbar-bg text-warm-white flex flex-col shrink-0">
+      <aside className="w-64 bg-navbar-bg text-warm-white flex flex-col shrink-0" data-tour="sidebar">
         <div className="p-5 border-b border-warm-white/10 flex justify-center">
           <Link href="/admin">
             <Image
@@ -95,7 +119,7 @@ export default function AdminLayout({
           </Link>
         </div>
 
-        <nav className="flex-1 overflow-y-auto py-4">
+        <nav className="flex-1 overflow-y-auto py-4" data-tour="sidebar-nav">
           {adminLinks.map((link) => {
             const Icon = link.icon;
             const isActive =
@@ -122,6 +146,17 @@ export default function AdminLayout({
 
         <div className="p-4 border-t border-warm-white/10">
           <Link
+            href="/admin/guia"
+            className={`flex items-center gap-2 text-xs mb-3 transition-colors ${
+              pathname === "/admin/guia"
+                ? "text-copper font-medium"
+                : "text-warm-white/50 hover:text-copper"
+            }`}
+          >
+            <BookOpen size={14} />
+            Guia do Utilizador
+          </Link>
+          <Link
             href="/"
             target="_blank"
             className="block text-xs text-warm-white/50 hover:text-copper mb-3 transition-colors"
@@ -143,6 +178,7 @@ export default function AdminLayout({
         <div className="max-w-5xl mx-auto p-8">{children}</div>
       </main>
 
+      <HelpMenu onStartTour={handleStartTour} />
       <AutoLogout />
     </div>
   );

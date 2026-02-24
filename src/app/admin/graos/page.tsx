@@ -2,11 +2,15 @@
 
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
+import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
+import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 
 export default function AdminGraosPage() {
   return (
     <>
-      <SectionHeader title="Grãos" description="Grãos seleccionados e imagem" />
+      <SectionHeader title="Grãos" description="Página /graos — Grãos seleccionados e imagem" />
+      <PageHeroEditor pageKey="graos" pageTitle="Grãos" />
+      <SectionBgEditor sectionKey="graos" sectionTitle="Grãos" />
       <AdminForm section="graos">
         {({ data, updateField }) => (
           <div className="space-y-5">

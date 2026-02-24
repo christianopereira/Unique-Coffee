@@ -1,18 +1,32 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import type { ProdutosData } from "@/types/site-data";
 
-interface NossosProdutosProps {
-  produtos: ProdutosData;
+interface SectionBg {
+  className: string;
+  style?: CSSProperties;
+  overlayColor?: string;
+  isLight: boolean;
 }
 
-export function NossosProdutos({ produtos }: NossosProdutosProps) {
+interface NossosProdutosProps {
+  produtos: ProdutosData;
+  sectionBg?: SectionBg;
+}
+
+export function NossosProdutos({ produtos, sectionBg }: NossosProdutosProps) {
+  const bg = sectionBg ?? { className: "bg-espresso", isLight: false };
+
   return (
-    <section className="section-padding bg-espresso">
-      <div className="section-container">
+    <section className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
+      {bg.overlayColor && (
+        <div className="absolute inset-0 z-0" style={{ backgroundColor: bg.overlayColor }} aria-hidden />
+      )}
+      <div className="section-container relative z-10">
         <SectionTitle title={produtos.title} subtitle={produtos.subtitle} light />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">

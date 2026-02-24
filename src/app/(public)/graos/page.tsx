@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Graos } from "@/components/sections/Graos";
+import { PageHero } from "@/components/sections/PageHero";
 import { checkPageVisible } from "@/lib/page-visibility";
 import { getPageSeo } from "@/lib/get-page-seo";
 
@@ -17,7 +18,7 @@ export default function GraosPage() {
   checkPageVisible("/graos");
   return (
     <>
-      <div className="pt-24" />
+      <PageHero pageKey="graos" fallbackTitle="Grãos Seleccionados" />
       <Graos />
     </>
   );

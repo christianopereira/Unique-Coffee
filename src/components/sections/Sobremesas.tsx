@@ -1,14 +1,17 @@
 import Image from "next/image";
 import { getSiteData } from "@/lib/get-site-data";
+import { getSectionBgStyle } from "@/lib/section-bg";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Sobremesas() {
   const { sobremesas } = getSiteData();
+  const bg = getSectionBgStyle("sobremesas", "bg-cream");
 
   return (
-    <section id="sobremesas" className="section-padding bg-cream">
-      <div className="section-container">
+    <section id="sobremesas" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      {bg.overlay}
+      <div className="section-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Images grid */}
           <ScrollReveal>
