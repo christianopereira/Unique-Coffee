@@ -11,12 +11,12 @@ export function Conceito() {
     <section id="conceito" className={`section-padding relative ${bg.className}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container max-w-4xl relative z-10">
-        <SectionTitle title={conceito.title} />
+        <SectionTitle title={conceito.title} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         <div className="space-y-6">
           {conceito.paragraphs.map((paragraph, i) => (
             <ScrollReveal key={i} delay={i * 0.1}>
-              <p className="text-base md:text-lg font-body text-roast leading-relaxed text-center">
+              <p className="text-base md:text-lg font-body text-roast leading-relaxed text-center" style={bg.textStyles.body}>
                 {paragraph}
               </p>
             </ScrollReveal>

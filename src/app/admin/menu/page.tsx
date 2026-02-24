@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
 interface MenuItem {
   name: string;
@@ -24,6 +25,7 @@ export default function AdminMenuPage() {
       <SectionHeader title="Menu" description="Página /menu — Categorias e itens" />
       <PageHeroEditor pageKey="menu" pageTitle="Menu" />
       <SectionBgEditor sectionKey="menu" sectionTitle="Menu" />
+      <SectionEffectsEditor sectionKey="menu" sectionTitle="Menu" />
       <AdminForm section="menu">
         {({ data, updateField }) => {
           const categories = (data.categories || []) as MenuCategory[];

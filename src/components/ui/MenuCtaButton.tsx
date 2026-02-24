@@ -25,7 +25,7 @@ export function MenuCtaButton({ text, link }: MenuCtaButtonProps) {
     return (
       <a
         href={link}
-        className="inline-block font-sans text-sm font-semibold tracking-widest uppercase transition-all duration-400 text-copper relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-400 hover:after:w-full"
+        className="inline-block font-sans text-sm font-semibold tracking-widest uppercase transition-all duration-400 btn-ghost relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:transition-all after:duration-400 hover:after:w-full"
         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {text}
@@ -37,7 +37,7 @@ export function MenuCtaButton({ text, link }: MenuCtaButtonProps) {
     <>
       <button
         onClick={() => setModalOpen(true)}
-        className="inline-block font-sans text-sm font-semibold tracking-widest uppercase transition-all duration-400 text-copper relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-400 hover:after:w-full cursor-pointer"
+        className="inline-block font-sans text-sm font-semibold tracking-widest uppercase transition-all duration-400 btn-ghost relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:transition-all after:duration-400 hover:after:w-full cursor-pointer"
       >
         {text}
       </button>

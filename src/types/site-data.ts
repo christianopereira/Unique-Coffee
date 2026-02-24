@@ -8,6 +8,11 @@ export type ButtonVariant = "primary" | "secondary" | "ghost";
 export interface ButtonsConfig {
   defaultVariant?: ButtonVariant;
   borderRadius?: string;
+  primaryBg?: string;       // cor de fundo do botão primário (default: copper)
+  primaryText?: string;     // cor do texto do botão primário (default: warm-white)
+  secondaryBorder?: string; // cor da borda do botão secundário (default: copper)
+  secondaryText?: string;   // cor do texto do botão secundário (default: copper)
+  ghostText?: string;       // cor do texto/underline do ghost (default: copper)
 }
 
 export interface NavLink {
@@ -217,6 +222,15 @@ export interface ColorsConfig {
   navbarDesktop?: string; // Cor de fundo da navbar desktop (default: warm-white)
   footer?: string;    // Cor de fundo do footer (default: dark)
   text?: string;      // Cor do texto principal (default: dark)
+  // Overrides opcionais para cores derivadas (se vazio, usa derivação automática)
+  roast?: string;
+  mocha?: string;
+  goldSoft?: string;
+  warmWhite?: string;
+  parchment?: string;
+  sage?: string;
+  stone?: string;
+  linen?: string;
 }
 
 export interface ReviewItem {
@@ -266,6 +280,21 @@ export interface SectionBgConfig {
   image?: string;            // URL da imagem de fundo
   imageOverlay?: number;     // 0-100 opacidade do overlay (default: 50)
   textLight?: boolean;       // true = texto claro (para fundos escuros)
+  parallax?: boolean;        // true = efeito parallax (bg-fixed)
+  // Overrides de texto por secção
+  titleColor?: string;       // cor do título (hex)
+  bodyColor?: string;        // cor do texto principal (hex)
+  subtitleColor?: string;    // cor de subtítulos/captions (hex)
+  titleFont?: string;        // fonte do título (ex: "Playfair Display")
+  bodyFont?: string;         // fonte do corpo (ex: "Lora")
+}
+
+export type AnimationType = "fade-up" | "fade-left" | "fade-right" | "fade-in" | "zoom-in" | "none";
+export type AnimationSpeed = "fast" | "normal" | "slow";
+
+export interface SectionAnimation {
+  type?: AnimationType;
+  speed?: AnimationSpeed;    // fast=0.4s, normal=0.7s, slow=1.2s
 }
 
 export interface SeoConfig {
@@ -306,6 +335,8 @@ export interface SiteData {
   visiteNos: VisiteNosData;
   reviews?: ReviewsData;
   seo?: SeoConfig;
+  homepageOrder?: string[];
+  sectionAnimations?: Record<string, SectionAnimation>;
   pageHeroes?: Record<string, PageHeroConfig>;
   sectionBgs?: Record<string, SectionBgConfig>;
   footer: FooterData;

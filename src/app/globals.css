@@ -46,6 +46,33 @@
   }
 }
 
+/* ── Button variant styles using CSS vars ── */
+@layer components {
+  .btn-primary {
+    background-color: var(--btn-primary-bg, rgb(var(--color-copper, 184 115 51)));
+    color: var(--btn-primary-text, rgb(var(--color-warm-white, 250 248 245)));
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-secondary {
+    border-color: var(--btn-secondary-border, rgb(var(--color-copper, 184 115 51)));
+    color: var(--btn-secondary-text, rgb(var(--color-copper, 184 115 51)));
+  }
+  .btn-secondary:hover {
+    background-color: var(--btn-secondary-border, rgb(var(--color-copper, 184 115 51)));
+    color: var(--btn-primary-text, rgb(var(--color-warm-white, 250 248 245)));
+  }
+
+  .btn-ghost {
+    color: var(--btn-ghost-text, rgb(var(--color-copper, 184 115 51)));
+  }
+  .btn-ghost::after {
+    background-color: var(--btn-ghost-text, rgb(var(--color-copper, 184 115 51)));
+  }
+}
+
 /* ── Admin Tour (driver.js) ── */
 .uc-tour-popover {
   font-family: "Raleway", sans-serif !important;

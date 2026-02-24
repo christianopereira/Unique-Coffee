@@ -2,19 +2,7 @@
 
 import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ImagePicker, SectionHeader } from "@/components/admin/fields";
-import { AdminSubSections } from "@/components/admin/AdminSubSections";
-import { Type, Image, Coffee, UtensilsCrossed, Cake, Users, Camera, MapPin } from "lucide-react";
-
-const HOMEPAGE_SECTIONS = [
-  { name: "Sobre Nós", description: "Texto de apresentação + highlights", href: "/admin/sobre", icon: Type },
-  { name: "Conceito", description: "O conceito do espaço + imagem", href: "/admin/conceito", icon: Coffee },
-  { name: "Grãos", description: "Grãos seleccionados + imagem", href: "/admin/graos", icon: Image },
-  { name: "Menu", description: "Categorias + itens do menu", href: "/admin/menu", icon: UtensilsCrossed },
-  { name: "Sobremesas", description: "Sobremesas + textos + destaques", href: "/admin/sobremesas", icon: Cake },
-  { name: "Equipa", description: "Membros da equipa", href: "/admin/equipa", icon: Users },
-  { name: "Galeria", description: "Fotos do espaço", href: "/admin/galeria", icon: Camera },
-  { name: "Visite-nos", description: "Morada, horário, contactos", href: "/admin/contacto", icon: MapPin },
-];
+import { HomepageSectionOrder } from "@/components/admin/HomepageSectionOrder";
 
 export default function AdminHeroPage() {
   return (
@@ -46,11 +34,7 @@ export default function AdminHeroPage() {
         </AdminForm>
       </div>
 
-      <AdminSubSections
-        title="Secções da Homepage"
-        subtitle="Cada secção da homepage mostra um resumo. Clique para editar o conteúdo completo."
-        sections={HOMEPAGE_SECTIONS}
-      />
+      <HomepageSectionOrder />
     </>
   );
 }

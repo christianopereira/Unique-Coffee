@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
 interface SobremesaItem {
   name: string;
@@ -18,6 +19,7 @@ export default function AdminSobremesasPage() {
       <SectionHeader title="Sobremesas" description="Página /sobremesas — Textos, destaques e itens" />
       <PageHeroEditor pageKey="sobremesas" pageTitle="Sobremesas" />
       <SectionBgEditor sectionKey="sobremesas" sectionTitle="Sobremesas" />
+      <SectionEffectsEditor sectionKey="sobremesas" sectionTitle="Sobremesas" />
       <AdminForm section="sobremesas">
         {({ data, updateField }) => {
           const items = (data.items || []) as SobremesaItem[];

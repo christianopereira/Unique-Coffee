@@ -334,6 +334,36 @@ export default function AdminConfigPage() {
                 </div>
               </div>
 
+              {/* Overrides de cores derivadas */}
+              <div className="border-t border-linen pt-4 mt-2">
+                <p className="text-xs text-mocha mb-3">Personalização das cores derivadas (opcional — deixe vazio para usar a derivação automática):</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {([
+                    { key: "roast", label: "Roast" },
+                    { key: "mocha", label: "Mocha" },
+                    { key: "goldSoft", label: "Gold" },
+                    { key: "warmWhite", label: "Claro" },
+                    { key: "parchment", label: "Neutro" },
+                    { key: "sage", label: "Sage" },
+                    { key: "stone", label: "Stone" },
+                    { key: "linen", label: "Linen" },
+                  ] as const).map(({ key, label }) => (
+                    <div key={key} className="space-y-1">
+                      <ColorPicker
+                        label={label}
+                        value={(colors as unknown as Record<string, string | undefined>)[key] || ""}
+                        onChange={(v) => setColors({ ...colors, [key]: v || undefined })}
+                      />
+                      {(colors as unknown as Record<string, string | undefined>)[key] && (
+                        <button onClick={() => setColors({ ...colors, [key]: undefined })} className="text-[10px] text-copper hover:underline">
+                          Limpar (automática)
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Preview da paleta derivada */}
               {(() => {
                 const palette = derivePalette(colors.dark, colors.accent, colors.background, {
@@ -341,6 +371,14 @@ export default function AdminConfigPage() {
                   navbarDesktop: colors.navbarDesktop,
                   footer: colors.footer,
                   text: colors.text,
+                  roast: colors.roast,
+                  mocha: colors.mocha,
+                  goldSoft: colors.goldSoft,
+                  warmWhite: colors.warmWhite,
+                  parchment: colors.parchment,
+                  sage: colors.sage,
+                  stone: colors.stone,
+                  linen: colors.linen,
                 });
                 const swatches = [
                   { name: "Escura", color: palette.espresso },
@@ -469,7 +507,7 @@ export default function AdminConfigPage() {
             {/* Botões */}
             <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
               <h2 className="font-sans font-semibold text-espresso">Botões</h2>
-              <p className="text-xs text-mocha">Configurações globais dos botões do site. As cores dos botões seguem a cor de destaque definida acima.</p>
+              <p className="text-xs text-mocha">Configurações globais dos botões do site.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <VariantSelect
                   label="Variante predefinida"
@@ -488,6 +526,42 @@ export default function AdminConfigPage() {
                   ]}
                   onChange={(v) => setButtons({ ...buttons, borderRadius: v })}
                 />
+              </div>
+
+              <div className="border-t border-linen pt-4 mt-2">
+                <p className="text-xs text-mocha mb-3">Cores dos botões (opcional — deixe vazio para usar a cor de destaque):</p>
+
+                <h3 className="text-xs font-sans font-medium text-roast mb-2 mt-3">Primário (preenchido)</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <ColorPicker label="Fundo" value={buttons.primaryBg || ""} onChange={(v) => setButtons({ ...buttons, primaryBg: v || undefined })} />
+                    {buttons.primaryBg && <button onClick={() => setButtons({ ...buttons, primaryBg: undefined })} className="text-[10px] text-copper hover:underline">Limpar</button>}
+                  </div>
+                  <div className="space-y-1">
+                    <ColorPicker label="Texto" value={buttons.primaryText || ""} onChange={(v) => setButtons({ ...buttons, primaryText: v || undefined })} />
+                    {buttons.primaryText && <button onClick={() => setButtons({ ...buttons, primaryText: undefined })} className="text-[10px] text-copper hover:underline">Limpar</button>}
+                  </div>
+                </div>
+
+                <h3 className="text-xs font-sans font-medium text-roast mb-2 mt-4">Secundário (contorno)</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <ColorPicker label="Borda" value={buttons.secondaryBorder || ""} onChange={(v) => setButtons({ ...buttons, secondaryBorder: v || undefined })} />
+                    {buttons.secondaryBorder && <button onClick={() => setButtons({ ...buttons, secondaryBorder: undefined })} className="text-[10px] text-copper hover:underline">Limpar</button>}
+                  </div>
+                  <div className="space-y-1">
+                    <ColorPicker label="Texto" value={buttons.secondaryText || ""} onChange={(v) => setButtons({ ...buttons, secondaryText: v || undefined })} />
+                    {buttons.secondaryText && <button onClick={() => setButtons({ ...buttons, secondaryText: undefined })} className="text-[10px] text-copper hover:underline">Limpar</button>}
+                  </div>
+                </div>
+
+                <h3 className="text-xs font-sans font-medium text-roast mb-2 mt-4">Ghost (sublinhado)</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <ColorPicker label="Texto / Underline" value={buttons.ghostText || ""} onChange={(v) => setButtons({ ...buttons, ghostText: v || undefined })} />
+                    {buttons.ghostText && <button onClick={() => setButtons({ ...buttons, ghostText: undefined })} className="text-[10px] text-copper hover:underline">Limpar</button>}
+                  </div>
+                </div>
               </div>
             </div>
           </>

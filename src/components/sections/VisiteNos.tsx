@@ -19,15 +19,15 @@ export function VisiteNos() {
     <section id="visite-nos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
-        <SectionTitle title={visiteNos.title} light />
+        <SectionTitle title={visiteNos.title} light style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         {/* Intro text */}
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="font-display text-2xl md:text-3xl text-warm-white mb-4">
+            <p className="font-display text-2xl md:text-3xl text-warm-white mb-4" style={bg.textStyles.subtitle}>
               {visiteNos.intro}
             </p>
-            <p className="font-body text-warm-white/80 leading-relaxed">
+            <p className="font-body text-warm-white/80 leading-relaxed" style={bg.textStyles.body}>
               {visiteNos.description}
             </p>
           </div>

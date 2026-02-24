@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { ScrollReveal } from "./ScrollReveal";
 
 interface SectionTitleProps {
@@ -5,6 +6,8 @@ interface SectionTitleProps {
   subtitle?: string;
   align?: "left" | "center";
   light?: boolean;
+  style?: CSSProperties;
+  subtitleStyle?: CSSProperties;
 }
 
 export function SectionTitle({
@@ -12,6 +15,8 @@ export function SectionTitle({
   subtitle,
   align = "center",
   light = false,
+  style,
+  subtitleStyle,
 }: SectionTitleProps) {
   return (
     <div
@@ -24,6 +29,7 @@ export function SectionTitle({
           className={`text-section font-display ${
             light ? "text-warm-white" : "text-espresso"
           }`}
+          style={style}
         >
           {title}
         </h2>
@@ -34,6 +40,7 @@ export function SectionTitle({
             className={`mt-4 text-subtitle font-body italic ${
               light ? "text-linen" : "text-mocha"
             }`}
+            style={subtitleStyle}
           >
             {subtitle}
           </p>

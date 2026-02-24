@@ -7,12 +7,19 @@ const DARK_DEFAULTS = new Set([
   "bg-espresso",
 ]);
 
+export interface TextStyles {
+  title?: CSSProperties;
+  body?: CSSProperties;
+  subtitle?: CSSProperties;
+}
+
 /** Serializable version — safe to pass as props to client components */
 export interface SectionBgData {
   className: string;
   style?: CSSProperties;
   overlayColor?: string;
   isLight: boolean;
+  textStyles: TextStyles;
 }
 
 export interface SectionBgResult {
@@ -24,6 +31,28 @@ export interface SectionBgResult {
   overlay: ReactNode;
   /** Whether the section has light text (dark background) */
   isLight: boolean;
+  /** Per-section text color/font overrides */
+  textStyles: TextStyles;
+}
+
+/** Build CSSProperties for text overrides from a SectionBgConfig */
+function buildTextStyles(cfg: { titleColor?: string; bodyColor?: string; subtitleColor?: string; titleFont?: string; bodyFont?: string } | undefined): TextStyles {
+  if (!cfg) return {};
+  const title: CSSProperties = {};
+  const body: CSSProperties = {};
+  const subtitle: CSSProperties = {};
+
+  if (cfg.titleColor) title.color = cfg.titleColor;
+  if (cfg.titleFont) title.fontFamily = `"${cfg.titleFont}", serif`;
+  if (cfg.bodyColor) body.color = cfg.bodyColor;
+  if (cfg.bodyFont) body.fontFamily = `"${cfg.bodyFont}", serif`;
+  if (cfg.subtitleColor) subtitle.color = cfg.subtitleColor;
+
+  return {
+    ...(Object.keys(title).length > 0 ? { title } : {}),
+    ...(Object.keys(body).length > 0 ? { body } : {}),
+    ...(Object.keys(subtitle).length > 0 ? { subtitle } : {}),
+  };
 }
 
 /**
@@ -37,12 +66,15 @@ export function getSectionBgStyle(
   const { sectionBgs } = getSiteData();
   const cfg = sectionBgs?.[sectionKey];
 
+  const textStyles = buildTextStyles(cfg);
+
   // No custom config → use defaults
   if (!cfg || (!cfg.color && !cfg.image)) {
     return {
       className: defaultClass,
       overlay: null,
       isLight: !DARK_DEFAULTS.has(defaultClass),
+      textStyles,
     };
   }
 
@@ -69,6 +101,9 @@ export function getSectionBgStyle(
     style.backgroundImage = `url(${cfg.image})`;
     style.backgroundSize = "cover";
     style.backgroundPosition = "center";
+    if (cfg.parallax) {
+      style.backgroundAttachment = "fixed";
+    }
 
     overlay = createElement("div", {
       className: "absolute inset-0 z-0",
@@ -77,7 +112,12 @@ export function getSectionBgStyle(
     });
   }
 
-  return { className, style, overlay, isLight };
+  // Parallax without image (colour bg) — apply to className
+  if (cfg.parallax && !cfg.image) {
+    className += " bg-fixed";
+  }
+
+  return { className, style, overlay, isLight, textStyles };
 }
 
 /**
@@ -100,5 +140,6 @@ export function getSectionBgData(
     style: result.style,
     overlayColor,
     isLight: result.isLight,
+    textStyles: result.textStyles,
   };
 }

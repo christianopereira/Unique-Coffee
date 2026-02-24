@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { ColorPicker, ImagePicker, SizeSelect } from "@/components/admin/fields";
+import { ColorPicker, ImagePicker, SizeSelect, FontSelect } from "@/components/admin/fields";
 import { ChevronDown, Palette } from "lucide-react";
+import { DISPLAY_FONTS, BODY_FONTS } from "@/lib/font-options";
 import type { SectionBgConfig } from "@/types/site-data";
 
 interface SectionBgEditorProps {
@@ -69,7 +70,7 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
     setData({});
   }
 
-  const hasCustom = !!(data.color || data.image);
+  const hasCustom = !!(data.color || data.image || data.titleColor || data.bodyColor || data.subtitleColor || data.titleFont || data.bodyFont);
 
   if (!loaded) return null;
 
@@ -145,6 +146,130 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
             />
             <span className="text-sm font-sans text-espresso">Texto claro (para fundos escuros)</span>
           </label>
+
+          {/* Parallax toggle */}
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={data.parallax || false}
+              onChange={(e) => update("parallax", e.target.checked)}
+              className="w-4 h-4 rounded border-linen text-copper focus:ring-copper"
+            />
+            <span className="text-sm font-sans text-espresso">Efeito parallax (fundo fixo ao scroll)</span>
+          </label>
+
+          {/* ─── Personalização de texto ─── */}
+          <div className="border-t border-linen pt-4 mt-2">
+            <p className="text-xs font-sans font-medium text-mocha mb-3 uppercase tracking-wider">
+              Personalização de texto (opcional)
+            </p>
+
+            {/* Title color */}
+            <div className="space-y-3">
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="text-sm font-sans font-medium text-roast">Cor do título</label>
+                  {data.titleColor && (
+                    <button
+                      onClick={() => update("titleColor", undefined)}
+                      className="text-[10px] text-mocha hover:text-copper"
+                    >
+                      (limpar)
+                    </button>
+                  )}
+                </div>
+                <ColorPicker
+                  label=""
+                  value={data.titleColor || "#2C1810"}
+                  onChange={(v) => update("titleColor", v)}
+                />
+              </div>
+
+              {/* Body color */}
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="text-sm font-sans font-medium text-roast">Cor do texto</label>
+                  {data.bodyColor && (
+                    <button
+                      onClick={() => update("bodyColor", undefined)}
+                      className="text-[10px] text-mocha hover:text-copper"
+                    >
+                      (limpar)
+                    </button>
+                  )}
+                </div>
+                <ColorPicker
+                  label=""
+                  value={data.bodyColor || "#4A3428"}
+                  onChange={(v) => update("bodyColor", v)}
+                />
+              </div>
+
+              {/* Subtitle color */}
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="text-sm font-sans font-medium text-roast">Cor dos subtítulos</label>
+                  {data.subtitleColor && (
+                    <button
+                      onClick={() => update("subtitleColor", undefined)}
+                      className="text-[10px] text-mocha hover:text-copper"
+                    >
+                      (limpar)
+                    </button>
+                  )}
+                </div>
+                <ColorPicker
+                  label=""
+                  value={data.subtitleColor || "#6B5344"}
+                  onChange={(v) => update("subtitleColor", v)}
+                />
+              </div>
+
+              {/* Title font */}
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="text-sm font-sans font-medium text-roast">Fonte do título</label>
+                  {data.titleFont && (
+                    <button
+                      onClick={() => update("titleFont", undefined)}
+                      className="text-[10px] text-mocha hover:text-copper"
+                    >
+                      (limpar)
+                    </button>
+                  )}
+                </div>
+                <FontSelect
+                  label=""
+                  value={data.titleFont || ""}
+                  options={[{ name: "", label: "Predefinida (global)" }, ...DISPLAY_FONTS]}
+                  onChange={(v) => update("titleFont", v || undefined)}
+                  previewText="O Sabor Único do Verdadeiro Café"
+                />
+              </div>
+
+              {/* Body font */}
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="text-sm font-sans font-medium text-roast">Fonte do texto</label>
+                  {data.bodyFont && (
+                    <button
+                      onClick={() => update("bodyFont", undefined)}
+                      className="text-[10px] text-mocha hover:text-copper"
+                    >
+                      (limpar)
+                    </button>
+                  )}
+                </div>
+                <FontSelect
+                  label=""
+                  value={data.bodyFont || ""}
+                  options={[{ name: "", label: "Predefinida (global)" }, ...BODY_FONTS]}
+                  onChange={(v) => update("bodyFont", v || undefined)}
+                  previewText="Café de especialidade, ambiente sofisticado e tranquilo."
+                />
+              </div>
+            </div>
+          </div>
 
           {/* Preview swatch */}
           {data.color && (

@@ -12,13 +12,13 @@ export function Graos() {
     <section id="graos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
-        <SectionTitle title={graos.title} light />
+        <SectionTitle title={graos.title} light style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-8">
           <div className="space-y-5">
             {graos.paragraphs.map((paragraph, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
-                <p className="text-base md:text-lg font-body text-warm-white/85 leading-relaxed">
+                <p className="text-base md:text-lg font-body text-warm-white/85 leading-relaxed" style={bg.textStyles.body}>
                   {paragraph}
                 </p>
               </ScrollReveal>

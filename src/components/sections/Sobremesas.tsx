@@ -32,11 +32,11 @@ export function Sobremesas() {
 
           {/* Text */}
           <div>
-            <SectionTitle title={sobremesas.title} align="left" />
+            <SectionTitle title={sobremesas.title} align="left" style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
             <div className="space-y-5">
               {sobremesas.paragraphs.map((paragraph, i) => (
                 <ScrollReveal key={i} delay={i * 0.1}>
-                  <p className="text-base md:text-lg font-body text-roast leading-relaxed">
+                  <p className="text-base md:text-lg font-body text-roast leading-relaxed" style={bg.textStyles.body}>
                     {paragraph}
                   </p>
                 </ScrollReveal>
@@ -46,7 +46,7 @@ export function Sobremesas() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 border-l-2 border-copper/30 pl-6 space-y-2">
                 {sobremesas.highlights.map((line, i) => (
-                  <p key={i} className="font-body font-semibold text-espresso">
+                  <p key={i} className="font-body font-semibold text-espresso" style={bg.textStyles.body}>
                     {line}
                   </p>
                 ))}

@@ -17,12 +17,9 @@ export function Button({
     "inline-block font-sans text-sm font-semibold tracking-widest uppercase transition-all duration-400";
 
   const variants = {
-    primary:
-      "bg-copper text-warm-white px-8 py-3 hover:bg-copper/90",
-    secondary:
-      "border border-copper text-copper px-8 py-3 hover:bg-copper hover:text-warm-white",
-    ghost:
-      "text-copper relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-400 hover:after:w-full",
+    primary: "btn-primary px-8 py-3",
+    secondary: "btn-secondary border px-8 py-3",
+    ghost: "btn-ghost relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:transition-all after:duration-400 hover:after:w-full",
   };
 
   const classes = cn(baseStyles, variants[variant], className);

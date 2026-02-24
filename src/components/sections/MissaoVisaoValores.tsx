@@ -18,10 +18,10 @@ export function MissaoVisaoValores() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16 md:mb-20">
           <ScrollReveal>
             <div className="border border-warm-white/10 p-8 md:p-10">
-              <h3 className="font-display text-section text-warm-white mb-4">
+              <h3 className="font-display text-section text-warm-white mb-4" style={bg.textStyles.title}>
                 {mvv.missao.title}
               </h3>
-              <p className="font-body text-warm-white/80 leading-relaxed">
+              <p className="font-body text-warm-white/80 leading-relaxed" style={bg.textStyles.body}>
                 {mvv.missao.text}
               </p>
             </div>
@@ -29,10 +29,10 @@ export function MissaoVisaoValores() {
 
           <ScrollReveal delay={0.15}>
             <div className="border border-warm-white/10 p-8 md:p-10">
-              <h3 className="font-display text-section text-warm-white mb-4">
+              <h3 className="font-display text-section text-warm-white mb-4" style={bg.textStyles.title}>
                 {mvv.visao.title}
               </h3>
-              <p className="font-body text-warm-white/80 leading-relaxed">
+              <p className="font-body text-warm-white/80 leading-relaxed" style={bg.textStyles.body}>
                 {mvv.visao.text}
               </p>
             </div>
@@ -41,7 +41,7 @@ export function MissaoVisaoValores() {
 
         {/* Valores */}
         <ScrollReveal>
-          <h3 className="font-display text-section text-center text-warm-white mb-12">
+          <h3 className="font-display text-section text-center text-warm-white mb-12" style={bg.textStyles.title}>
             {mvv.valores.title}
           </h3>
         </ScrollReveal>
@@ -57,10 +57,10 @@ export function MissaoVisaoValores() {
                     className="text-copper mx-auto mb-4"
                     strokeWidth={1.5}
                   />
-                  <h4 className="font-display text-lg text-warm-white mb-2">
+                  <h4 className="font-display text-lg text-warm-white mb-2" style={bg.textStyles.subtitle}>
                     {valor.name}
                   </h4>
-                  <p className="font-body text-sm text-warm-white/70 leading-relaxed">
+                  <p className="font-body text-sm text-warm-white/70 leading-relaxed" style={bg.textStyles.body}>
                     {valor.description}
                   </p>
                 </div>

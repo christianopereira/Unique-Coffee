@@ -13,7 +13,7 @@ export function Equipa() {
     <section id="equipa" className={`section-padding relative ${bg.className}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
-        <SectionTitle title={equipa.title} />
+        <SectionTitle title={equipa.title} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {equipa.members.map((member, i) => (
@@ -36,10 +36,10 @@ export function Equipa() {
                   )}
                 </div>
 
-                <h3 className="font-display text-lg text-espresso">
+                <h3 className="font-display text-lg text-espresso" style={bg.textStyles.title}>
                   {member.name}
                 </h3>
-                <p className="font-sans text-xs uppercase tracking-[0.1em] text-mocha mt-1">
+                <p className="font-sans text-xs uppercase tracking-[0.1em] text-mocha mt-1" style={bg.textStyles.subtitle}>
                   {member.role}
                 </p>
               </div>

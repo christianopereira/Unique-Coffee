@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 import { AdminSubSections } from "@/components/admin/AdminSubSections";
 import { Target } from "lucide-react";
 
@@ -13,6 +14,7 @@ export default function AdminSobrePage() {
       <SectionHeader title="Sobre Nós" description="Página /sobre — História, missão, visão e valores" />
       <PageHeroEditor pageKey="sobre" pageTitle="Sobre Nós" />
       <SectionBgEditor sectionKey="sobreNos" sectionTitle="Sobre Nós" />
+      <SectionEffectsEditor sectionKey="sobreNos" sectionTitle="Sobre Nós" />
       <AdminForm section="sobreNos">
         {({ data, updateField }) => (
           <div className="space-y-5">

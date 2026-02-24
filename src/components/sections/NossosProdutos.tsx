@@ -5,12 +5,14 @@ import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import type { ProdutosData } from "@/types/site-data";
+import type { TextStyles } from "@/lib/section-bg";
 
 interface SectionBg {
   className: string;
   style?: CSSProperties;
   overlayColor?: string;
   isLight: boolean;
+  textStyles?: TextStyles;
 }
 
 interface NossosProdutosProps {
@@ -27,7 +29,7 @@ export function NossosProdutos({ produtos, sectionBg }: NossosProdutosProps) {
         <div className="absolute inset-0 z-0" style={{ backgroundColor: bg.overlayColor }} aria-hidden />
       )}
       <div className="section-container relative z-10">
-        <SectionTitle title={produtos.title} subtitle={produtos.subtitle} light />
+        <SectionTitle title={produtos.title} subtitle={produtos.subtitle} light style={bg.textStyles?.title} subtitleStyle={bg.textStyles?.subtitle} />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {produtos.items.map((item, i) => (
@@ -45,10 +47,10 @@ export function NossosProdutos({ produtos, sectionBg }: NossosProdutosProps) {
                     <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
                   </div>
                 </div>
-                <h3 className="mt-3 font-sans text-sm uppercase tracking-[0.1em] text-warm-white font-medium text-center">
+                <h3 className="mt-3 font-sans text-sm uppercase tracking-[0.1em] text-warm-white font-medium text-center" style={bg.textStyles?.title}>
                   {item.name}
                 </h3>
-                <p className="mt-1 font-body text-xs text-warm-white/60 text-center leading-relaxed">
+                <p className="mt-1 font-body text-xs text-warm-white/60 text-center leading-relaxed" style={bg.textStyles?.body}>
                   {item.description}
                 </p>
               </div>

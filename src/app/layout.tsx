@@ -5,7 +5,8 @@ import { DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
 import { DEFAULT_COLORS } from "@/lib/color-options";
 import { FontLoader } from "@/components/layout/FontLoader";
 import { derivePalette, hexToRgbChannels } from "@/lib/color-utils";
-import type { TypographyConfig, ColorsConfig } from "@/types/site-data";
+import type { TypographyConfig, ColorsConfig, ButtonsConfig, SectionBgConfig } from "@/types/site-data";
+import { findFontWeights } from "@/lib/font-options";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -182,6 +183,14 @@ function buildColorsCSS(colors: ColorsConfig): string {
     navbarDesktop: colors.navbarDesktop,
     footer: colors.footer,
     text: colors.text,
+    roast: colors.roast,
+    mocha: colors.mocha,
+    goldSoft: colors.goldSoft,
+    warmWhite: colors.warmWhite,
+    parchment: colors.parchment,
+    sage: colors.sage,
+    stone: colors.stone,
+    linen: colors.linen,
   });
   const lines = [":root {"];
 
@@ -220,6 +229,58 @@ function buildColorsCSS(colors: ColorsConfig): string {
   return lines.join("\n");
 }
 
+function buildButtonsCSS(buttons: ButtonsConfig): string {
+  const lines = [":root {"];
+  if (buttons.borderRadius) {
+    lines.push(`  --btn-radius: ${buttons.borderRadius};`);
+  }
+  if (buttons.primaryBg) {
+    lines.push(`  --btn-primary-bg: ${buttons.primaryBg};`);
+  }
+  if (buttons.primaryText) {
+    lines.push(`  --btn-primary-text: ${buttons.primaryText};`);
+  }
+  if (buttons.secondaryBorder) {
+    lines.push(`  --btn-secondary-border: ${buttons.secondaryBorder};`);
+  }
+  if (buttons.secondaryText) {
+    lines.push(`  --btn-secondary-text: ${buttons.secondaryText};`);
+  }
+  if (buttons.ghostText) {
+    lines.push(`  --btn-ghost-text: ${buttons.ghostText};`);
+  }
+  lines.push("}");
+  return lines.join("\n");
+}
+
+/** Collect per-section fonts that aren't already loaded globally */
+function collectSectionFonts(
+  sectionBgs: Record<string, SectionBgConfig> | undefined,
+  globalFonts: { display: string; body: string; ui: string },
+): string[] {
+  if (!sectionBgs) return [];
+  const globalSet = new Set([globalFonts.display, globalFonts.body, globalFonts.ui]);
+  const extraFonts = new Set<string>();
+
+  for (const cfg of Object.values(sectionBgs)) {
+    if (cfg.titleFont && !globalSet.has(cfg.titleFont)) extraFonts.add(cfg.titleFont);
+    if (cfg.bodyFont && !globalSet.has(cfg.bodyFont)) extraFonts.add(cfg.bodyFont);
+  }
+
+  return Array.from(extraFonts);
+}
+
+function buildSectionFontsLinks(fonts: string[]): string {
+  if (fonts.length === 0) return "";
+  const families = fonts
+    .map((name) => {
+      const weights = findFontWeights(name);
+      return `family=${name.replace(/ /g, "+")}:wght@${weights.replace(/;/g, ";")}`;
+    })
+    .join("&");
+  return `https://fonts.googleapis.com/css2?${families}&display=swap`;
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -248,10 +309,29 @@ export default function RootLayout({
     !!colors.navbar ||
     !!colors.navbarDesktop ||
     !!colors.footer ||
-    !!colors.text;
+    !!colors.text ||
+    !!colors.roast ||
+    !!colors.mocha ||
+    !!colors.goldSoft ||
+    !!colors.warmWhite ||
+    !!colors.parchment ||
+    !!colors.sage ||
+    !!colors.stone ||
+    !!colors.linen;
 
   const buttons = siteData.buttons;
-  const hasCustomButtons = buttons?.borderRadius && buttons.borderRadius !== "8px";
+  const hasCustomButtons = !!(
+    (buttons?.borderRadius && buttons.borderRadius !== "8px") ||
+    buttons?.primaryBg ||
+    buttons?.primaryText ||
+    buttons?.secondaryBorder ||
+    buttons?.secondaryText ||
+    buttons?.ghostText
+  );
+
+  // Per-section font overrides
+  const sectionFonts = collectSectionFonts(siteData.sectionBgs, typography.fonts);
+  const sectionFontsUrl = buildSectionFontsLinks(sectionFonts);
 
   return (
     <html
@@ -260,6 +340,10 @@ export default function RootLayout({
     >
       <head>
         {hasCustomFonts && <FontLoader typography={typography} />}
+        {sectionFontsUrl && (
+          // eslint-disable-next-line @next/next/no-page-custom-font
+          <link rel="stylesheet" href={sectionFontsUrl} />
+        )}
         {(hasCustomFonts || hasCustomSizes) && (
           <style
             dangerouslySetInnerHTML={{ __html: buildTypographyCSS(typography) }}
@@ -272,7 +356,7 @@ export default function RootLayout({
         )}
         {hasCustomButtons && (
           <style
-            dangerouslySetInnerHTML={{ __html: `:root { --btn-radius: ${buttons!.borderRadius}; }` }}
+            dangerouslySetInnerHTML={{ __html: buildButtonsCSS(buttons!) }}
           />
         )}
         <script

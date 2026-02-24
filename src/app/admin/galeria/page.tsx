@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { ArrayEditor, ImagePicker, TextInput, SectionHeader } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
 interface GaleriaImage {
   src: string;
@@ -16,6 +17,7 @@ export default function AdminGaleriaPage() {
       <SectionHeader title="Galeria" description="Página /galeria — Imagens e descrição" />
       <PageHeroEditor pageKey="galeria" pageTitle="Galeria" />
       <SectionBgEditor sectionKey="galeria" sectionTitle="Galeria" />
+      <SectionEffectsEditor sectionKey="galeria" sectionTitle="Galeria" />
       <AdminForm section="galeria">
         {({ data, updateField }) => {
           const images = (data.images || []) as GaleriaImage[];

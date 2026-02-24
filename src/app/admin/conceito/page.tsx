@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, ArrayEditor, ImagePicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 import { AdminSubSections } from "@/components/admin/AdminSubSections";
 import { Sparkles } from "lucide-react";
 
@@ -13,6 +14,7 @@ export default function AdminConceitoPage() {
       <SectionHeader title="Conceito" description="Página /conceito — Conceito e diferencial" />
       <PageHeroEditor pageKey="conceito" pageTitle="Conceito" />
       <SectionBgEditor sectionKey="conceito" sectionTitle="Conceito" />
+      <SectionEffectsEditor sectionKey="conceito" sectionTitle="Conceito" />
       <AdminForm section="conceito">
         {({ data, updateField }) => (
           <div className="space-y-5">

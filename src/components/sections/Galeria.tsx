@@ -8,12 +8,14 @@ import { X } from "lucide-react";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { GaleriaData } from "@/types/site-data";
+import type { TextStyles } from "@/lib/section-bg";
 
 interface SectionBg {
   className: string;
   style?: CSSProperties;
   overlayColor?: string;
   isLight: boolean;
+  textStyles?: TextStyles;
 }
 
 interface GaleriaProps {
@@ -35,11 +37,11 @@ export function Galeria({ galeria, sectionBg }: GaleriaProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 mb-12">
             {/* Text column */}
             <div>
-              <SectionTitle title={galeria.title} align="left" />
+              <SectionTitle title={galeria.title} align="left" style={bg.textStyles?.title} subtitleStyle={bg.textStyles?.subtitle} />
               <div className="space-y-4">
                 {galeria.description.map((paragraph, i) => (
                   <ScrollReveal key={i} delay={i * 0.1}>
-                    <p className="font-body text-roast leading-relaxed text-sm md:text-base">
+                    <p className="font-body text-roast leading-relaxed text-sm md:text-base" style={bg.textStyles?.body}>
                       {paragraph}
                     </p>
                   </ScrollReveal>

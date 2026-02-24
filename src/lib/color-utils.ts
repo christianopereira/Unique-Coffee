@@ -87,20 +87,33 @@ export function derivePalette(
   dark: string,
   accent: string,
   background: string,
-  extras?: { navbar?: string; navbarDesktop?: string; footer?: string; text?: string },
+  extras?: {
+    navbar?: string;
+    navbarDesktop?: string;
+    footer?: string;
+    text?: string;
+    roast?: string;
+    mocha?: string;
+    goldSoft?: string;
+    warmWhite?: string;
+    parchment?: string;
+    sage?: string;
+    stone?: string;
+    linen?: string;
+  },
 ): DerivedPalette {
   return {
     espresso: dark,
-    roast: lighten(dark, 0.18),
-    mocha: lighten(dark, 0.32),
+    roast: extras?.roast || lighten(dark, 0.18),
+    mocha: extras?.mocha || lighten(dark, 0.32),
     copper: accent,
-    "gold-soft": desaturate(lighten(accent, 0.2), 0.15),
+    "gold-soft": extras?.goldSoft || desaturate(lighten(accent, 0.2), 0.15),
     cream: background,
-    "warm-white": lighten(background, 0.35),
-    parchment: darken(background, 0.04),
-    sage: "#8B9A7B", // verde — independente do tema
-    stone: desaturate(lighten(dark, 0.5), 0.4),
-    linen: desaturate(lighten(dark, 0.7), 0.5),
+    "warm-white": extras?.warmWhite || lighten(background, 0.35),
+    parchment: extras?.parchment || darken(background, 0.04),
+    sage: extras?.sage || "#8B9A7B",
+    stone: extras?.stone || desaturate(lighten(dark, 0.5), 0.4),
+    linen: extras?.linen || desaturate(lighten(dark, 0.7), 0.5),
     ...(extras?.navbar ? { "navbar-bg": extras.navbar } : {}),
     ...(extras?.navbarDesktop ? { "navbar-desktop-bg": extras.navbarDesktop } : {}),
     ...(extras?.footer ? { "footer-bg": extras.footer } : {}),

@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ArrayEditor, SectionHeader } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
 export default function AdminContactoPage() {
   return (
@@ -11,6 +12,7 @@ export default function AdminContactoPage() {
       <SectionHeader title="Contacto / Visite-nos" description="Página /contacto — Morada, horários, contactos" />
       <PageHeroEditor pageKey="contacto" pageTitle="Visite-nos" />
       <SectionBgEditor sectionKey="visiteNos" sectionTitle="Visite-nos" />
+      <SectionEffectsEditor sectionKey="visiteNos" sectionTitle="Visite-nos" />
       <AdminForm section="visiteNos">
         {({ data, updateField }) => {
           const hours = data.hours as { weekdays: string; saturday: string; sunday: string };

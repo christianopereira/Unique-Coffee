@@ -66,6 +66,8 @@ export async function PATCH(request: NextRequest) {
       "livroReclamacoes",
       "pageHeroes",
       "sectionBgs",
+      "homepageOrder",
+      "sectionAnimations",
     ];
 
     if (!validSections.includes(section)) {
