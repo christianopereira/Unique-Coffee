@@ -180,9 +180,10 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
                 </div>
                 <ColorPicker
                   label=""
-                  value={data.titleColor || "#2C1810"}
+                  value={data.titleColor || ""}
                   onChange={(v) => update("titleColor", v)}
                 />
+                {!data.titleColor && <p className="text-[10px] text-mocha/70">Não definida — usa a cor predefinida da secção</p>}
               </div>
 
               {/* Body color */}
@@ -200,9 +201,10 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
                 </div>
                 <ColorPicker
                   label=""
-                  value={data.bodyColor || "#4A3428"}
+                  value={data.bodyColor || ""}
                   onChange={(v) => update("bodyColor", v)}
                 />
+                {!data.bodyColor && <p className="text-[10px] text-mocha/70">Não definida — usa a cor predefinida da secção</p>}
               </div>
 
               {/* Subtitle color */}
@@ -220,9 +222,10 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
                 </div>
                 <ColorPicker
                   label=""
-                  value={data.subtitleColor || "#6B5344"}
+                  value={data.subtitleColor || ""}
                   onChange={(v) => update("subtitleColor", v)}
                 />
+                {!data.subtitleColor && <p className="text-[10px] text-mocha/70">Não definida — usa a cor predefinida da secção</p>}
               </div>
 
               {/* Title font */}

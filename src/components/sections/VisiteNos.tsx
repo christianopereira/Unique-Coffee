@@ -19,15 +19,15 @@ export function VisiteNos() {
     <section id="visite-nos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
-        <SectionTitle title={visiteNos.title} light style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+        <SectionTitle title={visiteNos.title} light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         {/* Intro text */}
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="font-display text-2xl md:text-3xl text-warm-white mb-4" style={bg.textStyles.subtitle}>
+            <p className={`font-display text-2xl md:text-3xl mb-4 ${bg.isLight ? "text-mocha" : "text-warm-white"}`} style={bg.textStyles.subtitle}>
               {visiteNos.intro}
             </p>
-            <p className="font-body text-warm-white/80 leading-relaxed" style={bg.textStyles.body}>
+            <p className={`font-body leading-relaxed ${bg.isLight ? "text-roast/80" : "text-warm-white/80"}`} style={bg.textStyles.body}>
               {visiteNos.description}
             </p>
           </div>
@@ -40,10 +40,10 @@ export function VisiteNos() {
               <div className="flex items-start gap-4">
                 <MapPin size={20} className="text-copper mt-1 shrink-0" strokeWidth={1.5} />
                 <div>
-                  <p className="font-sans text-xs uppercase tracking-widest text-warm-white/50 mb-1">
+                  <p className={`font-sans text-xs uppercase tracking-widest mb-1 ${bg.isLight ? "text-mocha/50" : "text-warm-white/50"}`}>
                     Morada
                   </p>
-                  <p className="font-body text-warm-white/90">{visiteNos.address}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.address}</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -52,12 +52,12 @@ export function VisiteNos() {
               <div className="flex items-start gap-4">
                 <Clock size={20} className="text-copper mt-1 shrink-0" strokeWidth={1.5} />
                 <div>
-                  <p className="font-sans text-xs uppercase tracking-widest text-warm-white/50 mb-1">
+                  <p className={`font-sans text-xs uppercase tracking-widest mb-1 ${bg.isLight ? "text-mocha/50" : "text-warm-white/50"}`}>
                     Horários
                   </p>
-                  <p className="font-body text-warm-white/90">{visiteNos.hours.weekdays}</p>
-                  <p className="font-body text-warm-white/90">{visiteNos.hours.saturday}</p>
-                  <p className="font-body text-warm-white/90">{visiteNos.hours.sunday}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.hours.weekdays}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.hours.saturday}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.hours.sunday}</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -66,11 +66,11 @@ export function VisiteNos() {
               <div className="flex items-start gap-4">
                 <Phone size={20} className="text-copper mt-1 shrink-0" strokeWidth={1.5} />
                 <div>
-                  <p className="font-sans text-xs uppercase tracking-widest text-warm-white/50 mb-1">
+                  <p className={`font-sans text-xs uppercase tracking-widest mb-1 ${bg.isLight ? "text-mocha/50" : "text-warm-white/50"}`}>
                     Contacto
                   </p>
-                  <p className="font-body text-warm-white/90">{visiteNos.phone}</p>
-                  <p className="font-body text-warm-white/90">{visiteNos.email}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.phone}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.email}</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -79,10 +79,10 @@ export function VisiteNos() {
               <div className="flex items-start gap-4">
                 <Globe size={20} className="text-copper mt-1 shrink-0" strokeWidth={1.5} />
                 <div>
-                  <p className="font-sans text-xs uppercase tracking-widest text-warm-white/50 mb-1">
+                  <p className={`font-sans text-xs uppercase tracking-widest mb-1 ${bg.isLight ? "text-mocha/50" : "text-warm-white/50"}`}>
                     Website
                   </p>
-                  <p className="font-body text-warm-white/90">{visiteNos.website}</p>
+                  <p className={`font-body ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>{visiteNos.website}</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -95,7 +95,7 @@ export function VisiteNos() {
                   return (
                     <span
                       key={badge}
-                      className="inline-flex items-center gap-2 px-4 py-2 border border-warm-white/15 font-sans text-xs uppercase tracking-wider text-warm-white/70"
+                      className={`inline-flex items-center gap-2 px-4 py-2 border font-sans text-xs uppercase tracking-wider ${bg.isLight ? "border-espresso/15 text-roast/70" : "border-warm-white/15 text-warm-white/70"}`}
                     >
                       <Icon size={14} strokeWidth={1.5} />
                       {badge}
@@ -127,7 +127,7 @@ export function VisiteNos() {
 
             <ScrollReveal delay={0.1}>
               <div className="text-center">
-                <p className="font-body text-lg text-warm-white/90 mb-6">
+                <p className={`font-body text-lg mb-6 ${bg.isLight ? "text-roast/90" : "text-warm-white/90"}`}>
                   {visiteNos.cta}
                 </p>
                 <Button

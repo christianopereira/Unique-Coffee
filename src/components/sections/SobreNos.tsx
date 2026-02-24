@@ -9,16 +9,16 @@ export function SobreNos() {
   const bg = getSectionBgStyle("sobreNos", "bg-warm-white");
 
   return (
-    <section id="sobre" className={`section-padding relative ${bg.className}`} style={bg.style}>
+    <section id="sobre" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
-            <SectionTitle title={sobreNos.title} align="left" style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+            <SectionTitle title={sobreNos.title} align="left" light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
             <div className="space-y-5">
               {sobreNos.paragraphs.map((paragraph, i) => (
                 <ScrollReveal key={i} delay={i * 0.1}>
-                  <p className="text-base md:text-lg font-body text-roast leading-relaxed" style={bg.textStyles.body}>
+                  <p className={`text-base md:text-lg font-body leading-relaxed ${bg.isLight ? "text-roast" : "text-warm-white/85"}`} style={bg.textStyles.body}>
                     {paragraph}
                   </p>
                 </ScrollReveal>
@@ -29,7 +29,7 @@ export function SobreNos() {
             <ScrollReveal delay={0.4}>
               <div className="mt-8 border-l-2 border-copper/30 pl-6 space-y-2">
                 {sobreNos.highlights.map((line, i) => (
-                  <p key={i} className="font-body font-semibold text-espresso italic" style={bg.textStyles.body}>
+                  <p key={i} className={`font-body font-semibold italic ${bg.isLight ? "text-espresso" : "text-warm-white"}`} style={bg.textStyles.body}>
                     {line}
                   </p>
                 ))}

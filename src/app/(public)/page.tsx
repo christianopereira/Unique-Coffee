@@ -57,14 +57,14 @@ export default function Home() {
       const bg = getSectionBgStyle("sobreNos", "bg-warm-white");
       const a = getAnim(siteData, "sobreNos");
       return (
-        <section key="sobreNos" className={`section-padding relative ${bg.className}`} style={bg.style}>
+        <section key="sobreNos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
           {bg.overlay}
           <div className="section-container relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div>
-                <SectionTitle title={siteData.sobreNos.title} align="left" style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+                <SectionTitle title={siteData.sobreNos.title} align="left" light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
                 <ScrollReveal {...a}>
-                  <p className="text-base md:text-lg font-body text-roast leading-relaxed" style={bg.textStyles.body}>
+                  <p className={`text-base md:text-lg font-body leading-relaxed ${bg.isLight ? "text-roast" : "text-warm-white/85"}`} style={bg.textStyles.body}>
                     {siteData.sobreNos.paragraphs[0]}
                   </p>
                 </ScrollReveal>
@@ -111,9 +111,9 @@ export default function Home() {
           )}
           {bg.overlay}
           <div className={`section-container max-w-4xl relative z-10 ${!hasBgImg && !bg.style?.backgroundColor ? 'bg-cream' : ''}`}>
-            <SectionTitle title={siteData.conceito.title} light={hasBgImg} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+            <SectionTitle title={siteData.conceito.title} light={hasBgImg || !bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
             <ScrollReveal {...a}>
-              <p className={`text-base md:text-lg font-body leading-relaxed text-center ${hasBgImg ? 'text-warm-white/90' : 'text-roast'}`} style={bg.textStyles.body}>
+              <p className={`text-base md:text-lg font-body leading-relaxed text-center ${hasBgImg || !bg.isLight ? 'text-warm-white/90' : 'text-roast'}`} style={bg.textStyles.body}>
                 {siteData.conceito.paragraphs[0]}
               </p>
             </ScrollReveal>
@@ -139,9 +139,9 @@ export default function Home() {
           <div className="section-container relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div>
-                <SectionTitle title={siteData.graos.title} align="left" light style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+                <SectionTitle title={siteData.graos.title} align="left" light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
                 <ScrollReveal {...a}>
-                  <p className="text-base md:text-lg font-body text-warm-white/85 leading-relaxed" style={bg.textStyles.body}>
+                  <p className={`text-base md:text-lg font-body leading-relaxed ${bg.isLight ? "text-roast/85" : "text-warm-white/85"}`} style={bg.textStyles.body}>
                     {siteData.graos.paragraphs[0]}
                   </p>
                 </ScrollReveal>
@@ -188,10 +188,10 @@ export default function Home() {
       const bg = getSectionBgStyle("menu", "bg-warm-white");
       const a = getAnim(siteData, "menu");
       return (
-        <section key="menu" className={`section-padding relative ${bg.className}`} style={bg.style}>
+        <section key="menu" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
           {bg.overlay}
           <div className="section-container relative z-10">
-            <SectionTitle title={siteData.menu.title} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+            <SectionTitle title={siteData.menu.title} light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {siteData.menu.categories.map((cat, i) => (
                 <ScrollReveal key={cat.slug} delay={i * 0.1} {...a}>
@@ -206,7 +206,7 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
                     </div>
-                    <p className="mt-4 font-sans text-sm uppercase tracking-[0.12em] text-espresso text-center font-medium group-hover:text-copper transition-colors" style={bg.textStyles.body}>
+                    <p className={`mt-4 font-sans text-sm uppercase tracking-[0.12em] text-center font-medium group-hover:text-copper transition-colors ${bg.isLight ? "text-espresso" : "text-warm-white"}`} style={bg.textStyles.body}>
                       {cat.name}
                     </p>
                   </Link>
@@ -230,10 +230,10 @@ export default function Home() {
       const bg = getSectionBgStyle("sobremesas", "bg-cream");
       const a = getAnim(siteData, "sobremesas");
       return (
-        <section key="sobremesas" className={`section-padding relative overflow-hidden ${bg.className}`} style={bg.style}>
+        <section key="sobremesas" className={`section-padding relative overflow-hidden ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
           {bg.overlay}
           <div className="section-container relative z-10">
-            <SectionTitle title={siteData.sobremesas.title} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+            <SectionTitle title={siteData.sobremesas.title} light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
           </div>
           <SobremesasCarousel items={siteData.sobremesas.items} />
           <div className="section-container">
@@ -254,10 +254,10 @@ export default function Home() {
       const bg = getSectionBgStyle("galeria", "bg-parchment");
       const a = getAnim(siteData, "galeria");
       return (
-        <section key="galeria" className={`section-padding relative ${bg.className}`} style={bg.style}>
+        <section key="galeria" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
           {bg.overlay}
           <div className="section-container relative z-10">
-            <SectionTitle title="Galeria" style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+            <SectionTitle title="Galeria" light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
               {siteData.galeria.images.slice(0, 6).map((img, i) => (
                 <ScrollReveal key={i} delay={i * 0.08} {...a}>
@@ -305,17 +305,17 @@ export default function Home() {
           {bg.overlay}
           <div className="section-container text-center max-w-3xl mx-auto relative z-10">
             <ScrollReveal {...a}>
-              <h2 className="text-section font-display text-warm-white mb-4" style={bg.textStyles.title}>
+              <h2 className={`text-section font-display mb-4 ${bg.isLight ? "text-espresso" : "text-warm-white"}`} style={bg.textStyles.title}>
                 {siteData.visiteNos.title}
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1} {...a}>
-              <p className="font-display text-xl md:text-2xl text-warm-white mb-4" style={bg.textStyles.subtitle}>
+              <p className={`font-display text-xl md:text-2xl mb-4 ${bg.isLight ? "text-mocha" : "text-warm-white"}`} style={bg.textStyles.subtitle}>
                 {siteData.visiteNos.intro}
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.2} {...a}>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8 text-warm-white/80 font-body text-sm" style={bg.textStyles.body}>
+              <div className={`flex flex-col sm:flex-row items-center justify-center gap-6 mt-8 font-body text-sm ${bg.isLight ? "text-roast/80" : "text-warm-white/80"}`} style={bg.textStyles.body}>
                 <span className="inline-flex items-center gap-2">
                   <MapPin size={16} className="text-copper" />
                   {siteData.visiteNos.address}

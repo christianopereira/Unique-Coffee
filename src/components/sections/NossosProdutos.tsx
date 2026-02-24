@@ -29,7 +29,7 @@ export function NossosProdutos({ produtos, sectionBg }: NossosProdutosProps) {
         <div className="absolute inset-0 z-0" style={{ backgroundColor: bg.overlayColor }} aria-hidden />
       )}
       <div className="section-container relative z-10">
-        <SectionTitle title={produtos.title} subtitle={produtos.subtitle} light style={bg.textStyles?.title} subtitleStyle={bg.textStyles?.subtitle} />
+        <SectionTitle title={produtos.title} subtitle={produtos.subtitle} light={!bg.isLight} style={bg.textStyles?.title} subtitleStyle={bg.textStyles?.subtitle} />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {produtos.items.map((item, i) => (
@@ -47,10 +47,10 @@ export function NossosProdutos({ produtos, sectionBg }: NossosProdutosProps) {
                     <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
                   </div>
                 </div>
-                <h3 className="mt-3 font-sans text-sm uppercase tracking-[0.1em] text-warm-white font-medium text-center" style={bg.textStyles?.title}>
+                <h3 className={`mt-3 font-sans text-sm uppercase tracking-[0.1em] font-medium text-center ${bg.isLight ? "text-espresso" : "text-warm-white"}`} style={bg.textStyles?.title}>
                   {item.name}
                 </h3>
-                <p className="mt-1 font-body text-xs text-warm-white/60 text-center leading-relaxed" style={bg.textStyles?.body}>
+                <p className={`mt-1 font-body text-xs text-center leading-relaxed ${bg.isLight ? "text-roast/60" : "text-warm-white/60"}`} style={bg.textStyles?.body}>
                   {item.description}
                 </p>
               </div>

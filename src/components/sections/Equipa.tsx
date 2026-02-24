@@ -10,10 +10,10 @@ export function Equipa() {
   const bg = getSectionBgStyle("equipa", "bg-parchment");
 
   return (
-    <section id="equipa" className={`section-padding relative ${bg.className}`} style={bg.style}>
+    <section id="equipa" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
-        <SectionTitle title={equipa.title} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+        <SectionTitle title={equipa.title} light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {equipa.members.map((member, i) => (
@@ -36,10 +36,10 @@ export function Equipa() {
                   )}
                 </div>
 
-                <h3 className="font-display text-lg text-espresso" style={bg.textStyles.title}>
+                <h3 className={`font-display text-lg ${bg.isLight ? "text-espresso" : "text-warm-white"}`} style={bg.textStyles.title}>
                   {member.name}
                 </h3>
-                <p className="font-sans text-xs uppercase tracking-[0.1em] text-mocha mt-1" style={bg.textStyles.subtitle}>
+                <p className={`font-sans text-xs uppercase tracking-[0.1em] mt-1 ${bg.isLight ? "text-mocha" : "text-warm-white/70"}`} style={bg.textStyles.subtitle}>
                   {member.role}
                 </p>
               </div>

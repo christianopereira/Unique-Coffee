@@ -29,7 +29,7 @@ export function Galeria({ galeria, sectionBg }: GaleriaProps) {
 
   return (
     <>
-      <section id="galeria" className={`section-padding relative ${bg.className}`} style={bg.style}>
+      <section id="galeria" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
         {bg.overlayColor && (
           <div className="absolute inset-0 z-0" style={{ backgroundColor: bg.overlayColor }} aria-hidden />
         )}
@@ -37,11 +37,11 @@ export function Galeria({ galeria, sectionBg }: GaleriaProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 mb-12">
             {/* Text column */}
             <div>
-              <SectionTitle title={galeria.title} align="left" style={bg.textStyles?.title} subtitleStyle={bg.textStyles?.subtitle} />
+              <SectionTitle title={galeria.title} align="left" light={!bg.isLight} style={bg.textStyles?.title} subtitleStyle={bg.textStyles?.subtitle} />
               <div className="space-y-4">
                 {galeria.description.map((paragraph, i) => (
                   <ScrollReveal key={i} delay={i * 0.1}>
-                    <p className="font-body text-roast leading-relaxed text-sm md:text-base" style={bg.textStyles?.body}>
+                    <p className={`font-body leading-relaxed text-sm md:text-base ${bg.isLight ? "text-roast" : "text-warm-white/85"}`} style={bg.textStyles?.body}>
                       {paragraph}
                     </p>
                   </ScrollReveal>

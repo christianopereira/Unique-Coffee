@@ -9,10 +9,10 @@ export function Menu() {
   const bg = getSectionBgStyle("menu", "bg-warm-white");
 
   return (
-    <section id="menu" className={`section-padding relative ${bg.className}`} style={bg.style}>
+    <section id="menu" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
       {bg.overlay}
       <div className="section-container relative z-10">
-        <SectionTitle title={menu.title} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
+        <SectionTitle title={menu.title} light={!bg.isLight} style={bg.textStyles.title} subtitleStyle={bg.textStyles.subtitle} />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {menu.categories.map((cat, i) => (
@@ -28,7 +28,7 @@ export function Menu() {
                   />
                   <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/10 transition-colors duration-400" />
                 </div>
-                <p className="mt-4 font-sans text-sm uppercase tracking-[0.12em] text-espresso text-center font-medium" style={bg.textStyles.body}>
+                <p className={`mt-4 font-sans text-sm uppercase tracking-[0.12em] text-center font-medium ${bg.isLight ? "text-espresso" : "text-warm-white"}`} style={bg.textStyles.body}>
                   {cat.name}
                 </p>
               </div>
@@ -37,7 +37,7 @@ export function Menu() {
         </div>
 
         <ScrollReveal delay={0.4}>
-          <p className="mt-10 text-center font-body italic text-mocha text-lg" style={bg.textStyles.subtitle}>
+          <p className={`mt-10 text-center font-body italic text-lg ${bg.isLight ? "text-mocha" : "text-warm-white/80"}`} style={bg.textStyles.subtitle}>
             {menu.subtitle}
           </p>
         </ScrollReveal>
