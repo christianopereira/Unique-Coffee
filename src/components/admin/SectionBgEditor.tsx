@@ -30,7 +30,7 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/content");
+      const res = await fetch("/api/admin/content", { cache: "no-store" });
       if (res.status === 401) { router.push("/admin/login"); return; }
       const all = await res.json();
       const bgs = all.sectionBgs || {};
@@ -44,7 +44,7 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
   async function save() {
     setSaving(true);
     try {
-      const getRes = await fetch("/api/admin/content");
+      const getRes = await fetch("/api/admin/content", { cache: "no-store" });
       const all = await getRes.json();
       const bgs = { ...(all.sectionBgs || {}), [sectionKey]: data };
 

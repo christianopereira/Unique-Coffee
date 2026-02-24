@@ -22,7 +22,7 @@ export function AdminForm({ section, children }: AdminFormProps) {
 
   const loadData = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/content");
+      const res = await fetch("/api/admin/content", { cache: "no-store" });
       if (res.status === 401) {
         router.push("/admin/login");
         return;

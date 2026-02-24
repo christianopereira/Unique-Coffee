@@ -54,7 +54,7 @@ export default function AdminConfigPage() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("/api/admin/content");
+        const res = await fetch("/api/admin/content", { cache: "no-store" });
         if (res.status === 401) {
           router.push("/admin/login");
           return;

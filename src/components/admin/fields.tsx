@@ -500,7 +500,7 @@ export function VariantSelect({ label, value, onChange, buttonColors, previewTex
   // Se não recebeu cores por prop, busca as globais
   useEffect(() => {
     if (buttonColors) return;
-    fetch("/api/admin/content")
+    fetch("/api/admin/content", { cache: "no-store" })
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
         if (data?.buttons) setFetchedColors({ ...data.buttons });

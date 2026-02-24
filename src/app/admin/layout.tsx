@@ -65,7 +65,7 @@ export default function AdminLayout({
 
   useEffect(() => {
     if (pathname === "/admin/login") return;
-    fetch("/api/admin/content")
+    fetch("/api/admin/content", { cache: "no-store" })
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
         if (data?.brand?.logo) setLogoUrl(data.brand.logo);

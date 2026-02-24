@@ -76,7 +76,7 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
             {navLinks.map((link) => {
               const isActive = link.href === "/"
                 ? pathname === "/"
-                : pathname.startsWith(link.href);
+                : pathname === link.href || pathname.startsWith(link.href + "/");
 
               // Per-page color overrides (only on non-transparent state)
               const linkStyle = !isTransparent && (navLinkColor || navActiveColor)
@@ -129,7 +129,7 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
               {navLinks.map((link, i) => {
                 const isActive = link.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(link.href);
+                  : pathname === link.href || pathname.startsWith(link.href + "/");
 
                 return (
                   <motion.div

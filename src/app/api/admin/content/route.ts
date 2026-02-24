@@ -6,6 +6,14 @@ import {
 } from "@/lib/get-site-data";
 import type { SiteData } from "@/types/site-data";
 
+// Impedir cache do Next.js e do browser para esta API
+export const dynamic = "force-dynamic";
+
+const NO_CACHE_HEADERS = {
+  "Cache-Control": "no-store, no-cache, must-revalidate",
+  Pragma: "no-cache",
+};
+
 function checkAuth(request: NextRequest): boolean {
   const sessionId = request.cookies.get("admin_session")?.value;
   return sessionId ? validateSession(sessionId) : false;
@@ -17,7 +25,7 @@ export async function GET(request: NextRequest) {
   }
 
   const data = getSiteData();
-  return NextResponse.json(data);
+  return NextResponse.json(data, { headers: NO_CACHE_HEADERS });
 }
 
 export async function PATCH(request: NextRequest) {

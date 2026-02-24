@@ -36,7 +36,7 @@ export function SectionEffectsEditor({ sectionKey, sectionTitle }: SectionEffect
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/content");
+      const res = await fetch("/api/admin/content", { cache: "no-store" });
       if (res.status === 401) { router.push("/admin/login"); return; }
       const all = await res.json();
       const anims = all.sectionAnimations || {};
@@ -50,7 +50,7 @@ export function SectionEffectsEditor({ sectionKey, sectionTitle }: SectionEffect
   async function save() {
     setSaving(true);
     try {
-      const getRes = await fetch("/api/admin/content");
+      const getRes = await fetch("/api/admin/content", { cache: "no-store" });
       const all = await getRes.json();
       const anims = { ...(all.sectionAnimations || {}), [sectionKey]: data };
 

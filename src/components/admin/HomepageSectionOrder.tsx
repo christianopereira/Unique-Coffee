@@ -43,7 +43,7 @@ export function HomepageSectionOrder() {
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/content");
+      const res = await fetch("/api/admin/content", { cache: "no-store" });
       if (res.status === 401) { router.push("/admin/login"); return; }
       const data = await res.json();
       if (data.homepageOrder && Array.isArray(data.homepageOrder)) {
