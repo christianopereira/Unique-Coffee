@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { GripVertical } from "lucide-react";
-import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader, VariantSelect } from "@/components/admin/fields";
+import { TextInput, ImagePicker, FontSelect, SizeSelect, ColorPicker, SectionHeader, VariantSelect, ButtonsPreview } from "@/components/admin/fields";
 import { DISPLAY_FONTS, BODY_FONTS, UI_FONTS, SIZE_PRESETS, DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
 import { COLOR_PRESETS, DEFAULT_COLORS } from "@/lib/color-options";
 import { derivePalette } from "@/lib/color-utils";
@@ -508,11 +508,13 @@ export default function AdminConfigPage() {
             <div className="p-5 bg-warm-white rounded-xl border border-linen space-y-4">
               <h2 className="font-sans font-semibold text-espresso">Botões</h2>
               <p className="text-xs text-mocha">Configurações globais dos botões do site.</p>
+              <ButtonsPreview colors={buttons} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <VariantSelect
                   label="Variante predefinida"
                   value={buttons.defaultVariant || "primary"}
                   onChange={(v) => setButtons({ ...buttons, defaultVariant: (v || "primary") as ButtonsConfig["defaultVariant"] })}
+                  buttonColors={buttons}
                 />
                 <SizeSelect
                   label="Arredondamento (border-radius)"

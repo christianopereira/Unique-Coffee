@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { TextInput, ImagePicker, SizeSelect } from "@/components/admin/fields";
+import { TextInput, ImagePicker, SizeSelect, ColorPicker, FontSelect } from "@/components/admin/fields";
 import { ChevronDown, Image as ImageIcon } from "lucide-react";
+import { DISPLAY_FONTS } from "@/lib/font-options";
 import type { PageHeroConfig } from "@/types/site-data";
 
 interface PageHeroEditorProps {
@@ -142,6 +143,72 @@ export function PageHeroEditor({ pageKey, pageTitle }: PageHeroEditorProps) {
                   options={OVERLAY_OPTIONS}
                   onChange={(v) => update("overlayOpacity", Number(v))}
                 />
+              </div>
+              {/* ─── Personalização de texto ─── */}
+              <div className="border-t border-linen pt-4 mt-2">
+                <p className="text-xs font-sans font-medium text-mocha mb-3 uppercase tracking-wider">
+                  Personalização de texto (opcional)
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <label className="text-sm font-sans font-medium text-roast">Cor do título</label>
+                      {data.titleColor && (
+                        <button
+                          onClick={() => update("titleColor", undefined)}
+                          className="text-[10px] text-mocha hover:text-copper"
+                        >
+                          (limpar)
+                        </button>
+                      )}
+                    </div>
+                    <ColorPicker
+                      label=""
+                      value={data.titleColor || "#FAF8F5"}
+                      onChange={(v) => update("titleColor", v)}
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <label className="text-sm font-sans font-medium text-roast">Cor do subtítulo</label>
+                      {data.subtitleColor && (
+                        <button
+                          onClick={() => update("subtitleColor", undefined)}
+                          className="text-[10px] text-mocha hover:text-copper"
+                        >
+                          (limpar)
+                        </button>
+                      )}
+                    </div>
+                    <ColorPicker
+                      label=""
+                      value={data.subtitleColor || "#FAF8F5"}
+                      onChange={(v) => update("subtitleColor", v)}
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <label className="text-sm font-sans font-medium text-roast">Fonte do título</label>
+                      {data.titleFont && (
+                        <button
+                          onClick={() => update("titleFont", undefined)}
+                          className="text-[10px] text-mocha hover:text-copper"
+                        >
+                          (limpar)
+                        </button>
+                      )}
+                    </div>
+                    <FontSelect
+                      label=""
+                      value={data.titleFont || ""}
+                      options={[{ name: "", label: "Predefinida (global)" }, ...DISPLAY_FONTS]}
+                      onChange={(v) => update("titleFont", v || undefined)}
+                      previewText={data.title || pageTitle}
+                    />
+                  </div>
+                </div>
               </div>
             </>
           )}

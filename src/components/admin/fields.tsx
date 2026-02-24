@@ -442,12 +442,23 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
 }
 
 // ---------------------------------------------------------------------------
-// VariantSelect — escolha de variante de botão
+// VariantSelect — escolha de variante de botão com preview
 // ---------------------------------------------------------------------------
+interface ButtonColors {
+  primaryBg?: string;
+  primaryText?: string;
+  secondaryBorder?: string;
+  secondaryText?: string;
+  ghostText?: string;
+  borderRadius?: string;
+}
+
 interface VariantSelectProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  buttonColors?: ButtonColors;
+  previewText?: string;
 }
 
 const VARIANT_OPTIONS = [
@@ -457,7 +468,23 @@ const VARIANT_OPTIONS = [
   { value: "ghost", label: "Ghost (sublinhado)" },
 ];
 
-export function VariantSelect({ label, value, onChange }: VariantSelectProps) {
+export function VariantSelect({ label, value, onChange, buttonColors, previewText = "Botão" }: VariantSelectProps) {
+  const [fetchedColors, setFetchedColors] = useState<ButtonColors | null>(null);
+
+  // Se não recebeu cores por prop, busca as globais
+  useEffect(() => {
+    if (buttonColors) return;
+    fetch("/api/admin/content")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data?.buttons) setFetchedColors({ ...data.buttons });
+      })
+      .catch(() => {});
+  }, [buttonColors]);
+
+  const colors = buttonColors ?? fetchedColors ?? {};
+  const variant = value || "primary";
+
   return (
     <div className="space-y-1.5">
       <label className="block text-sm font-sans font-medium text-roast">
@@ -474,6 +501,84 @@ export function VariantSelect({ label, value, onChange }: VariantSelectProps) {
           </option>
         ))}
       </select>
+      <div className="pt-2">
+        <ButtonPreviewItem variant={variant} colors={colors} text={previewText} />
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ButtonPreviewItem — preview inline de um botão
+// ---------------------------------------------------------------------------
+function ButtonPreviewItem({ variant, colors, text }: { variant: string; colors: ButtonColors; text: string }) {
+  const radius = colors.borderRadius || "8px";
+  const defaultAccent = "#B87333";
+  const defaultLight = "#FAF8F5";
+
+  if (variant === "secondary") {
+    const borderColor = colors.secondaryBorder || defaultAccent;
+    const textColor = colors.secondaryText || defaultAccent;
+    return (
+      <span
+        className="inline-block font-sans text-xs font-semibold tracking-widest uppercase px-5 py-2 border-2 transition-colors"
+        style={{ borderColor, color: textColor, borderRadius: radius, backgroundColor: "transparent" }}
+      >
+        {text}
+      </span>
+    );
+  }
+
+  if (variant === "ghost") {
+    const textColor = colors.ghostText || defaultAccent;
+    return (
+      <span
+        className="inline-block font-sans text-xs font-semibold tracking-widest uppercase relative"
+        style={{ color: textColor, borderBottom: `1px solid ${textColor}`, paddingBottom: "2px" }}
+      >
+        {text}
+      </span>
+    );
+  }
+
+  // primary (default)
+  const bgColor = colors.primaryBg || defaultAccent;
+  const textColor = colors.primaryText || defaultLight;
+  return (
+    <span
+      className="inline-block font-sans text-xs font-semibold tracking-widest uppercase px-5 py-2"
+      style={{ backgroundColor: bgColor, color: textColor, borderRadius: radius }}
+    >
+      {text}
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ButtonsPreview — preview das 3 variantes de botão (para config)
+// ---------------------------------------------------------------------------
+interface ButtonsPreviewProps {
+  colors: ButtonColors;
+}
+
+export function ButtonsPreview({ colors }: ButtonsPreviewProps) {
+  return (
+    <div className="border border-linen rounded-lg p-4 bg-cream/50 space-y-3">
+      <p className="text-xs font-sans font-medium text-mocha uppercase tracking-wider mb-2">Preview</p>
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="text-center space-y-1">
+          <ButtonPreviewItem variant="primary" colors={colors} text="Primário" />
+          <p className="text-[10px] text-stone">primary</p>
+        </div>
+        <div className="text-center space-y-1">
+          <ButtonPreviewItem variant="secondary" colors={colors} text="Secundário" />
+          <p className="text-[10px] text-stone">secondary</p>
+        </div>
+        <div className="text-center space-y-1">
+          <ButtonPreviewItem variant="ghost" colors={colors} text="Ghost" />
+          <p className="text-[10px] text-stone">ghost</p>
+        </div>
+      </div>
     </div>
   );
 }

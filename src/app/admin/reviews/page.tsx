@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TextInput, TextArea, SectionHeader } from "@/components/admin/fields";
+import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
+import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 import { Star, Trash2, Plus, RefreshCw } from "lucide-react";
 import type { ReviewItem, ReviewsData } from "@/types/site-data";
 
@@ -140,6 +142,8 @@ export default function AdminReviewsPage() {
   return (
     <>
       <SectionHeader title="Reviews / Avaliações" description="Gerir avaliações de clientes exibidas no site" />
+      <SectionBgEditor sectionKey="reviews" sectionTitle="Reviews" />
+      <SectionEffectsEditor sectionKey="reviews" sectionTitle="Reviews" />
 
       <div className="space-y-8">
         {/* Título da secção */}

@@ -53,12 +53,21 @@ export function PageHero({ pageKey, fallbackTitle }: PageHeroProps) {
       {/* Content */}
       <div className="relative z-10 text-center px-6 pt-24 pb-8">
         {title && (
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-warm-white font-bold tracking-tight">
+          <h1
+            className="font-display text-3xl sm:text-4xl md:text-5xl text-warm-white font-bold tracking-tight"
+            style={{
+              ...(cfg.titleColor ? { color: cfg.titleColor } : {}),
+              ...(cfg.titleFont ? { fontFamily: `"${cfg.titleFont}", serif` } : {}),
+            }}
+          >
             {title}
           </h1>
         )}
         {cfg.subtitle && (
-          <p className="mt-3 font-body text-base sm:text-lg text-warm-white/80 max-w-2xl mx-auto">
+          <p
+            className="mt-3 font-body text-base sm:text-lg text-warm-white/80 max-w-2xl mx-auto"
+            style={cfg.subtitleColor ? { color: cfg.subtitleColor } : undefined}
+          >
             {cfg.subtitle}
           </p>
         )}

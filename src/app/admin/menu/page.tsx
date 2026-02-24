@@ -81,7 +81,7 @@ export default function AdminMenuPage() {
                 <h3 className="text-sm font-sans font-medium text-roast">Botão (Homepage + Página Menu)</h3>
                 <TextInput label="Texto do botão" value={(data.ctaText as string) || ""} onChange={(v) => updateField("ctaText", v)} />
                 <TextInput label="Link do botão" value={(data.ctaLink as string) || ""} onChange={(v) => updateField("ctaLink", v)} placeholder="/menu" hint="Página interna: /sobre, /menu, /contacto — Link externo: https://exemplo.com" />
-                <VariantSelect label="Estilo do botão" value={(data.ctaVariant as string) || ""} onChange={(v) => updateField("ctaVariant", v)} />
+                <VariantSelect label="Estilo do botão" value={(data.ctaVariant as string) || ""} onChange={(v) => updateField("ctaVariant", v)} previewText={(data.ctaText as string) || "Botão"} />
               </div>
 
               {categories.map((cat, ci) => (

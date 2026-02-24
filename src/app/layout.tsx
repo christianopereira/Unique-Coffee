@@ -5,7 +5,7 @@ import { DEFAULT_TYPOGRAPHY } from "@/lib/font-options";
 import { DEFAULT_COLORS } from "@/lib/color-options";
 import { FontLoader } from "@/components/layout/FontLoader";
 import { derivePalette, hexToRgbChannels } from "@/lib/color-utils";
-import type { TypographyConfig, ColorsConfig, ButtonsConfig, SectionBgConfig } from "@/types/site-data";
+import type { TypographyConfig, ColorsConfig, ButtonsConfig, SectionBgConfig, PageHeroConfig } from "@/types/site-data";
 import { findFontWeights } from "@/lib/font-options";
 import "./globals.css";
 
@@ -253,18 +253,26 @@ function buildButtonsCSS(buttons: ButtonsConfig): string {
   return lines.join("\n");
 }
 
-/** Collect per-section fonts that aren't already loaded globally */
+/** Collect per-section and per-pageHero fonts that aren't already loaded globally */
 function collectSectionFonts(
   sectionBgs: Record<string, SectionBgConfig> | undefined,
+  pageHeroes: Record<string, PageHeroConfig> | undefined,
   globalFonts: { display: string; body: string; ui: string },
 ): string[] {
-  if (!sectionBgs) return [];
   const globalSet = new Set([globalFonts.display, globalFonts.body, globalFonts.ui]);
   const extraFonts = new Set<string>();
 
-  for (const cfg of Object.values(sectionBgs)) {
-    if (cfg.titleFont && !globalSet.has(cfg.titleFont)) extraFonts.add(cfg.titleFont);
-    if (cfg.bodyFont && !globalSet.has(cfg.bodyFont)) extraFonts.add(cfg.bodyFont);
+  if (sectionBgs) {
+    for (const cfg of Object.values(sectionBgs)) {
+      if (cfg.titleFont && !globalSet.has(cfg.titleFont)) extraFonts.add(cfg.titleFont);
+      if (cfg.bodyFont && !globalSet.has(cfg.bodyFont)) extraFonts.add(cfg.bodyFont);
+    }
+  }
+
+  if (pageHeroes) {
+    for (const cfg of Object.values(pageHeroes)) {
+      if (cfg.titleFont && !globalSet.has(cfg.titleFont)) extraFonts.add(cfg.titleFont);
+    }
   }
 
   return Array.from(extraFonts);
@@ -330,7 +338,7 @@ export default function RootLayout({
   );
 
   // Per-section font overrides
-  const sectionFonts = collectSectionFonts(siteData.sectionBgs, typography.fonts);
+  const sectionFonts = collectSectionFonts(siteData.sectionBgs, siteData.pageHeroes, typography.fonts);
   const sectionFontsUrl = buildSectionFontsLinks(sectionFonts);
 
   return (

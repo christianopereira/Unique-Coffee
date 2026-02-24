@@ -273,6 +273,9 @@ export interface PageHeroConfig {
   image?: string;
   overlayOpacity?: number;   // 0-100 (default: 50)
   height?: "small" | "medium" | "large"; // 25vh, 35vh, 45vh
+  titleColor?: string;       // cor do título (hex)
+  subtitleColor?: string;    // cor do subtítulo (hex)
+  titleFont?: string;        // fonte do título (ex: "Playfair Display")
 }
 
 export interface SectionBgConfig {
