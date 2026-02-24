@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Image as ImageIcon,
+  Home,
   FileText,
 
   UtensilsCrossed,
@@ -32,7 +33,8 @@ import { useAdminTour } from "@/components/admin/useAdminTour";
 
 const adminLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/hero", label: "Home", icon: ImageIcon },
+  { href: "/admin/hero", label: "Home — Hero", icon: ImageIcon },
+  { href: "/admin/homepage", label: "Homepage — Secções", icon: Home },
   { href: "/admin/sobre", label: "Sobre Nós", icon: FileText },
   { href: "/admin/missao", label: "Missão/Visão/Valores", icon: Target },
   { href: "/admin/conceito", label: "Conceito", icon: Sparkles },

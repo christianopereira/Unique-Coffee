@@ -54,7 +54,7 @@ export default function Home() {
   const renderers: Record<string, () => ReactNode> = {
     sobreNos: () => {
       if (!show("/sobre")) return null;
-      const bg = getSectionBgStyle("sobreNos", "bg-warm-white");
+      const bg = getSectionBgStyle("home_sobreNos", "bg-warm-white");
       const a = getAnim(siteData, "sobreNos");
       return (
         <section key="sobreNos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
@@ -95,7 +95,7 @@ export default function Home() {
 
     conceito: () => {
       if (!show("/conceito")) return null;
-      const bg = getSectionBgStyle("conceito", "bg-cream");
+      const bg = getSectionBgStyle("home_conceito", "bg-cream");
       const a = getAnim(siteData, "conceito");
       const hasBgImg = !!siteData.conceito.backgroundImage;
       return (
@@ -131,7 +131,7 @@ export default function Home() {
 
     graos: () => {
       if (!show("/graos")) return null;
-      const bg = getSectionBgStyle("graos", "bg-espresso");
+      const bg = getSectionBgStyle("home_graos", "bg-espresso");
       const a = getAnim(siteData, "graos");
       return (
         <section key="graos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
@@ -179,13 +179,13 @@ export default function Home() {
 
     produtos: () => {
       if (!siteData.produtos || siteData.produtos.items.length === 0) return null;
-      const bg = getSectionBgData("produtos", "bg-espresso");
+      const bg = getSectionBgData("home_produtos", "bg-espresso");
       return <NossosProdutos key="produtos" produtos={siteData.produtos} sectionBg={bg} />;
     },
 
     menu: () => {
       if (!show("/menu")) return null;
-      const bg = getSectionBgStyle("menu", "bg-warm-white");
+      const bg = getSectionBgStyle("home_menu", "bg-warm-white");
       const a = getAnim(siteData, "menu");
       return (
         <section key="menu" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
@@ -227,7 +227,7 @@ export default function Home() {
 
     sobremesas: () => {
       if (!show("/sobremesas")) return null;
-      const bg = getSectionBgStyle("sobremesas", "bg-cream");
+      const bg = getSectionBgStyle("home_sobremesas", "bg-cream");
       const a = getAnim(siteData, "sobremesas");
       return (
         <section key="sobremesas" className={`section-padding relative overflow-hidden ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
@@ -251,7 +251,7 @@ export default function Home() {
 
     galeria: () => {
       if (!show("/galeria")) return null;
-      const bg = getSectionBgStyle("galeria", "bg-parchment");
+      const bg = getSectionBgStyle("home_galeria", "bg-parchment");
       const a = getAnim(siteData, "galeria");
       return (
         <section key="galeria" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>
@@ -293,13 +293,13 @@ export default function Home() {
         ? reviews.cachedGoogleReviews
         : reviews.manualReviews;
       if (!activeReviews || activeReviews.length === 0) return null;
-      const reviewsBg = getSectionBgData("reviews", "bg-warm-white");
+      const reviewsBg = getSectionBgData("home_reviews", "bg-warm-white");
       return <ReviewsCarousel key="reviews" title={reviews.title} reviews={activeReviews} sectionBg={reviewsBg} />;
     },
 
     visiteNos: () => {
       if (!show("/contacto")) return null;
-      const bg = getSectionBgStyle("visiteNos", "bg-espresso");
+      const bg = getSectionBgStyle("home_visiteNos", "bg-espresso");
       const a = getAnim(siteData, "visiteNos");
       return (
         <section key="visiteNos" className={`section-padding relative ${bg.className} ${bg.isLight ? "" : "text-warm-white"}`} style={bg.style}>

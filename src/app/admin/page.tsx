@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   Image as ImageIcon,
+  Home,
   FileText,
   Coffee,
   UtensilsCrossed,
@@ -17,7 +18,8 @@ import {
 } from "lucide-react";
 
 const sections = [
-  { href: "/admin/hero", label: "Hero", desc: "Imagem e texto principal", icon: ImageIcon },
+  { href: "/admin/hero", label: "Hero", desc: "Imagem e texto principal da homepage", icon: ImageIcon },
+  { href: "/admin/homepage", label: "Homepage — Secções", desc: "Fundo, padding e cores de cada secção na homepage", icon: Home },
   { href: "/admin/sobre", label: "Sobre Nós", desc: "História e highlights", icon: FileText },
   { href: "/admin/missao", label: "Missão/Visão/Valores", desc: "Missão, visão e valores", icon: Target },
   { href: "/admin/conceito", label: "Conceito", desc: "Conceito do espaço", icon: Sparkles },
