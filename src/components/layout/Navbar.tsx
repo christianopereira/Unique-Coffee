@@ -79,10 +79,12 @@ export function Navbar({ navLinks, logoUrl, pageHeroes }: NavbarProps) {
                 : pathname === link.href || pathname.startsWith(link.href + "/");
 
               // Per-page color overrides (only on non-transparent state)
-              const linkStyle = !isTransparent && (navLinkColor || navActiveColor)
+              // Active link: only override if navActiveColor is explicitly set
+              // Inactive links: only override if navLinkColor is explicitly set
+              const linkStyle = !isTransparent
                 ? isActive
-                  ? { color: navActiveColor || navLinkColor }
-                  : { color: navLinkColor }
+                  ? navActiveColor ? { color: navActiveColor } : undefined
+                  : navLinkColor ? { color: navLinkColor } : undefined
                 : undefined;
 
               return (
