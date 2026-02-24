@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
+import { PageBackground } from "@/components/layout/PageBackground";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import { getSiteData } from "@/lib/get-site-data";
@@ -21,7 +22,7 @@ export default function PublicLayout({
   return (
     <>
       <Navbar navLinks={visibleLinks} logoUrl={siteData.brand.logo} pageHeroes={siteData.pageHeroes} />
-      <main>{children}</main>
+      <PageBackground pageHeroes={siteData.pageHeroes}>{children}</PageBackground>
       <Footer />
       <CookieConsent />
     </>

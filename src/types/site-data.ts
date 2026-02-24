@@ -294,6 +294,8 @@ export interface PageHeroConfig {
   // Cores da navbar nesta página
   navLinkColor?: string;       // cor dos links normais da navbar (hex)
   navActiveLinkColor?: string; // cor do link activo da navbar (hex)
+  // Fundo da página
+  pageBg?: string;             // cor de fundo da página inteira (hex)
 }
 
 export interface SectionBgConfig {

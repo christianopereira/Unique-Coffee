@@ -4,6 +4,7 @@ import { AdminForm } from "@/components/admin/AdminForm";
 import { TextInput, TextArea, ArrayEditor, SectionHeader } from "@/components/admin/fields";
 import { PageHeroEditor } from "@/components/admin/PageHeroEditor";
 import { NavbarColorsEditor } from "@/components/admin/NavbarColorsEditor";
+import { PageBgEditor } from "@/components/admin/PageBgEditor";
 import { SectionBgEditor } from "@/components/admin/SectionBgEditor";
 import { SectionEffectsEditor } from "@/components/admin/SectionEffectsEditor";
 
@@ -12,6 +13,7 @@ export default function AdminContactoPage() {
     <>
       <SectionHeader title="Contacto / Visite-nos" description="Página /contacto — Morada, horários, contactos" />
       <NavbarColorsEditor pageKey="contacto" pageTitle="Visite-nos" />
+      <PageBgEditor pageKey="contacto" pageTitle="Visite-nos" />
       <PageHeroEditor pageKey="contacto" pageTitle="Visite-nos" />
       <SectionBgEditor sectionKey="visiteNos" sectionTitle="Visite-nos" />
       <SectionEffectsEditor sectionKey="visiteNos" sectionTitle="Visite-nos" />
