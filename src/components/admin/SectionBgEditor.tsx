@@ -70,7 +70,12 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
     setData({});
   }
 
-  const hasCustom = !!(data.color || data.image || data.titleColor || data.bodyColor || data.subtitleColor || data.titleFont || data.bodyFont);
+  const hasCustom = !!(
+    data.color || data.image || data.titleColor || data.bodyColor || data.subtitleColor ||
+    data.titleFont || data.bodyFont || data.titleSize ||
+    (data.paddingY && data.paddingY !== "normal") ||
+    (data.minHeight && data.minHeight !== "none")
+  );
 
   if (!loaded) return null;
 
@@ -116,6 +121,37 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
               onChange={(v) => update("color", v)}
             />
             <p className="text-[10px] text-mocha/70 mt-1">Deixe vazio para usar a cor predefinida da secção</p>
+          </div>
+
+          {/* Layout e dimensões */}
+          <div className="border-t border-linen pt-4 mt-2">
+            <p className="text-xs font-sans font-medium text-mocha mb-3 uppercase tracking-wider">
+              Layout e dimensões
+            </p>
+            <div className="space-y-3">
+              <SizeSelect
+                label="Espaçamento vertical"
+                value={data.paddingY || "normal"}
+                options={[
+                  { label: "Sem espaçamento", value: "none" },
+                  { label: "Compacto", value: "compact" },
+                  { label: "Normal (predefinido)", value: "normal" },
+                  { label: "Espaçoso", value: "spacious" },
+                ]}
+                onChange={(v) => update("paddingY", (v as "none" | "compact" | "normal" | "spacious") || undefined)}
+              />
+              <SizeSelect
+                label="Altura mínima"
+                value={data.minHeight || "none"}
+                options={[
+                  { label: "Automática (predefinido)", value: "none" },
+                  { label: "Média — 40% ecrã", value: "sm" },
+                  { label: "Alta — 60% ecrã", value: "md" },
+                  { label: "Ecrã completo", value: "full" },
+                ]}
+                onChange={(v) => update("minHeight", (v as "none" | "sm" | "md" | "full") || undefined)}
+              />
+            </div>
           </div>
 
           {/* Image */}
@@ -184,6 +220,21 @@ export function SectionBgEditor({ sectionKey, sectionTitle }: SectionBgEditorPro
                   onChange={(v) => update("titleColor", v)}
                 />
                 {!data.titleColor && <p className="text-[10px] text-mocha/70">Não definida — usa a cor predefinida da secção</p>}
+              </div>
+
+              {/* Title size */}
+              <div>
+                <SizeSelect
+                  label="Tamanho do título"
+                  value={data.titleSize || "md"}
+                  options={[
+                    { label: "Pequeno", value: "sm" },
+                    { label: "Normal (predefinido)", value: "md" },
+                    { label: "Grande", value: "lg" },
+                    { label: "Muito grande", value: "xl" },
+                  ]}
+                  onChange={(v) => update("titleSize", (v as "sm" | "md" | "lg" | "xl") || undefined)}
+                />
               </div>
 
               {/* Body color */}

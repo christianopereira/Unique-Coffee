@@ -310,6 +310,10 @@ export interface SectionBgConfig {
   subtitleColor?: string;    // cor de subtítulos/captions (hex)
   titleFont?: string;        // fonte do título (ex: "Playfair Display")
   bodyFont?: string;         // fonte do corpo (ex: "Lora")
+  // Layout e dimensões
+  paddingY?: "none" | "compact" | "normal" | "spacious"; // espaçamento vertical
+  titleSize?: "sm" | "md" | "lg" | "xl";                 // tamanho do título
+  minHeight?: "none" | "sm" | "md" | "full";             // altura mínima da secção
 }
 
 export type AnimationType = "fade-up" | "fade-left" | "fade-right" | "fade-in" | "zoom-in" | "none";
